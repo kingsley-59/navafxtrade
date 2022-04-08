@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Alert } from 'react-bootstrap';
-import DatePicker from "react-datepicker";
-import bsCustomFileInput from 'bs-custom-file-input';
 import { useAuth } from '../context/AuthProvider';
 
 
@@ -16,10 +14,10 @@ const AccountSettings = () => {
   const [successMsg, setSuccessMsg] = useState('')
   const [loading, setLoading] = useState(false);
 
-  const { currentUser, signup } = useAuth();
+  const { currentUser } = useAuth();
 
   useEffect(() => {
-    let url, email, encodedEmail;
+    let email, encodedEmail;
 
     email = currentUser?.email;
     encodedEmail = encodeURIComponent(email);
@@ -28,16 +26,17 @@ const AccountSettings = () => {
       // navigate to login page
       return false;
     }
+    console.log(encodedEmail);
 
     fetch(`/.netlify/functions/UserManager?userEmail=${encodedEmail}`)
       .then(response => response.json())
       .then((data) => {
-        let _data = data.body?.rows;
-        let email, fullname, phone, country;
-        setEmail(_data?.email);
+        let _data = data?.body?.rows;
+        setEmail(email);
         setName(_data?.fullname ?? '');
         setPhone(_data?.phone ?? '');
         setCountry(_data?.country ?? '');
+        console.log(_data);
       })
       .catch((err) => {
         console.log(err.message);
@@ -64,7 +63,6 @@ const AccountSettings = () => {
       const response = await fetch('/.netlify/functions/UserManager', settings)
       const data = response.json();
       setSuccessMsg('Account profile updated successfully!');
-      console.log(data.message)
     } catch (error) {
       console.log(error.message);
       setErrMsg(error.message);

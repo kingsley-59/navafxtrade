@@ -33,14 +33,6 @@ export const Register = () => {
       // setConfirmPassword('');
     }
 
-    async function checkIfUserExists(email) {
-      let encodedEmail = encodeURIComponent(email);
-      let response = await fetch(`/.netlify/functions/UserManager?userEmail=${encodedEmail}`)
-      let data = response.json();
-      if (data.body || data.body !== {}) return true;
-      return false;
-    }
-
     async function postData (data) {
       let url = '/.netlify/functions/UserManager';
       let settings = {
@@ -53,27 +45,30 @@ export const Register = () => {
       };
 
       let response = await fetch(url, settings)
+      if (response.status !== 200 && response.status !== 201){
+        setErrMsg('Oops! Server error.');
+        throw new Error(`Server responded with error ${response.status}`);
+      }
       return response.json();
     }
 
     try {
       setErrMsg('');
-      await signup(email, password);
-
-      // check if user exists
-      let userExists = await checkIfUserExists(email);
-      if (userExists) {
-        setLoading(false);
-        setErrMsg(`User with email ${email} already exists!`);
-        return;
-      }
+      signup(email, password)
+        .then((userCreds) => console.log(userCreds.user))
+        .catch((error) => {
+          setErrMsg(error.message);
+          setLoading(false);
+        });
+        
+      if (errMsg !== '') return false;
 
       // send user details to database after signup
       postData({fullName, email, country})
         .then((data) => {
           console.log(data);
           resetForm();
-          // navigate('/');
+          navigate('/dashboard');
           return true;
         })
         .catch((error) => {
@@ -146,3 +141,16 @@ export const Register = () => {
 }
 
 export default Register
+
+
+// async function checkIfUserExists(email) {
+//   let encodedEmail = encodeURIComponent(email);
+//   let response = await fetch(`/.netlify/functions/UserManager?userEmail=${encodedEmail}`)
+//   if (response.status !== 200 && response.status !== 201){
+//     setErrMsg('Oops! Server error.');
+//     return false;
+//   }
+//   let data = response.json();
+//   if (data.body || data.body !== {}) return true;
+//   return false;
+// }

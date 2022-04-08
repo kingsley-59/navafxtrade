@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Collapse, Dropdown } from 'react-bootstrap';
+import { Collapse } from 'react-bootstrap';
 import { Trans } from 'react-i18next';
 
 
@@ -37,16 +37,6 @@ class Sidebar extends Component {
     if (this.props.location !== prevProps.location) {
       this.onRouteChanged();
     }
-    const currentUser = this.context.currentUser;
-    console.log(currentUser);
-    let encodedEmail = encodeURIComponent(currentUser?.email);
-    fetch(`/.netlify/functions/UserManager?userEmail=${encodedEmail}`)
-      .then(response => response.json())
-      .then((data) => {
-        let _data = data.body?.rows;
-        if (!_data) return false;
-        this.setState({fullName: _data.fullname});
-      })
   }
 
   onRouteChanged() {
@@ -195,7 +185,7 @@ class Sidebar extends Component {
 
           
           {/* more navigation options section */}
-          <li className="nav-item nav-category">
+          {/* <li className="nav-item nav-category">
             <span className="nav-link"><Trans>More</Trans></span>
           </li>
           <li className={ this.isPathActive('/basic-ui') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
@@ -321,7 +311,7 @@ class Sidebar extends Component {
               </span>
               <span className="menu-title"><Trans>Documentation</Trans></span>
             </a>
-          </li>
+          </li> */}
         </ul>
       </nav>
     );
