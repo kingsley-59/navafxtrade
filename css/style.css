@@ -1,0 +1,62 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap');
+
+
+body, select, input, textarea, button, h1, h2, h3, h4, h5, h6, p {
+    font-family: "Source Sans Pro", sans-serif;
+}
+
+.h1 {
+    font-size: 36px;
+    font-weight: 500;
+}
+.btn {
+    padding: 6px 10px !important;
+}
+
+.site-banner {
+    width: 100%;
+    height: auto;
+    min-height: 50vh;
+    background-image: url(../images/broker_slide_man_a-1024x410.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+}
+.site-section {
+    padding: 30px;
+    box-sizing: border-box;
+}
+.site-banner-mini {
+    width: 100%;
+    height: auto;
+    min-height: 20vh;
+    background-image: url(../images/broker_montage-1024x267-1.webp);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+}
+.site-section-mini {
+    width: 100%;
+    height: auto;
+    min-height: 20vh;
+    padding: 30px;
+    background-image: url(../images/broker_faded_bg_a.webp);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+}
+.bg-overlay-white {
+    background-color: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    height: 100%;
+    min-height: 20vh;
+    display: flex;
+    align-items: center;
+}
