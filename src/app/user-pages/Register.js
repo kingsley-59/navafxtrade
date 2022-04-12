@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Alert } from 'react-bootstrap';
 import { useAuth } from '../context/AuthProvider';
+import HelmetConfig from '../shared/Helmet';
 
 export const Register = () => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [country, setCountry] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -64,7 +66,7 @@ export const Register = () => {
       if (errMsg !== '') return false;
 
       // send user details to database after signup
-      postData({fullName, email, country})
+      postData({fullName, email, phone, country})
         .then((data) => {
           console.log(data);
           resetForm();
@@ -90,6 +92,7 @@ export const Register = () => {
 
   return (
     <div>
+      <HelmetConfig title="NavafxTrade Register" description="" keywords={[]} />
       <div className="container">
         <div className="row justify-content-center align-items-center" style={{height: "100vh"}}>
           <div className="col-lg-6 col-md-6 col-sm-10 mx-auto">
@@ -105,6 +108,10 @@ export const Register = () => {
                 <Form.Group>
                   <label htmlFor="email">Email address</label>
                   <Form.Control type="email" className="form-control" value={email} onChange={(e) => {setEmail(e.target.value)}} placeholder="Email" required/>
+                </Form.Group>
+                <Form.Group>
+                  <label htmlFor="phone">Phone number</label>
+                  <Form.Control type="tel" className="form-control" value={phone} onChange={(e) => {setPhone(e.target.value)}} placeholder="Phone number" required/>
                 </Form.Group>
                 <Form.Group>
                   <label htmlFor="country">Country</label>

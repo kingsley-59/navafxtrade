@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Alert } from 'react-bootstrap';
 import { useAuth } from '../context/AuthProvider';
+import HelmetConfig from '../shared/Helmet';
 
 
 const AccountSettings = () => {
@@ -17,6 +18,7 @@ const AccountSettings = () => {
   const { currentUser } = useAuth();
 
   useEffect(() => {
+    document.title = 'Account Setings - Dashboard';
     let email, encodedEmail;
 
     email = currentUser?.email;
@@ -73,6 +75,7 @@ const AccountSettings = () => {
 
   return (
     <div>
+      <HelmetConfig title="Account Profile Settings" description="" keywords={[]} />
         <div className="container">
             <div className="row">
             <div className="col-12 grid-margin stretch-card">

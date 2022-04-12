@@ -124,14 +124,14 @@ class Sidebar extends Component {
           </li>
           <li className={ this.isPathActive('/dashboard') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
             <Link className="nav-link" to="/dashboard">
-              <span className="menu-icon"><i className="mdi mdi-speedometer"></i></span>
+              <span className="menu-icon"><i className="mdi mdi-speedometer text-primary"></i></span>
               <span className="menu-title"><Trans>Dashboard</Trans></span>
             </Link>
           </li>
           <li className={ this.isPathActive('/accountsettings') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
             <div className={ this.state.basicUiMenuOpen ? 'nav-link menu-expanded' : 'nav-link' } onClick={ () => this.toggleMenuState('basicUiMenuOpen') } data-toggle="collapse">
               <span className="menu-icon">
-                <i className="mdi mdi-account-box-outline"></i>
+                <i className="mdi mdi-account-box-outline text-warning"></i>
               </span>
               <span className="menu-title"><Trans>Account Settings</Trans></span>
               <i className="menu-arrow"></i>
@@ -146,15 +146,15 @@ class Sidebar extends Component {
               </div>
             </Collapse>
           </li>
-          <li className={ this.isPathActive('/dashboard') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
-            <Link className="nav-link" to="/dashboard">
-              <span className="menu-icon"><i className="mdi mdi-upload"></i></span>
+          <li className={ this.isPathActive('/deposit') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
+            <Link className="nav-link" to="/deposit">
+              <span className="menu-icon"><i className="mdi mdi-upload text-success"></i></span>
               <span className="menu-title"><Trans>Deposit Funds</Trans></span>
             </Link>
           </li>
           <li className={ this.isPathActive('/dashboard') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
             <Link className="nav-link" to="/dashboard">
-              <span className="menu-icon"><i className="mdi mdi-download"></i></span>
+              <span className="menu-icon"><i className="mdi mdi-download text-danger"></i></span>
               <span className="menu-title"><Trans>Widthdraw Funds</Trans></span>
             </Link>
           </li>

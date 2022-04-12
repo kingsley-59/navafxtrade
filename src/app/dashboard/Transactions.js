@@ -1,8 +1,10 @@
 import React from 'react'
+import HelmetConfig from '../shared/Helmet';
 
 const Transactions = () => {
   return (
     <div>
+      <HelmetConfig title="Transaction history" description="" keywords={[]} />
         <div className="page-header">
           <h3 className="page-title"> Transactions </h3>
           <nav aria-label="breadcrumb">

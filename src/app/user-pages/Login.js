@@ -3,6 +3,7 @@ import { Form, Alert } from 'react-bootstrap';
 import { Link, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import auth from '../Firebase';
 import { useAuth } from '../context/AuthProvider';
+import HelmetConfig from '../shared/Helmet';
 
 
 const Login = () => {
@@ -63,6 +64,7 @@ const Login = () => {
 
   return (
     <div>
+      <HelmetConfig title="NavafxTrade Login" description="" keywords={[]} />
         <div className="container">
           <div className="row justify-content-center align-items-center" style={{height: "100vh"}}>
             <div className="col-lg-6 col-md-6 col-sm-10 mx-auto">

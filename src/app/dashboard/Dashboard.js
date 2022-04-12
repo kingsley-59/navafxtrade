@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-// import { Doughnut } from 'react-chartjs-2';
 import Slider from "react-slick";
-import { TodoListComponent } from '../apps/TodoList'
-import { VectorMap } from "react-jvectormap"
+import HelmetConfig from '../shared/Helmet';
 
 const mapData = {
   "BZ": 75.00,
@@ -108,35 +106,8 @@ export class Dashboard extends Component {
   render () {
     return (
       <div>
-        {/* <div className="proBanner">
-          <div>
-            <span className="d-flex align-items-center purchase-popup">
-              <p>Get tons of UI components, Plugins, multiple layouts, 20+ sample pages, and more!</p>
-              <a href="https://www.bootstrapdash.com/product/corona-react/?utm_source=organic&utm_medium=banner&utm_campaign=free-preview" rel="noopener noreferrer" target="_blank" className="btn btn-sm purchase-button ml-auto">Check Pro Version</a>
-              <i className="mdi mdi-close bannerClose" onClick={this.toggleProBanner}></i>
-            </span>
-          </div>
-        </div> */}
-        {/* <div className="row">
-          <div className="col-12 grid-margin stretch-card">
-            <div className="card corona-gradient-card">
-              <div className="card-body py-0 px-0 px-sm-3">
-                <div className="row align-items-center">
-                  <div className="col-4 col-sm-3 col-xl-2">
-                    <img src={require('../../assets/images/dashboard/Group126@2x.png')} className="gradient-corona-img img-fluid" alt="banner" />
-                  </div>
-                  <div className="col-5 col-sm-7 col-xl-8 p-0">
-                    <h4 className="mb-1 mb-sm-0">New refreshing look</h4>
-                    <p className="mb-0 font-weight-normal d-none d-sm-block">Corona admin template now with a new facelift for enhanced legibility and aesthetics!</p>
-                  </div>
-                  <div className="col-3 col-sm-2 col-xl-2 pl-0 text-center">
-                    <button className="btn btn-outline-light btn-rounded get-started-btn">Get Started</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
+        <HelmetConfig title="Dashboard" description="" keywords={[]} />
+        
         <div className="row">
           <div className="col-xl-3 col-sm-6 grid-margin stretch-card">
             <div className="card">

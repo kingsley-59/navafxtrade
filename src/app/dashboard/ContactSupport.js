@@ -1,10 +1,12 @@
 
 import React from 'react'
 import { Form } from 'react-bootstrap';
+import HelmetConfig from '../shared/Helmet';
 
 const ContactSupport = () => {
   return (
     <div>
+      <HelmetConfig title="Contact Support" description="" keywords={[]} />
         <div className="container">
           <div className="row justify-content-center align-items-center" style={{height: "100vh"}}>
             <div className="col-lg-6 col-md-6 col-sm-10 mx-auto">
