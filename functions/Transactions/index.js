@@ -1,8 +1,11 @@
-const mongoose = require('mongoose');
-const db = require('./src/database');
-// const ConnectDatabase = require('./atlas_config/DbConnect');
-// const { insert, readAll, update, remove } = require('./atlas_config/User');
-const { createUser, getAllUsers, getOneUser, updateUser, removeUser } = require('./src/User')
+
+const db = require('./database');
+const { 
+    createTransaction, 
+    getAllTransactions, 
+    getOneTransaction, 
+    updateTransaction, 
+    removeTransaction } = require('./transactions');
 const formattedResponse = require('./src/utils/formattefResponse');
 
 exports.handler = async function(event, context) {
@@ -13,24 +16,24 @@ exports.handler = async function(event, context) {
         case 'GET':
             let userEmail = event.queryStringParameters?.userEmail
             if (userEmail) {
-                return await getOneUser(userEmail)
+                return await getOneTransaction(userEmail)
             } else {
-                return await getAllUsers()
+                return await getAllTransactions()
             }
             break;
         case 'POST':
-            return await createUser(event);
+            return await createTransaction(event);
             break;
         case 'PUT':
             const eventBody = event?.body ?? '{"email": ""}';
             const _eventBody = JSON.parse(eventBody);
             const email = _eventBody?.email ?? null;
             if (!email ) return formattedResponse(400, {status: error, message: "Invalid request! Email required."})
-            return await updateUser(event);
+            return await updateTransaction(event);
             break;
         case 'DELETE':
             if (!email ) return formattedResponse(400, {status: error, message: "Invalid request! Email required."})
-            return await removeUser(email);
+            return await removeTransaction(email);
             break;
         default:
             return {

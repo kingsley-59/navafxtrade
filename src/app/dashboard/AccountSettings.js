@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthProvider';
 import HelmetConfig from '../shared/Helmet';
 
@@ -16,6 +17,7 @@ const AccountSettings = () => {
   const [loading, setLoading] = useState(false);
 
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.title = 'Account Setings - Dashboard';
@@ -25,7 +27,7 @@ const AccountSettings = () => {
     encodedEmail = encodeURIComponent(email);
     if (!email) {
       setErrMsg("Oops! Looks like user isn't logged in")
-      // navigate to login page
+      navigate('/login');
       return false;
     }
     console.log(encodedEmail);

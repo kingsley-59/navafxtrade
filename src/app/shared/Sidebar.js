@@ -140,7 +140,7 @@ class Sidebar extends Component {
               <div>
                 <ul className="nav flex-column sub-menu">
                   <li className="nav-item"> <Link className={ this.isPathActive('/accountsettings') ? 'nav-link active' : 'nav-link' } to="/accountsettings"><Trans>Profile</Trans></Link></li>
-                  <li className="nav-item"> <Link className={ this.isPathActive('/bankaccounts') ? 'nav-link active' : 'nav-link' } to="/bankaccounts"><Trans>Accounts</Trans></Link></li>
+                  <li className="nav-item"> <Link className={ this.isPathActive('/withdrawalinfo') ? 'nav-link active' : 'nav-link' } to="/withdrawalinfo"><Trans>Withdrawal info</Trans></Link></li>
                   <li className="nav-item"> <Link className={ this.isPathActive('/changepassword') ? 'nav-link active' : 'nav-link' } to="/changepassword"><Trans>Change password</Trans></Link></li>
                 </ul>
               </div>
@@ -160,25 +160,25 @@ class Sidebar extends Component {
           </li>
           <li className={ this.isPathActive('/transactions') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
             <Link className="nav-link" to="/transactions">
-              <span className="menu-icon"><i className="mdi mdi-cash-multiple"></i></span>
+              <span className="menu-icon"><i className="mdi mdi-cash-multiple text-info"></i></span>
               <span className="menu-title"><Trans>Transactions </Trans></span>
             </Link>
           </li>
           <li className={ this.isPathActive('/contactsupport') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
             <Link className="nav-link" to="/contactsupport">
-              <span className="menu-icon"><i className="mdi mdi-message-outline"></i></span>
+              <span className="menu-icon"><i className="mdi mdi-message-outline text-warning"></i></span>
               <span className="menu-title"><Trans>Contact Support</Trans></span>
             </Link>
           </li>
           <li className={ this.isPathActive('/dashboard') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
             <Link className="nav-link" to="/dashboard">
-              <span className="menu-icon"><i className="mdi mdi-package"></i></span>
+              <span className="menu-icon"><i className="mdi mdi-package text-primary"></i></span>
               <span className="menu-title"><Trans>Packages</Trans></span>
             </Link>
           </li>
           <li className={ this.isPathActive('/dashboard') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
             <Link className="nav-link" to="/dashboard">
-              <span className="menu-icon"><i className="mdi mdi-share-variant"></i></span>
+              <span className="menu-icon"><i className="mdi mdi-share-variant text-success"></i></span>
               <span className="menu-title"><Trans>Refer Users</Trans></span>
             </Link>
           </li>
