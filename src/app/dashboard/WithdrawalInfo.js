@@ -18,38 +18,43 @@ const WithdrawalInfo = () => {
     const { currentUser } = useAuth();
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     document.title = 'Account Setings - Dashboard';
-    //     let email, encodedEmail;
+    useEffect(() => {
+        document.title = 'Account Setings - Dashboard';
+        let email, encodedEmail;
     
-    //     email = currentUser?.email;
-    //     encodedEmail = encodeURIComponent(email);
-    //     if (!email) {
-    //       setErrMsg("Oops! Looks like user isn't logged in")
-    //       navigate('/login');
-    //       return false;
-    //     }
-    //     console.log(encodedEmail);
+        email = currentUser?.email;
+        setEmail(email);
+        encodedEmail = encodeURIComponent(email);
+        if (!email) {
+          setErrMsg("Oops! Looks like user isn't logged in")
+          navigate('/login');
+          return false;
+        }
+        console.log(encodedEmail);
     
-    //     fetch(`/.netlify/functions/Transactions?userEmail=${encodedEmail}`)
-    //       .then(response => response.json())
-    //       .then((data) => {
-    //         let _data = data?.body?.rows;
-    //         setEmail(email);
-    //         // setCountry(_data?.country ?? '');
-    //         console.log(_data);
-    //       })
-    //       .catch((err) => {
-    //         console.log(err.message);
-    //         setErrMsg(err.message);
-    //       });
-    //   }, [])
+        fetch(`/.netlify/functions/WithdrawalInfo?userEmail=${encodedEmail}`)
+          .then(response => response.json())
+          .then((data) => {
+            let _data = data?.body?.rows;
+            setEmail(email);
+            setAcctName(_data?.account_name ?? '');
+            setAcctNo(_data?.account_no ?? '');
+            setBankName(_data?.bank ?? '');
+            setBtcAddress(_data?.btc_address ?? '');
+            console.log(_data);
+          })
+          .catch((err) => {
+            console.log(err.message);
+            setErrMsg(err.message);
+          });
+      }, [])
 
     const submitDetails = async (e) => {
         e.preventDefault();
+        setErrMsg('');
         let payload, settings;
         payload = {
-            acctName, acctNo, bankName, ethAddress, btcAddress
+            email, acctName, acctNo, bankName, ethAddress, btcAddress
         }
         settings = {
             method: 'POST',
@@ -61,15 +66,15 @@ const WithdrawalInfo = () => {
         }
 
         try {
-            let response = await fetch('/.netlify/functions/Transactions', settings);
+            let response = await fetch('/.netlify/functions/WithdrawalInfo', settings);
             let data = response.json();
-            setSuccessMsg('Account info updated successfully.')
+            if (data?.status == 'success') setSuccessMsg('Account info updated successfully.');
+            
         } catch (error) {
             console.log(error);
             setErrMsg(error.message);
         }
 
-        alert('Successful');
     }
 
 

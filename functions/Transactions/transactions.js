@@ -1,21 +1,21 @@
 
 const db = require("./database");
-const formattedResponse = require('./utils/formattefResponse');
+const formattedResponse = require('./utils/formattedResponse');
 
 async function createTransaction(event) {
-    let {email, acctName, acctNo, bankName, btcAddress, ethAddress} = JSON.parse(event.body) ?? {};
+    let {email, txnId, amount, type, paymentMode} = JSON.parse(event.body) ?? {};
     let _data = {};
 
     const query = `
-        INSERT into withdrawal_info 
-        (email, account_name, account_no, bank, btc_address, eth_address, identity_confirmed, date_added) 
-        VALUES($1, $2, $3, $4, $5, $6, $7, now())`;
-    const values = [email, 
-            acctName ?? null, 
-            acctNo ?? null, 
-            bankName ?? null, 
-            btcAddress ?? null, 
-            ethAddress ?? null,
+        INSERT into transactions 
+        (email, txn_id, amount, type, payment_mode, confirmation_status, date_added) 
+        VALUES($1, $2, $3, $4, $5, $6, now())`;
+    const values = [
+            email,
+            txnId, 
+            amount, 
+            type, 
+            paymentMode,
             false
         ];
     try {
@@ -42,7 +42,7 @@ async function createTransaction(event) {
 
 async function getAllTransactions() {
     let _data;
-    const query = `SELECT * FROM withdrawal_info`;
+    const query = `SELECT * FROM transactions`;
     const values = []
     try {
         const { rows, fields } = await db.query(query, values);
@@ -66,7 +66,7 @@ async function getAllTransactions() {
 
 async function getOneTransaction(email) {
     let _data;
-    const query = `SELECT * FROM withdrawal_info WHERE email=$1`;
+    const query = `SELECT * FROM transactions WHERE email=$1`;
     const values = [email]
     try {
         const { rows, fields } = await db.query(query, values);
@@ -92,7 +92,7 @@ async function updateTransaction(event) {
     let _data;
     let { name, email, phone, country, address } = JSON.parse(event.body); 
     
-    const query = `UPDATE withdrawal_info 
+    const query = `UPDATE transactions 
     SET
         fullname = $1, 
         country = $2, 
