@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Alert } from 'react-bootstrap';
 import { useAuth } from '../context/AuthProvider';
@@ -17,7 +17,11 @@ export const Register = () => {
 
   const { currentUser, signup } = useAuth();
 
-  // console.log(currentUser.email);
+  useEffect(() => {
+    let _email = currentUser?.email;
+    if (_email) navigate('/login');
+    return;
+  }, [])
   
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -3,20 +3,21 @@ const db = require("./database");
 const formattedResponse = require('./utils/formattedResponse');
 
 async function createTransaction(event) {
-    let {email, txnId, amount, type, paymentMode} = JSON.parse(event.body) ?? {};
+    let {email, txnId, amount, type, paymentMode, proof} = JSON.parse(event.body) ?? {};
     let _data = {};
 
     const query = `
         INSERT into transactions 
-        (email, txn_id, amount, type, payment_mode, confirmation_status, date_added) 
-        VALUES($1, $2, $3, $4, $5, $6, now())`;
+        (email, txn_id, amount, type, payment_mode, confirmation_status, date_added, proof_of_payment) 
+        VALUES($1, $2, $3, $4, $5, $6, now(), $7)`;
     const values = [
             email,
             txnId, 
             amount, 
             type, 
             paymentMode,
-            false
+            false,
+            proof
         ];
     try {
         const { rows } = await db.query(query, values);

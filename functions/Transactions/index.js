@@ -6,7 +6,7 @@ const {
     getOneTransaction, 
     updateTransaction, 
     removeTransaction } = require('./transactions');
-const formattedResponse = require('./src/utils/formattefResponse');
+const formattedResponse = require('./src/utils/formattedResponse');
 
 exports.handler = async function(event, context) {
     // ConnectDatabase();

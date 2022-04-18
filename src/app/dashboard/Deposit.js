@@ -1,5 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthProvider';
+import { storage } from '../Firebase';
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 const Deposit = () => {
     const BankDetails = '0987654321';
@@ -7,12 +11,39 @@ const Deposit = () => {
     const EthAddress = '0xethsjkjfjhdjksfjBkGH68BH8FFGTY557dgf76RF7';
 
     const [address, setAddress] = useState('')
-    const [amount, setAmount] = useState();
+    const [amount, setAmount] = useState('');
     const [mode, setMode] = useState('');
+    const [image, setImage] = useState();
+
+    const [imgUrl, setImgUrl] = useState('');
+    const [progresspercent, setProgresspercent] = useState(0);
+
+    const [errMsg, setErrMsg] = useState('');
+    const [successMsg, setSuccessMsg] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const { currentUser } = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      document.title = 'Deposit - Dashboard';
+      let email, encodedEmail;
+
+      email = currentUser?.email;
+      encodedEmail = encodeURIComponent(email);
+      if (!email) {
+        navigate('/login');
+        return false;
+      }
+
+      // make request for deposit history for this account
+    }, [])
 
     useEffect(() => {
         if (mode == '') return;
         
+        setErrMsg('')
+        setLoading(false);
         let acctDetails = {
             bank: BankDetails,
             bitcoin: BtcAddress,
@@ -20,7 +51,9 @@ const Deposit = () => {
         }
         switch (mode) {
             case 'bank':
-                setAddress(acctDetails.bank)
+                //setAddress(acctDetails.bank)
+                setErrMsg("Bank transfer is currently unsupported. Please try another option.");
+                setLoading(true);
                 break;
             case 'bitcoin':
                 setAddress(acctDetails.bitcoin)
@@ -34,6 +67,70 @@ const Deposit = () => {
         }
         return;
     }, [mode])
+
+    const uploadImage = () => {
+      try {
+        const storageRef = ref(storage, `images/${image.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, image);
+
+        uploadTask.on("state_changed",
+        (snapshot) => {
+          const progress =
+            Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+          setProgresspercent(progress);
+        },
+        (error) => {
+          setErrMsg(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setImgUrl(downloadURL)
+            console.log(imgUrl)
+          });
+        }
+       );
+      } catch (error) {
+        console.log(error.message)
+        //setErrMsg(error.message);
+      }
+
+      return;
+    }
+
+    const handleSubmit = (e) => {
+      e.preventDefault()
+      
+      if (!image) return;
+      uploadImage();
+      if (imgUrl === '') { 
+        setErrMsg('File upload failed. Please try again');
+        return;
+      }
+
+      const payload = {
+        email: currentUser.email,
+        txnId: imgUrl,
+        amount: amount,
+        type: 'deposit',
+        paymentMode: mode,
+        proof: imgUrl
+      }
+
+      const settings = {
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      }
+
+      fetch('/.netlify/functions/Transactions', settings)
+        .then(response => response.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch(error => setErrMsg(error.message))
+    }
 
 
     return (
@@ -100,10 +197,12 @@ const Deposit = () => {
 
         <div className="row">
             <div className="col-xs-12 grid-margin">
-                <form className='form-sample' encType='multipart/form-data'>
+                <form className='form-sample' onSubmit={handleSubmit} encType='multipart/form-data'>
                     <div className="card">
                         <div className="card-body">
                         <h2 className='text-center'>Deposit Funds</h2>
+                        {errMsg && <Alert variant={'danger'}>{errMsg}</Alert>}
+                        {successMsg && <Alert variant={'success'}>{successMsg}</Alert>}
                         <div className="row">
                         <div className="col-md-6 grid-margin">
                             <Form.Group className='mb-3'>
@@ -128,10 +227,10 @@ const Deposit = () => {
                             <Form.Group className='mb-3'>
                                 <label>Proof of Payment</label>
                                 <div className="custom-file mt-1">
-                                    <Form.Control type="file" className="form-control" id="customFileLang" lang="es" hidden />
+                                    <Form.Control type="file" onChange={(e) => {setImage(e.target.files[0])}} className="form-control" id="customFileLang" lang="es" hidden />
                                     <div className="container w-100 border border-sm rounded">
                                         <div className="d-flex flex-column justify-content-center align-items-center" style={{minHeight: 170}}>
-                                            <h3 className="text-secondary">Drag and drop file</h3>
+                                            <h3 className="text-secondary"> { image?.name ?? 'Drag and drop file' } </h3>
                                             <label className="custom-file-label" htmlFor="customFileLang">Upload image</label>
                                         </div>
                                     </div>
@@ -141,7 +240,7 @@ const Deposit = () => {
                         </div>
                         <div className="row justify-content-center">
                             <div className="container text-center">
-                                <input type="submit" value="Submit" className="btn btn-success btn-lg" />
+                                <input type="submit" value="Submit" className="btn btn-success btn-lg" disabled={loading}/>
                             </div>
                         </div>
                         </div>
