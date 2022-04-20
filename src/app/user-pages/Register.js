@@ -32,6 +32,12 @@ export const Register = () => {
       return false;
     }
 
+    // window.grecaptcha.ready(() => {
+    //   window.grecaptcha.execute('6Ld1YIofAAAAAFxMucV4Xh7M2_qA3aMFLB6C8iG4', {action: 'submit'}).then((token) => {
+    //     // Send form value as well as token to the server
+    //   })
+    // })
+
     function resetForm () {
       setLoading(false);
       // setEmail('');
@@ -129,6 +135,7 @@ export const Register = () => {
                   <label htmlFor="confirm-password">Confirm Password</label>
                   <Form.Control type="password" className="form-control" value={confirmPassword} onChange={(e) => {setConfirmPassword(e.target.value)}} placeholder="Confirm password" required/>
                 </Form.Group>
+                <div class="g-recaptcha" data-sitekey="6Ld1YIofAAAAAFxMucV4Xh7M2_qA3aMFLB6C8iG4"></div>
                 <div className="form-check">
                   <label className="form-check-label text-muted">
                     <input type="checkbox" className="form-check-input"/>
@@ -137,7 +144,7 @@ export const Register = () => {
                   </label>
                 </div>
                 <Form.Group className='text-center p-3'>
-                    <button type="submit" className="btn btn-primary m-auto" disabled={loading}>Submit</button>
+                    <button type="submit" data-action="submit" className="btn btn-primary m-auto" disabled={loading}>Submit</button>
                   </Form.Group>
               </form>
             </div>

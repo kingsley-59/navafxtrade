@@ -8,13 +8,12 @@ const {
     removeTransaction } = require('./transactions');
 const formattedResponse = require('./utils/formattedResponse');
 
-exports.handler = async function(event, context) {
-    // ConnectDatabase();
-    
+exports.handler = async (event, context) => {
+    console.log("Called!")
     
     switch (event.httpMethod) {
         case 'GET':
-            let userEmail = event.queryStringParameters?.userEmail
+            let userEmail = event?.queryStringParameters?.userEmail
             if (userEmail) {
                 return await getOneTransaction(userEmail)
             } else {
@@ -42,5 +41,5 @@ exports.handler = async function(event, context) {
             }
             break;
     }
-    
+
 }

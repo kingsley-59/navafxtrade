@@ -3,12 +3,13 @@ import { Form, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthProvider';
 import { storage } from '../Firebase';
-import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 
 const Deposit = () => {
     const BankDetails = '0987654321';
     const BtcAddress = '0xbtcjkjf82499j9Jjf9455678FFGTY557dgf76RF7';
     const EthAddress = '0xethsjkjfjhdjksfjBkGH68BH8FFGTY557dgf76RF7';
+    const TxnId = Date.now();
 
     const [address, setAddress] = useState('')
     const [amount, setAmount] = useState('');
@@ -21,6 +22,7 @@ const Deposit = () => {
     const [errMsg, setErrMsg] = useState('');
     const [successMsg, setSuccessMsg] = useState('');
     const [loading, setLoading] = useState(false);
+    const [submitBtnText, setSubmitBtnText] = useState('Submit')
 
     const { currentUser } = useAuth();
     const navigate = useNavigate();
@@ -44,6 +46,7 @@ const Deposit = () => {
         
         setErrMsg('')
         setLoading(false);
+        setSubmitBtnText('Submit')
         let acctDetails = {
             bank: BankDetails,
             bitcoin: BtcAddress,
@@ -70,25 +73,18 @@ const Deposit = () => {
 
     const uploadImage = () => {
       try {
-        const storageRef = ref(storage, `images/${image.name}`);
-        const uploadTask = uploadBytesResumable(storageRef, image);
+        const storageRef = ref(storage, `images/${image.name + TxnId}`);
+        const uploadTask = uploadBytes(storageRef, image).then((snapshot) => {
+                              console.log(snapshot);
+                              setSuccessMsg("File upload successful");
+                              // getDownloadURL(snapshot.ref).then((downloadURL) => {
+                              //   setImgUrl(downloadURL)
+                              //   console.log(imgUrl)
+                              // });
+                              if (errMsg !== '') sendDepositRequest();
+                            });
 
-        uploadTask.on("state_changed",
-        (snapshot) => {
-          const progress =
-            Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-          setProgresspercent(progress);
-        },
-        (error) => {
-          setErrMsg(error);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setImgUrl(downloadURL)
-            console.log(imgUrl)
-          });
-        }
-       );
+      
       } catch (error) {
         console.log(error.message)
         //setErrMsg(error.message);
@@ -97,23 +93,15 @@ const Deposit = () => {
       return;
     }
 
-    const handleSubmit = (e) => {
-      e.preventDefault()
-      
-      if (!image) return;
-      uploadImage();
-      if (imgUrl === '') { 
-        setErrMsg('File upload failed. Please try again');
-        return;
-      }
+    const sendDepositRequest = () => {
 
       const payload = {
         email: currentUser.email,
-        txnId: imgUrl,
+        txnId: TxnId,
         amount: amount,
         type: 'deposit',
         paymentMode: mode,
-        proof: imgUrl
+        proof: imgUrl ?? image.name + TxnId
       }
 
       const settings = {
@@ -128,8 +116,21 @@ const Deposit = () => {
         .then(response => response.json())
         .then((data) => {
           console.log(data);
+          setSubmitBtnText('Done.');
         })
         .catch(error => setErrMsg(error.message))
+    }
+
+    const handleSubmit = (e) => {
+      e.preventDefault()
+      setErrMsg('')
+      setSuccessMsg('')
+      setLoading(true);
+      setSubmitBtnText('sending...')
+      
+      if (!image) return;
+      uploadImage();
+      
     }
 
 
@@ -240,7 +241,7 @@ const Deposit = () => {
                         </div>
                         <div className="row justify-content-center">
                             <div className="container text-center">
-                                <input type="submit" value="Submit" className="btn btn-success btn-lg" disabled={loading}/>
+                                <input type="submit" value={submitBtnText} className="btn btn-success btn-lg" disabled={loading}/>
                             </div>
                         </div>
                         </div>
@@ -255,3 +256,22 @@ const Deposit = () => {
 }
 
 export default Deposit
+
+
+//   uploadTask.on("state_changed",
+      //   (snapshot) => {
+      //     const progress =
+      //       Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      //     setProgresspercent(progress);
+      //   },
+      //   (error) => {
+      //     setErrMsg(error);
+      //   },
+      //   () => {
+      //     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+      //       setImgUrl(downloadURL)
+      //       console.log(imgUrl)
+            
+      //     });
+      //   }
+      //  );
