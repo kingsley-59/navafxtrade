@@ -6,11 +6,11 @@ const RequireAuth = () => {
     const location = useLocation();
 
     return (
-        <Outlet />
+        // <Outlet />
         //check if user exists in auth [auth?.user]
-        // currentUser
-        //     ? <Outlet />
-        //     : <Navigate to={"/login"} state={{from: location}} replace />
+        currentUser
+            ? <Outlet />
+            : <Navigate to={"/login"} state={{from: location}} replace />
         // replace keyword is to replace their login navigation history with the page they're coming from
     );
 }

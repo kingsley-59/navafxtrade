@@ -33,6 +33,7 @@ class SiteRoutes extends Component {
                 <Route path="transactions" element={<Transactions />} />
                 <Route path="contactsupport" element={<ContactSupport />} />
                 <Route path="deposit" element={<Deposit />} />
+                <Route path="withdrawals" element={<Transactions />} />
                 <Route path="withdrawalinfo" element={<WithdrawalInfo />} />
                 <Route path="packages" element={<Packages />} />
 

@@ -1,21 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Form, Alert } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 import { useAuth } from '../context/AuthProvider';
 import HelmetConfig from '../shared/Helmet';
 
 export const Register = () => {
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [country, setCountry] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [errMsg, setErrMsg] = useState('')
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const { currentUser, signup } = useAuth();
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     let _email = currentUser?.email;
@@ -23,82 +15,6 @@ export const Register = () => {
     return;
   }, [])
   
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    if(password !== confirmPassword) {
-      setErrMsg('Passwords do not match!'); 
-      return false;
-    }
-
-    // window.grecaptcha.ready(() => {
-    //   window.grecaptcha.execute('6Ld1YIofAAAAAFxMucV4Xh7M2_qA3aMFLB6C8iG4', {action: 'submit'}).then((token) => {
-    //     // Send form value as well as token to the server
-    //   })
-    // })
-
-    function resetForm () {
-      setLoading(false);
-      // setEmail('');
-      // setPassword('');
-      // setConfirmPassword('');
-    }
-
-    async function postData (data) {
-      let url = '/.netlify/functions/UserManager';
-      let settings = {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      };
-
-      let response = await fetch(url, settings)
-      if (response.status !== 200 && response.status !== 201){
-        setErrMsg('Oops! Server error.');
-        throw new Error(`Server responded with error ${response.status}`);
-      }
-      return response.json();
-    }
-
-    try {
-      setErrMsg('');
-      signup(email, password)
-        .then((userCreds) => console.log(userCreds.user))
-        .catch((error) => {
-          setErrMsg(error.message);
-          setLoading(false);
-        });
-        
-      if (errMsg !== '') return false;
-
-      // send user details to database after signup
-      postData({fullName, email, phone, country})
-        .then((data) => {
-          console.log(data);
-          resetForm();
-          navigate('/dashboard');
-          return true;
-        })
-        .catch((error) => {
-          setErrMsg('Registration failed. Please try again.');
-          setLoading(false);
-          console.log(error.message);
-          return false;
-        })
-      
-    } catch (error) {
-      setLoading(false);
-      console.log(error.message);
-      setErrMsg('Failed to create account! Please try again.');
-      return false;
-    }
-
-
-  }
 
   return (
     <div>
@@ -108,47 +24,13 @@ export const Register = () => {
           <div className="col-lg-6 col-md-6 col-sm-10 mx-auto">
           <div className="card">
             <div className="card-body">
-              <h4 className="card-title text-center">Register </h4>
-              {errMsg && <Alert variant={'danger'}>{errMsg}</Alert>}
-              <form className="forms-sample" onSubmit={handleSubmit}>
-                <Form.Group>
-                  <label htmlFor="fullname">FullName</label>
-                  <Form.Control type="text" value={fullName} onChange={(e) => {setFullName(e.target.value)}} placeholder="Full name" required/>
-                </Form.Group>
-                <Form.Group>
-                  <label htmlFor="email">Email address</label>
-                  <Form.Control type="email" className="form-control" value={email} onChange={(e) => {setEmail(e.target.value)}} placeholder="Email" required/>
-                </Form.Group>
-                <Form.Group>
-                  <label htmlFor="phone">Phone number</label>
-                  <Form.Control type="tel" className="form-control" value={phone} onChange={(e) => {setPhone(e.target.value)}} placeholder="Phone number" required/>
-                </Form.Group>
-                <Form.Group>
-                  <label htmlFor="country">Country</label>
-                  <Form.Control type="text" value={country} onChange={(e) => {setCountry(e.target.value)}} placeholder="country" required/>
-                </Form.Group>
-                <Form.Group>
-                  <label htmlFor="password">Password</label>
-                  <Form.Control type="password" className="form-control" value={password} onChange={(e) => {setPassword(e.target.value)}}  placeholder="Password" required/>
-                </Form.Group>
-                <Form.Group>
-                  <label htmlFor="confirm-password">Confirm Password</label>
-                  <Form.Control type="password" className="form-control" value={confirmPassword} onChange={(e) => {setConfirmPassword(e.target.value)}} placeholder="Confirm password" required/>
-                </Form.Group>
-                <div class="g-recaptcha" data-sitekey="6Ld1YIofAAAAAFxMucV4Xh7M2_qA3aMFLB6C8iG4"></div>
-                <div className="form-check">
-                  <label className="form-check-label text-muted">
-                    <input type="checkbox" className="form-check-input"/>
-                    <i className="input-helper"></i>
-                    Remember me
-                  </label>
-                </div>
-                <Form.Group className='text-center p-3'>
-                    <button type="submit" data-action="submit" className="btn btn-primary m-auto" disabled={loading}>Submit</button>
-                  </Form.Group>
-              </form>
+              <h3 className="card-title text-center">Register </h3>
+              
+              <Alert variant={'warning'} className='p-3 mt-4 mb-4 mx-3'>
+                <h4>Sorry, registration is disabled for this site. Visit <a href='http://app.navafxtrade.com'>app.navafxtrade.com</a> to sign in. </h4>
+              </Alert>
             </div>
-            <p className="text-center">Already have an account? <a href="/login">Login</a></p>
+            <p className="text-center">Are you an admin? <a href="/login">Login</a></p>
           </div>
           </div>
         </div>

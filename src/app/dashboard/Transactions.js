@@ -18,79 +18,25 @@ const Transactions = () => {
           <div className="col-12 grid-margin">
             <div className="card">
               <div className="card-body">
-                <h4 className="card-title">Transaction History</h4>
+                <h4 className="card-title">Withdrawal History</h4>
                 <div className="table-responsive">
                   <table className="table">
                     <thead>
+                    {/* email, txn_id, amount, type, payment_mode, confirmation_status, date_added */}
                       <tr>
                         <th> S/N </th>
-                        <th> Type </th>
+                        <th> Email </th>
+                        <th> Txn Id </th>
                         <th> Amount </th>
-                        <th> Currency </th>
+                        <th> Type </th>
                         <th> Payment Mode </th>
-                        <th> Start Date </th>
+                        <th> Date </th>
                         <th> Payment Status </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td> 1 </td>
-                        <td> Deposit </td>
-                        <td> $1,500 </td>
-                        <td> Dollar </td>
-                        <td> Credit card </td>
-                        <td> 04 Dec 2019 </td>
-                        <td>
-                          <div className="badge badge-outline-success">Approved</div>
-                        </td>
-                      </tr>
-                      <tr>
-                        
-                        <td> 2 </td>
-                        <td> 02312 </td>
-                        <td> $14,500 </td>
-                        <td> Website </td>
-                        <td> Cash on delivered </td>
-                        <td> 04 Dec 2019 </td>
-                        <td>
-                          <div className="badge badge-outline-warning">Pending</div>
-                        </td>
-                      </tr>
-                      <tr>
-                        
-                        <td> 3 </td>
-                        <td> 02312 </td>
-                        <td> $14,500 </td>
-                        <td> App design </td>
-                        <td> Credit card </td>
-                        <td> 04 Dec 2019 </td>
-                        <td>
-                          <div className="badge badge-outline-danger">Rejected</div>
-                        </td>
-                      </tr>
-                      <tr>
-                        
-                        <td> 4 </td>
-                        <td> 02312 </td>
-                        <td> $14,500 </td>
-                        <td> Development </td>
-                        <td> Online Payment </td>
-                        <td> 04 Dec 2019 </td>
-                        <td>
-                          <div className="badge badge-outline-success">Approved</div>
-                        </td>
-                      </tr>
-                      <tr>
-                        
-                        <td> 5 </td>
-                        <td> 02312 </td>
-                        <td> $14,500 </td>
-                        <td> Website </td>
-                        <td> Credit card </td>
-                        <td> 04 Dec 2019 </td>
-                        <td>
-                          <div className="badge badge-outline-success">Approved</div>
-                        </td>
+                        <td colSpan={8} className='text-center'>No Transactions yet</td>
                       </tr>
                     </tbody>
                   </table>

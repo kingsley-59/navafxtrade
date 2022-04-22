@@ -1,62 +1,66 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 // import Slider from "react-slick";
 import HelmetConfig from '../shared/Helmet';
 
-const mapData = {
-  "BZ": 75.00,
-  "US": 56.25,
-  "AU": 15.45,
-  "GB": 25.00,
-  "RO": 10.25,
-  "GE": 33.25
+const TableRow = ({values}) => {
+  let {id, email, fullname, country, phone, date_added} = values;
+  return (
+    <tr>
+      <td>{id}</td>
+      <td>{email}</td>
+      <td>{fullname}</td>
+      <td>{country}</td>
+      <td>{phone}</td>
+      <td>{date_added}</td>
+      <td>
+        <div className="badge badge-outline-warning">Pending</div>
+      </td>
+    </tr>
+  )
 }
 
-export class Dashboard extends Component {
+const Dashboard = () => {
+  const [errMsg, setErrMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
+  const [usersData, setUsersData] = useState([]);
+  const [txnData, setTxnData] = useState([]);
 
-  componentDidMount() {
+  useEffect(() => {
     console.log('Mounted');
-  }
+    document.title = 'Admin Dashboard - Navafxtrade';
 
-  transactionHistoryData =  {
-    labels: ["Paypal", "Stripe","Cash"],
-    datasets: [{
-        data: [55, 25, 20],
-        backgroundColor: [
-          "#111111","#00d25b","#ffab00"
-        ]
-      }
-    ]
-  };
+    fetch('/.netlify/functions/getUsers')
+      .then(response => response.json())
+      .then(data => {
+        let _data = data.body?.rows;
+        //console.log(JSON.stringify(_data, null, 2));
+        setUsersData(_data);
+      })
+      .catch(error => setErrMsg(error.message))
+    
+    fetch('/.netlify/functions/getTransactions')
+      .then(response => response.json())
+      .then(data => {
+        let _data = data.body?.rows;
+        //console.log(JSON.stringify(_data, null, 2));
+        setTxnData(_data);
+      })
+      .catch(error => setErrMsg(error.message))
+  }, [])
+  
 
-  transactionHistoryOptions = {
-    responsive: true,
-    maintainAspectRatio: true,
-    segmentShowStroke: false,
-    cutoutPercentage: 70,
-    elements: {
-      arc: {
-          borderWidth: 0
-      }
-    },      
-    legend: {
-      display: false
-    },
-    tooltips: {
-      enabled: true
+  const RowList = () => {
+    if(usersData === []){
+      console.log('Userdata is empty');
+      return null;
     }
+    let tableRows = usersData.map(({id, email, fullname, country, phone, date_added}, idx) => {
+      return <TableRow values={{id, email, fullname, country, phone, date_added}} key={idx} />
+    })
+    return tableRows;
   }
-
-  sliderSettings = {
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
-  }
-  toggleProBanner() {
-    document.querySelector('.proBanner').classList.toggle("hide");
-  }
-  render () {
-    return (
+  
+  return (
       <div>
         <HelmetConfig title="Dashboard" description="" keywords={[]} />
         
@@ -142,141 +146,7 @@ export class Dashboard extends Component {
             </div>
           </div>
         </div>
-        <div className="row">
-          {/* <div className="col-md-4 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Transaction History</h4>
-                <div className="aligner-wrapper">
-                  <Doughnut data={this.transactionHistoryData} options={this.transactionHistoryOptions} />
-                  <div className="absolute center-content">
-                    <h5 className="font-weight-normal text-whiite text-center mb-2 text-white">1200</h5>
-                    <p className="text-small text-muted text-center mb-0">Total</p>
-                  </div>
-                </div>  
-                <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
-                  <div className="text-md-center text-xl-left">
-                    <h6 className="mb-1">Transfer to Paypal</h6>
-                    <p className="text-muted mb-0">07 Jan 2019, 09:12AM</p>
-                  </div>
-                  <div className="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-                    <h6 className="font-weight-bold mb-0">$236</h6>
-                  </div>
-                </div>
-                <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
-                  <div className="text-md-center text-xl-left">
-                    <h6 className="mb-1">Tranfer to Stripe</h6>
-                    <p className="text-muted mb-0">07 Jan 2019, 09:12AM</p>
-                  </div>
-                  <div className="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-                    <h6 className="font-weight-bold mb-0">$593</h6>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
-          {/* <div className="col-md-8 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <div className="d-flex flex-row justify-content-between">
-                  <h4 className="card-title mb-1">Open Projects</h4>
-                  <p className="text-muted mb-1">Your data status</p>
-                </div>
-                <div className="row">
-                  <div className="col-12">
-                    <div className="preview-list">
-                      <div className="preview-item border-bottom">
-                        <div className="preview-thumbnail">
-                          <div className="preview-icon bg-primary">
-                            <i className="mdi mdi-file-document"></i>
-                          </div>
-                        </div>
-                        <div className="preview-item-content d-sm-flex flex-grow">
-                          <div className="flex-grow">
-                            <h6 className="preview-subject">Admin dashboard design</h6>
-                            <p className="text-muted mb-0">Broadcast web app mockup</p>
-                          </div>
-                          <div className="mr-auto text-sm-right pt-2 pt-sm-0">
-                            <p className="text-muted">15 minutes ago</p>
-                            <p className="text-muted mb-0">30 tasks, 5 issues </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="preview-item border-bottom">
-                        <div className="preview-thumbnail">
-                          <div className="preview-icon bg-success">
-                            <i className="mdi mdi-cloud-download"></i>
-                          </div>
-                        </div>
-                        <div className="preview-item-content d-sm-flex flex-grow">
-                          <div className="flex-grow">
-                            <h6 className="preview-subject">Wordpress Development</h6>
-                            <p className="text-muted mb-0">Upload new design</p>
-                          </div>
-                          <div className="mr-auto text-sm-right pt-2 pt-sm-0">
-                            <p className="text-muted">1 hour ago</p>
-                            <p className="text-muted mb-0">23 tasks, 5 issues </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="preview-item border-bottom">
-                        <div className="preview-thumbnail">
-                          <div className="preview-icon bg-info">
-                            <i className="mdi mdi-clock"></i>
-                          </div>
-                        </div>
-                        <div className="preview-item-content d-sm-flex flex-grow">
-                          <div className="flex-grow">
-                            <h6 className="preview-subject">Project meeting</h6>
-                            <p className="text-muted mb-0">New project discussion</p>
-                          </div>
-                          <div className="mr-auto text-sm-right pt-2 pt-sm-0">
-                            <p className="text-muted">35 minutes ago</p>
-                            <p className="text-muted mb-0">15 tasks, 2 issues</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="preview-item border-bottom">
-                        <div className="preview-thumbnail">
-                          <div className="preview-icon bg-danger">
-                            <i className="mdi mdi-email-open"></i>
-                          </div>
-                        </div>
-                        <div className="preview-item-content d-sm-flex flex-grow">
-                          <div className="flex-grow">
-                            <h6 className="preview-subject">Broadcast Mail</h6>
-                            <p className="text-muted mb-0">Sent release details to team</p>
-                          </div>
-                          <div className="mr-auto text-sm-right pt-2 pt-sm-0">
-                            <p className="text-muted">55 minutes ago</p>
-                            <p className="text-muted mb-0">35 tasks, 7 issues </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="preview-item">
-                        <div className="preview-thumbnail">
-                          <div className="preview-icon bg-warning">
-                            <i className="mdi mdi-chart-pie"></i>
-                          </div>
-                        </div>
-                        <div className="preview-item-content d-sm-flex flex-grow">
-                          <div className="flex-grow">
-                            <h6 className="preview-subject">UI Design</h6>
-                            <p className="text-muted mb-0">New application planning</p>
-                          </div>
-                          <div className="mr-auto text-sm-right pt-2 pt-sm-0">
-                            <p className="text-muted">50 minutes ago</p>
-                            <p className="text-muted mb-0">27 tasks, 4 issues </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
-        </div>
+
         <div className="row">
           <div className="col-sm-4 grid-margin">
             <div className="card">
@@ -340,6 +210,33 @@ export class Dashboard extends Component {
           <div className="col-12 grid-margin">
             <div className="card">
               <div className="card-body">
+                <h4 className="card-title">Users database</h4>
+                <div className="table-responsive">
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th> ID </th>
+                        <th> Email </th>
+                        <th> Fullname </th>
+                        <th> Country </th>
+                        <th> Phone </th>
+                        <th> Register date </th>
+                        <th> KYC upload </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      { <RowList /> ?? "Users data not available" }
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row ">
+          <div className="col-12 grid-margin">
+            <div className="card">
+              <div className="card-body">
                 <h4 className="card-title">Transaction History</h4>
                 <div className="table-responsive">
                   <table className="table">
@@ -356,63 +253,7 @@ export class Dashboard extends Component {
                     </thead>
                     <tbody>
                       <tr>
-                        <td> 1 </td>
-                        <td> Deposit </td>
-                        <td> $1,500 </td>
-                        <td> Dollar </td>
-                        <td> Credit card </td>
-                        <td> 04 Dec 2019 </td>
-                        <td>
-                          <div className="badge badge-outline-success">Approved</div>
-                        </td>
-                      </tr>
-                      <tr>
-                        
-                        <td> 2 </td>
-                        <td> 02312 </td>
-                        <td> $14,500 </td>
-                        <td> Website </td>
-                        <td> Cash on delivered </td>
-                        <td> 04 Dec 2019 </td>
-                        <td>
-                          <div className="badge badge-outline-warning">Pending</div>
-                        </td>
-                      </tr>
-                      <tr>
-                        
-                        <td> 3 </td>
-                        <td> 02312 </td>
-                        <td> $14,500 </td>
-                        <td> App design </td>
-                        <td> Credit card </td>
-                        <td> 04 Dec 2019 </td>
-                        <td>
-                          <div className="badge badge-outline-danger">Rejected</div>
-                        </td>
-                      </tr>
-                      <tr>
-                        
-                        <td> 4 </td>
-                        <td> 02312 </td>
-                        <td> $14,500 </td>
-                        <td> Development </td>
-                        <td> Online Payment </td>
-                        <td> 04 Dec 2019 </td>
-                        <td>
-                          <div className="badge badge-outline-success">Approved</div>
-                        </td>
-                      </tr>
-                      <tr>
-                        
-                        <td> 5 </td>
-                        <td> 02312 </td>
-                        <td> $14,500 </td>
-                        <td> Website </td>
-                        <td> Credit card </td>
-                        <td> 04 Dec 2019 </td>
-                        <td>
-                          <div className="badge badge-outline-success">Approved</div>
-                        </td>
+                        <td colSpan={7} className='text-center'>No Transactions yet</td>
                       </tr>
                     </tbody>
                   </table>
@@ -421,160 +262,7 @@ export class Dashboard extends Component {
             </div>
           </div>
         </div>
-        {/* <div className="row ">
-          <div className="col-12 grid-margin">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Order Status</h4>
-                <div className="table-responsive">
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>
-                          <div className="form-check form-check-muted m-0">
-                            <label className="form-check-label">
-                              <input type="checkbox" className="form-check-input" />
-                              <i className="input-helper"></i>
-                            </label>
-                          </div>
-                        </th>
-                        <th> Client Name </th>
-                        <th> Order No </th>
-                        <th> Product Cost </th>
-                        <th> Project </th>
-                        <th> Payment Mode </th>
-                        <th> Start Date </th>
-                        <th> Payment Status </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div className="form-check form-check-muted m-0">
-                            <label className="form-check-label">
-                              <input type="checkbox" className="form-check-input" />
-                              <i className="input-helper"></i>
-                            </label>
-                          </div>
-                        </td>
-                        <td>
-                          <div className="d-flex">
-                            <img src={require('../../assets/images/faces/face1.jpg')} alt="face" />
-                            <span className="pl-2">Henry Klein</span>
-                          </div>
-                        </td>
-                        <td> 02312 </td>
-                        <td> $14,500 </td>
-                        <td> Dashboard </td>
-                        <td> Credit card </td>
-                        <td> 04 Dec 2019 </td>
-                        <td>
-                          <div className="badge badge-outline-success">Approved</div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div className="form-check form-check-muted m-0">
-                            <label className="form-check-label">
-                              <input type="checkbox" className="form-check-input" />
-                              <i className="input-helper"></i>
-                            </label>
-                          </div>
-                        </td>
-                        <td>
-                          <div className="d-flex">
-                            <img src={require('../../assets/images/faces/face2.jpg')} alt="face" />
-                            <span className="pl-2">Estella Bryan</span>
-                          </div>
-                        </td>
-                        <td> 02312 </td>
-                        <td> $14,500 </td>
-                        <td> Website </td>
-                        <td> Cash on delivered </td>
-                        <td> 04 Dec 2019 </td>
-                        <td>
-                          <div className="badge badge-outline-warning">Pending</div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div className="form-check form-check-muted m-0">
-                            <label className="form-check-label">
-                              <input type="checkbox" className="form-check-input" />
-                              <i className="input-helper"></i>
-                            </label>
-                          </div>
-                        </td>
-                        <td>
-                          <div className="d-flex">
-                            <img src={require('../../assets/images/faces/face5.jpg')} alt="face" />
-                            <span className="pl-2">Lucy Abbott</span>
-                          </div>
-                        </td>
-                        <td> 02312 </td>
-                        <td> $14,500 </td>
-                        <td> App design </td>
-                        <td> Credit card </td>
-                        <td> 04 Dec 2019 </td>
-                        <td>
-                          <div className="badge badge-outline-danger">Rejected</div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div className="form-check form-check-muted m-0">
-                            <label className="form-check-label">
-                              <input type="checkbox" className="form-check-input" />
-                              <i className="input-helper"></i>
-                            </label>
-                          </div>
-                        </td>
-                        <td>
-                          <div className="d-flex">
-                            <img src={require('../../assets/images/faces/face3.jpg')} alt="face" />
-                            <span className="pl-2">Peter Gill</span>
-                          </div>
-                        </td>
-                        <td> 02312 </td>
-                        <td> $14,500 </td>
-                        <td> Development </td>
-                        <td> Online Payment </td>
-                        <td> 04 Dec 2019 </td>
-                        <td>
-                          <div className="badge badge-outline-success">Approved</div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div className="form-check form-check-muted m-0">
-                            <label className="form-check-label">
-                              <input type="checkbox" className="form-check-input" />
-                              <i className="input-helper"></i>
-                            </label>
-                          </div>
-                        </td>
-                        <td>
-                          <div className="d-flex">
-                            <img src={require('../../assets/images/faces/face4.jpg')} alt="face" />
-                            <span className="pl-2">Sallie Reyes</span>
-                          </div>
-                        </td>
-                        <td> 02312 </td>
-                        <td> $14,500 </td>
-                        <td> Website </td>
-                        <td> Credit card </td>
-                        <td> 04 Dec 2019 </td>
-                        <td>
-                          <div className="badge badge-outline-success">Approved</div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
+        
         {/* <div className="row">
           <div className="col-md-6 col-xl-4 grid-margin stretch-card">
             <div className="card">
@@ -693,99 +381,10 @@ export class Dashboard extends Component {
             </div>
           </div>
         </div> */}
-        {/* <div className="row">
-          <div className="col-12">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Visitors by Countries</h4>
-                <div className="row">
-                  <div className="col-md-5">
-                    <div className="table-responsive">
-                      <table className="table">
-                        <tbody>
-                          <tr>
-                            <td>
-                              <i className="flag-icon flag-icon-us"></i>
-                            </td>
-                            <td>USA</td>
-                            <td className="text-right"> 1500 </td>
-                            <td className="text-right font-weight-medium"> 56.35% </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <i className="flag-icon flag-icon-de"></i>
-                            </td>
-                            <td>Germany</td>
-                            <td className="text-right"> 800 </td>
-                            <td className="text-right font-weight-medium"> 33.25% </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <i className="flag-icon flag-icon-au"></i>
-                            </td>
-                            <td>Australia</td>
-                            <td className="text-right"> 760 </td>
-                            <td className="text-right font-weight-medium"> 15.45% </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <i className="flag-icon flag-icon-gb"></i>
-                            </td>
-                            <td>United Kingdom</td>
-                            <td className="text-right"> 450 </td>
-                            <td className="text-right font-weight-medium"> 25.00% </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <i className="flag-icon flag-icon-ro"></i>
-                            </td>
-                            <td>Romania</td>
-                            <td className="text-right"> 620 </td>
-                            <td className="text-right font-weight-medium"> 10.25% </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <i className="flag-icon flag-icon-br"></i>
-                            </td>
-                            <td>Brasil</td>
-                            <td className="text-right"> 230 </td>
-                            <td className="text-right font-weight-medium"> 75.00% </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  <div className="col-md-7">
-                    <div id="audience-map" className="vector-map"></div>
-                    <VectorMap
-                    map={"world_mill"}
-                    backgroundColor="transparent" //change it to ocean blue: #0077be
-                    panOnDrag={true}
-                    containerClassName="dashboard-vector-map"
-                    focusOn= { {
-                      x: 0.5,
-                      y: 0.5,
-                      scale: 1,
-                      animate: true
-                    }}
-                    series={{
-                      regions: [{
-                        scale: ['#3d3c3c', '#f2f2f2'],
-                        normalizeFunction: 'polynomial',
-                        values: mapData
-                      }]
-                    }}
-                  />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
-
+        
       </div> 
-    );
-  }
+  );
+  
 }
 
 export default Dashboard;

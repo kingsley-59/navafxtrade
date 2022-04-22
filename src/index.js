@@ -12,10 +12,9 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <BrowserRouter>
-    {/* <AuthProvider>
+    <AuthProvider>
       <SiteRoutes />
-    </AuthProvider> */}
-    <SiteRoutes />
+    </AuthProvider>
   </BrowserRouter>
 , document.getElementById('root'));
 

@@ -19,16 +19,17 @@ const Navbar = () => {
     document.querySelector('.right-sidebar').classList.toggle('open');
   }
 
-  // useEffect(() => {
-  //   let encodedEmail = encodeURIComponent(currentUser?.email);
-  //   fetch(`/.netlify/functions/UserManager?userEmail=${encodedEmail}`)
-  //     .then(response => response.json())
-  //     .then((data) => {
-  //       let _data = data.body?.rows;
-  //       if (!_data) return false;
-  //       setFullName(_data.fullname);
-  //     })
-  // }, [])
+  useEffect(() => {
+    let encodedEmail = encodeURIComponent(currentUser?.email);
+    setFullName('Navafxtrade Admin')
+    // fetch(`/.netlify/functions/UserManager?userEmail=${encodedEmail}`)
+    //   .then(response => response.json())
+    //   .then((data) => {
+    //     let _data = data.body?.rows;
+    //     if (!_data) return false;
+    //     setFullName(_data.fullname);
+    //   })
+  }, [])
 
   const handleLogout = async (e) => {
     e.preventDefault()
