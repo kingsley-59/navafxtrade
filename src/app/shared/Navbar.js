@@ -20,6 +20,7 @@ const Navbar = () => {
   }
 
   useEffect(() => {
+    console.log(currentUser);
     let encodedEmail = encodeURIComponent(currentUser?.email);
     fetch(`/.netlify/functions/UserManager?userEmail=${encodedEmail}`)
       .then(response => response.json())

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Alert } from 'react-bootstrap';
+import { sendEmailVerification } from "firebase/auth";
 import { useAuth } from '../context/AuthProvider';
 import HelmetConfig from '../shared/Helmet';
 
@@ -11,7 +12,8 @@ export const Register = () => {
   const [country, setCountry] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [errMsg, setErrMsg] = useState('')
+  const [errMsg, setErrMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -67,7 +69,12 @@ export const Register = () => {
     try {
       setErrMsg('');
       signup(email, password)
-        .then((userCreds) => console.log(userCreds.user))
+        .then((userCreds) => {
+          console.log(userCreds.user)
+          sendEmailVerification(userCreds.user)
+            .then(() => setSuccessMsg('Verification mail sent. Please check your email.'))
+            .catch((error) => setErrMsg('Mail verification error'+error.message))
+        })
         .catch((error) => {
           setErrMsg(error.message);
           setLoading(false);
@@ -110,6 +117,7 @@ export const Register = () => {
             <div className="card-body">
               <h4 className="card-title text-center">Register </h4>
               {errMsg && <Alert variant={'danger'}>{errMsg}</Alert>}
+              {successMsg && <Alert variant={'success'}>{successMsg}</Alert>}
               <form className="forms-sample" onSubmit={handleSubmit}>
                 <Form.Group>
                   <label htmlFor="fullname">FullName</label>

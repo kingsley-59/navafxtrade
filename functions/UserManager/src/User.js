@@ -42,7 +42,7 @@ async function getAllUsers() {
         _data = {
             reqest: 'GET',
             status: 'success',
-            message: 'User successfully added to database',
+            message: 'Users successfully retrieved database',
             body: {rows}
         }
         return formattedResponse(200, _data);
@@ -66,7 +66,7 @@ async function getOneUser(email) {
         _data = {
             reqest: 'GET',
             status: 'success',
-            message: 'User successfully added to database',
+            message: 'User successfully retrieved database',
             body: {rows: rows[0]}
         }
         return formattedResponse(200, _data);

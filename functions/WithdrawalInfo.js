@@ -1,6 +1,6 @@
 
-const db = require("./Transactions/database");
-const formattedResponse = require('./Transactions/utils/formattedResponse');
+const db = require("./Transactions/src/database");
+const formattedResponse = require('./Transactions/src/utils/formattedResponse');
 
 exports.handler = async function(event, context) {
     

@@ -19,17 +19,20 @@ const Deposit = () => {
     const [imgUrl, setImgUrl] = useState('');
     const [progresspercent, setProgresspercent] = useState(0);
 
+    const [warningMsg, setWarningMsg] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const [successMsg, setSuccessMsg] = useState('');
     const [loading, setLoading] = useState(false);
     const [submitBtnText, setSubmitBtnText] = useState('Submit')
 
-    const { currentUser } = useAuth();
+    const { currentUser, emailVerified, verifyEmail } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
       document.title = 'Deposit - Dashboard';
       let email, encodedEmail;
+
+      if (!emailVerified) setWarningMsg('Email not verified! Please verify your email before you make transactions.')
 
       email = currentUser?.email;
       encodedEmail = encodeURIComponent(email);
@@ -45,6 +48,7 @@ const Deposit = () => {
         if (mode == '') return;
         
         setErrMsg('')
+        setSuccessMsg('')
         setLoading(false);
         setSubmitBtnText('Submit')
         let acctDetails = {
@@ -71,9 +75,14 @@ const Deposit = () => {
         return;
     }, [mode])
 
+    const handleEmailVerification = () => {
+      verifyEmail(currentUser)
+        .then(() => setWarningMsg('Verification email sent! Please check your email.'))
+    }
+
     const uploadImage = () => {
       try {
-        const storageRef = ref(storage, `images/${image.name + TxnId}`);
+        const storageRef = ref(storage, `images/${TxnId + image.name }`);
         const uploadTask = uploadBytes(storageRef, image).then((snapshot) => {
                               console.log(snapshot);
                               setSuccessMsg("File upload successful");
@@ -81,7 +90,7 @@ const Deposit = () => {
                               //   setImgUrl(downloadURL)
                               //   console.log(imgUrl)
                               // });
-                              if (errMsg !== '') sendDepositRequest();
+                              sendDepositRequest();
                             });
 
       
@@ -94,6 +103,7 @@ const Deposit = () => {
     }
 
     const sendDepositRequest = () => {
+      setSubmitBtnText('sending deposit...')
 
       const payload = {
         email: currentUser.email,
@@ -101,7 +111,7 @@ const Deposit = () => {
         amount: amount,
         type: 'deposit',
         paymentMode: mode,
-        proof: imgUrl ?? image.name + TxnId
+        proof: image.name + TxnId
       }
 
       const settings = {
@@ -116,6 +126,12 @@ const Deposit = () => {
         .then(response => response.json())
         .then((data) => {
           console.log(data);
+          if (data.status == 'error') {
+            setErrMsg(data.message);
+            setSubmitBtnText('submit');
+            setLoading(false);
+            return;
+          }
           setSubmitBtnText('Done.');
         })
         .catch(error => setErrMsg(error.message))
@@ -126,7 +142,12 @@ const Deposit = () => {
       setErrMsg('')
       setSuccessMsg('')
       setLoading(true);
-      setSubmitBtnText('sending...')
+      setSubmitBtnText('uploading image...')
+
+      if (!emailVerified) {
+        setSubmitBtnText('Cancelled')
+        return;
+      }
       
       if (!image) return;
       uploadImage();
@@ -136,6 +157,7 @@ const Deposit = () => {
 
     return (
     <div className="container">
+        {warningMsg && <Alert className='d-flex justify-content-between' variant={'warning'}>{warningMsg} <button className='btn btn-warning' onClick={handleEmailVerification} >Verify Email</button></Alert>}
         <div className="row">
           <div className="col-sm-4 grid-margin">
             <div className="card">

@@ -1,14 +1,14 @@
 
-const db = require('./database');
+const db = require('./src/database');
 const { 
     createTransaction, 
     getAllTransactions, 
     getOneTransaction, 
     updateTransaction, 
-    removeTransaction } = require('./transactions');
-const formattedResponse = require('./utils/formattedResponse');
+    removeTransaction } = require('./src/transactions');
+const formattedResponse = require('./src/utils/formattedResponse');
 
-exports.handler = async (event, context) => {
+exports.handler = async function(event, context) {
     console.log("Called!")
     
     switch (event.httpMethod) {
@@ -42,4 +42,8 @@ exports.handler = async (event, context) => {
             break;
     }
 
+    // return {
+    //     statusCode: 200,
+    //     body: JSON.stringify({message: 'Working.'})
+    // }
 }

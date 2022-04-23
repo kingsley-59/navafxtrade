@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
+  sendEmailVerification,
   onAuthStateChanged
  } from 'firebase/auth';
 import auth from "../Firebase";
@@ -12,6 +13,7 @@ export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [emailVerified, setEmailVerified] = useState(false);
   const [loading, setLoading] = useState(true);
 
   async function signup(email, password) {
@@ -40,9 +42,14 @@ export const AuthProvider = ({ children }) => {
     return updatePassword(currentUser, password)
   }
 
+  function verifyEmail(user){
+    return sendEmailVerification(user)
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user)
+      setEmailVerified(user.emailVerified)
       setLoading(false)
     })
 
@@ -51,11 +58,13 @@ export const AuthProvider = ({ children }) => {
 
   const value = {
     currentUser,
+    emailVerified,
     login,
     signup,
     logout,
     resetPassword,
     updateEmail,
+    verifyEmail,
     updatePassword
   }
 
