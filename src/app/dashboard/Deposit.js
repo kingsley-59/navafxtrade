@@ -3,7 +3,7 @@ import { Form, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthProvider';
 import { storage } from '../Firebase';
-import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes } from "firebase/storage";
 
 const Deposit = () => {
     const BankDetails = '';
@@ -16,8 +16,6 @@ const Deposit = () => {
     const [mode, setMode] = useState('');
     const [image, setImage] = useState();
 
-    const [imgUrl, setImgUrl] = useState('');
-    const [progresspercent, setProgresspercent] = useState(0);
 
     const [warningMsg, setWarningMsg] = useState('');
     const [errMsg, setErrMsg] = useState('');
@@ -59,7 +57,6 @@ const Deposit = () => {
         switch (mode) {
             case 'bank':
                 setAddress(acctDetails.bank)
-                //setErrMsg("Bank transfer is currently unsupported. Please try another option.");
                 setLoading(true);
                 break;
             case 'bitcoin':
@@ -86,10 +83,6 @@ const Deposit = () => {
         const uploadTask = uploadBytes(storageRef, image).then((snapshot) => {
                               console.log(snapshot);
                               setSuccessMsg("File upload successful");
-                              // getDownloadURL(snapshot.ref).then((downloadURL) => {
-                              //   setImgUrl(downloadURL)
-                              //   console.log(imgUrl)
-                              // });
                               sendDepositRequest();
                             });
 

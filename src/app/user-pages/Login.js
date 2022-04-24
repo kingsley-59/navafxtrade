@@ -1,13 +1,12 @@
-import React, { useRef, useState, useEffect, Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Alert } from 'react-bootstrap';
-import { Link, useNavigate, useLocation, Navigate } from 'react-router-dom';
-import auth from '../Firebase';
+import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthProvider';
 import HelmetConfig from '../shared/Helmet';
 
 
 const Login = () => {
-  const { currentUser, login } = useAuth();
+  const { currentUser, login, emailVerified, verifyEmail } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,46 +17,42 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
+  const [warningMsg, setWarningMsg] = useState('');
+
+  useEffect(() => {
+    if (!currentUser) return
+    if (!emailVerified) {
+      setWarningMsg(`Email ${currentUser?.email} not verified!`)
+    }
+
+  }, [])
 
   useEffect(() => {
     setErrMsg('');
+    setWarningMsg('');
   }, [email, password])
 
-  if (currentUser) {
+  if (currentUser && emailVerified) {
     return <Navigate to="/dashboard" />
+  }
+
+  const handleEmailVerification = () => {
+    verifyEmail(currentUser)
+      .then(() => setWarningMsg('Verification email sent! Please check your email.'))
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const payload = {name: "John Davis", email: "jdavis@gmail.com"};
-
-    let requestSettings = {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
-    }
-    // try {
-    //   let response = await fetch('/.netlify/functions/Hello', requestSettings)
-    //   let data = await response.json()
-    //   console.log(data);
-    //   setErrMsg('');
-    //   return true;
-    // } catch (error) {
-    //   console.log(error.message)
-    //   setErrMsg(error.message);
-    //   return false;
-    // }
-
     try {
       await login(email, password);
+      if (!emailVerified){
+        setWarningMsg(`Email ${currentUser?.email} not verified! `)
+        return;
+      }
       navigate(from, { replace: true });
     } catch (error) {
       setErrMsg(error.code);
-      alert(error.message);
     }
    
   }
@@ -73,6 +68,7 @@ const Login = () => {
                 <h4 className="card-title">Login form</h4>
                 {errMsg && <Alert variant={'danger'}>{errMsg}</Alert>}
                 <form className="forms-sample" onSubmit={handleSubmit}>
+                {warningMsg && <Alert className='d-flex justify-content-between text-small' variant={'warning'}>{warningMsg} <button className='btn btn-small btn-warning' onClick={handleEmailVerification} >Verify Email</button></Alert>}
                   <Form.Group className="mb-3">
                     <label htmlFor="exampleInputEmail1">Email address</label>
                     <Form.Control type="email" className="form-control" onChange={(e) => setEmail(e.target.value)} id="exampleInputEmail1" placeholder="Email" />

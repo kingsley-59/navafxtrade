@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Alert } from 'react-bootstrap';
 import { sendEmailVerification } from "firebase/auth";
-import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
+import { CountryDropdown } from 'react-country-region-selector';
 import { useAuth } from '../context/AuthProvider';
 import HelmetConfig from '../shared/Helmet';
 
@@ -88,7 +88,7 @@ export const Register = () => {
         .then((data) => {
           console.log(data);
           resetForm();
-          navigate('/dashboard');
+          navigate('/login');
           return true;
         })
         .catch((error) => {

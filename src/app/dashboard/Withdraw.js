@@ -2,8 +2,6 @@ import React, {useEffect, useState} from 'react';
 import { Form, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthProvider';
-import { storage } from '../Firebase';
-import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 
 const Deposit = () => {
     const BankDetails = '0987654321';

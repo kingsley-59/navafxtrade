@@ -1,5 +1,5 @@
 import React, {lazy, Suspense, Component} from 'react';
-import { Outlet, Route, Routes, Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import App from './App';
 import Login from './user-pages/Login';
 import Register from './user-pages/Register';
@@ -15,7 +15,7 @@ const Deposit = lazy(() => import('./dashboard/Deposit'));
 const WithdrawalInfo = lazy(() => import('./dashboard/WithdrawalInfo'));
 const Packages = lazy(() => import('./dashboard/Packages'));
 const Withdraw = lazy(() => import('./dashboard/Withdraw'));
-const Error404 = lazy(() => import('./error-pages/Error404'));
+//const Error404 = lazy(() => import('./error-pages/Error404'));
 
 const Mdi = lazy(() => import('./icons/Mdi'));
 const BasicElements = lazy(() => import('./form-elements/BasicElements'));
