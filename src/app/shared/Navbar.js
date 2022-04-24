@@ -69,7 +69,7 @@ const Navbar = () => {
           </Dropdown>
           <li className="nav-item d-none d-lg-block">
             <a className="nav-link" href="!#" onClick={event => event.preventDefault()}>
-              <i className="mdi mdi-view-grid"></i>
+              <Trans>Upload KYC </Trans><i className="mdi mdi-view-grid"></i>
             </a>
           </li>
           

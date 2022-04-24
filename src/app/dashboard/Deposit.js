@@ -6,7 +6,7 @@ import { storage } from '../Firebase';
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 
 const Deposit = () => {
-    const BankDetails = '0987654321';
+    const BankDetails = '';
     const BtcAddress = '0xbtcjkjf82499j9Jjf9455678FFGTY557dgf76RF7';
     const EthAddress = '0xethsjkjfjhdjksfjBkGH68BH8FFGTY557dgf76RF7';
     const TxnId = Date.now();
@@ -58,8 +58,8 @@ const Deposit = () => {
         }
         switch (mode) {
             case 'bank':
-                //setAddress(acctDetails.bank)
-                setErrMsg("Bank transfer is currently unsupported. Please try another option.");
+                setAddress(acctDetails.bank)
+                //setErrMsg("Bank transfer is currently unsupported. Please try another option.");
                 setLoading(true);
                 break;
             case 'bitcoin':
@@ -243,7 +243,7 @@ const Deposit = () => {
                             </Form.Group>
                             <Form.Group className='mb-3'>
                                 <label htmlFor="address">Account No./Address</label>
-                                <input type="text" name="" value={address} id="address" className="form-control" disabled required/>
+                                <input type="text" name="" value={address} id="address" className="form-control" disabled />
                             </Form.Group>
                         </div>
                         <div className="col-md-6 grid-margin">

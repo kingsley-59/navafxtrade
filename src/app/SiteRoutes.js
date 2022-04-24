@@ -14,6 +14,7 @@ const ContactSupport = lazy(() => import('./dashboard/ContactSupport'));
 const Deposit = lazy(() => import('./dashboard/Deposit'));
 const WithdrawalInfo = lazy(() => import('./dashboard/WithdrawalInfo'));
 const Packages = lazy(() => import('./dashboard/Packages'));
+const Withdraw = lazy(() => import('./dashboard/Withdraw'));
 const Error404 = lazy(() => import('./error-pages/Error404'));
 
 const Mdi = lazy(() => import('./icons/Mdi'));
@@ -38,6 +39,7 @@ class SiteRoutes extends Component {
                 <Route path="deposit" element={<Deposit />} />
                 <Route path="withdrawalinfo" element={<WithdrawalInfo />} />
                 <Route path="packages" element={<Packages />} />
+                <Route path='withdraw' element={<Withdraw />} />
 
                 <Route path="icons/mdi" element={ <Mdi /> } />
                 <Route path="form-Elements/basic-elements" component={ BasicElements } />

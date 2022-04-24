@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Alert } from 'react-bootstrap';
 import { sendEmailVerification } from "firebase/auth";
+import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 import { useAuth } from '../context/AuthProvider';
 import HelmetConfig from '../shared/Helmet';
 
@@ -133,7 +134,7 @@ export const Register = () => {
                 </Form.Group>
                 <Form.Group>
                   <label htmlFor="country">Country</label>
-                  <Form.Control type="text" value={country} onChange={(e) => {setCountry(e.target.value)}} placeholder="country" required/>
+                  <CountryDropdown className='form-control' value={country} onChange={(val) => {setCountry(val)}} />
                 </Form.Group>
                 <Form.Group>
                   <label htmlFor="password">Password</label>

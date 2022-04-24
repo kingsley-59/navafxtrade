@@ -152,8 +152,8 @@ class Sidebar extends Component {
               <span className="menu-title"><Trans>Deposit Funds</Trans></span>
             </Link>
           </li>
-          <li className={ this.isPathActive('/dashboard') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
-            <Link className="nav-link" to="/dashboard">
+          <li className={ this.isPathActive('/withdraw') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
+            <Link className="nav-link" to="/withdraw">
               <span className="menu-icon"><i className="mdi mdi-download text-danger"></i></span>
               <span className="menu-title"><Trans>Widthdraw Funds</Trans></span>
             </Link>
