@@ -6,7 +6,7 @@ import HelmetConfig from '../shared/Helmet';
 
 
 const Login = () => {
-  const { currentUser, login, emailVerified, verifyEmail } = useAuth();
+  const { currentUser, login, logout, emailVerified, verifyEmail } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -57,6 +57,18 @@ const Login = () => {
    
   }
 
+  const handleLogout = async (e) => {
+    e.preventDefault();
+
+    try {
+      await logout();
+      navigate('/register');
+    } catch (error) {
+      setErrMsg(error.message);
+      console.log(error.message);
+    }
+  }
+
   return (
     <div>
       <HelmetConfig title="NavafxTrade Login" description="" keywords={[]} />
@@ -90,6 +102,7 @@ const Login = () => {
                 </form>
               </div>
               <p className="text-center">Don't have an account? <a href="/register">Register</a></p>
+              { currentUser && <p className="text-center">Want to register with another email? <a href="#" onClick={handleLogout}>Logout</a></p>}
             </div>
             </div>
           </div>
