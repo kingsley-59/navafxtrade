@@ -13,6 +13,9 @@ body, select, input, textarea, button, h1, h2, h3, h4, h5, h6, p {
 .btn {
     padding: 6px 10px !important;
 }
+.bg-darkblue {
+    background-color: #000850;
+}
 
 .header-cta-btn {
     padding: 12px 20px;
@@ -26,7 +29,7 @@ body, select, input, textarea, button, h1, h2, h3, h4, h5, h6, p {
     width: 100%;
     height: auto;
     min-height: 50vh;
-    background-image: url(../images/broker_slide_man_a-1024x410.jpg);
+    background-image: url(../images/pexels-ivan-babydov-7788006.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -67,4 +70,8 @@ body, select, input, textarea, button, h1, h2, h3, h4, h5, h6, p {
     min-height: 20vh;
     display: flex;
     align-items: center;
+}
+
+.section-card {
+    border-radius: 20px;
 }

@@ -17,7 +17,7 @@
     </div>
 
     <header>
-        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-darkblue">
             <div class="container-fluid px-5">
               <!-- navbar brand text or logo -->
               <a class="navbar-brand h1" href="#">Navafx</a>
@@ -28,35 +28,42 @@
               <!-- collapsible part of the navbar -->
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto my-2 mb-lg-0">
-                    <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <li class="nav-item mx-lg-3">
+                      <a class="nav-link active" aria-current="page" href="/">HOME</a>
                     </li>
-                    <li class="nav-item dropdown">
-                      <a class="nav-link" aria-current="page" href="/services.html">Services</a>
+                    <li class="nav-item dropdown mx-lg-3">
+                      <a class="nav-link" aria-current="page" href="/services.html">SERVICES</a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="/about-us.html">About Us</a>
-                    </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown mx-lg-3">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Markets
+                          MARKETS
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                          <li><a class="dropdown-item" href="#">Stock</a></li>
-                          <li><a class="dropdown-item" href="#">Forex</a></li>
-                          <li><a class="dropdown-item" href="#">Shares</a></li>
-                          <li><a class="dropdown-item" href="#">Indices</a></li>
-                          <li><a class="dropdown-item" href="#">Bonds</a></li>
+                          <li><a class="dropdown-item" href="/markets.html">Market Range</a></li>
+                          <li><a class="dropdown-item" href="/markets.html#stocks">Stock</a></li>
+                          <li><a class="dropdown-item" href="/markets.html#forex">Forex</a></li>
+                          <li><a class="dropdown-item" href="/markets.html#indices">Indices</a></li>
+                          <li><a class="dropdown-item" href="/markets.html#shares">Shares</a></li>
+                          <li><a class="dropdown-item" href="/markets.html#precious-metals">Precious Metals</a></li>
+                          <li><a class="dropdown-item" href="/markets.html#soft-commodities">Soft Commodities</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="http://app.navafxtrade.com">Trading Charts</a>
+                    <li class="nav-item dropdown mx-lg-3">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          TRADING CHARTS
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          <li><a class="dropdown-item" href="/tradingcharts.html">Trading Chart</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="/contact.html">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Testimonials</a>
+                    <li class="nav-item dropdown mx-lg-3">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          COMPANY
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          <li><a class="dropdown-item" href="/about-us.html">About us</a></li>
+                          <li><a class="dropdown-item" href="/contact.html">Contact us</a></li>
+                        </ul>
                     </li>
                 </ul>
                 <div class="text-center">
@@ -71,12 +78,7 @@
         <div class="bg-overlay-white" >
             <div class="container">
                 <div class="row p-4 justify-content-around align-items-center">
-                    <div class="col-sm-8 col-md-6">
-                        <h1>About Us</h1>
-                    </div>
-                    <div class="col-sm-8 col-md-6">
-                        <button class="btn btn-success btn-lg text-white">Get in touch</button>
-                    </div>
+                    <h1>About Us</h1>
                 </div>
             </div>
         </div>
@@ -195,7 +197,7 @@
         </div>
     </section>
 
-    <footer class="site-section bg-dark">
+    <footer class="site-section border-top">
         <div class="container text-white">
             <div class="row">
                 <div class="col-lg-3 col-md-12">
@@ -210,28 +212,28 @@
                     <h3>Explore</h3>
                     <table class="table table-borderless text-secondary ">
                         <tr>
-                            <td>Home</td>
-                            <td>Bonds</td>
+                            <td><a href="/" class="text-dark text-decoration-none">Home</a></td>
+                            <td><a href="/markets.html#stocks" class="text-dark text-decoration-none">Stock</a></td>
                         </tr>
                         <tr>
-                            <td>About Us</td>
-                            <td>Commodities</td>
+                            <td><a href="/about-us.html" class="text-dark text-decoration-none">About Us</a></td>
+                            <td><a href="/markets.html#forex" class="text-dark text-decoration-none">Forex</a></td>
                         </tr>
                         <tr>
-                            <td>Services</td>
-                            <td>Investments</td>
+                            <td><a href="/services.html" class="text-dark text-decoration-none">Services</a></td>
+                            <td><a href="/markets.html#indices" class="text-dark text-decoration-none">Indices</a></td>
                         </tr>
                         <tr>
-                            <td>Testimonials</td>
-                            <td>Retirement</td>
+                            <td><a href="/markets.html" class="text-dark text-decoration-none">Markets</a></td>
+                            <td><a href="/markets.html#shares" class="text-dark text-decoration-none">Shares</a></td>
                         </tr>
                         <tr>
-                            <td>News</td>
-                            <td>Stocks</td>
+                            <td><a href="/tradingcharts.html" class="text-dark text-decoration-none">Charts</a></td>
+                            <td><a href="/markets.html#precious-metals" class="text-dark text-decoration-none">Precious Metals</a></td>
                         </tr>
                         <tr>
-                            <td>Contact Us</td>
-                            <td>Trades</td>
+                            <td><a href="/contact.html" class="text-dark text-decoration-none">Contact Us</a></td>
+                            <td><a href="/markets.html#soft-commodities" class="text-dark text-decoration-none">Soft Commodities</a></td>
                         </tr>
                     </table>
                 </div>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avafx - A broker you can trust</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="pre-header">
+
+    </div>
+
+    <header>
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-darkblue">
+            <div class="container-fluid px-5">
+              <!-- navbar brand text or logo -->
+              <a class="navbar-brand h1" href="#">Navafx</a>
+              <!-- button to be used when navbar collapse -->
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <!-- collapsible part of the navbar -->
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto my-2 mb-lg-0">
+                    <li class="nav-item mx-lg-3">
+                      <a class="nav-link active" aria-current="page" href="/">HOME</a>
+                    </li>
+                    <li class="nav-item dropdown mx-lg-3">
+                      <a class="nav-link" aria-current="page" href="/services.html">SERVICES</a>
+                    </li>
+                    <li class="nav-item dropdown mx-lg-3">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          MARKETS
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          <li><a class="dropdown-item" href="/markets.html">Market Range</a></li>
+                          <li><a class="dropdown-item" href="/markets.html#stocks">Stock</a></li>
+                          <li><a class="dropdown-item" href="/markets.html#forex">Forex</a></li>
+                          <li><a class="dropdown-item" href="/markets.html#indices">Indices</a></li>
+                          <li><a class="dropdown-item" href="/markets.html#shares">Shares</a></li>
+                          <li><a class="dropdown-item" href="/markets.html#precious-metals">Precious Metals</a></li>
+                          <li><a class="dropdown-item" href="/markets.html#soft-commodities">Soft Commodities</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown mx-lg-3">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          TRADING CHARTS
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          <li><a class="dropdown-item" href="/tradingcharts.html">Trading Chart</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown mx-lg-3">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          COMPANY
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          <li><a class="dropdown-item" href="/about-us.html">About us</a></li>
+                          <li><a class="dropdown-item" href="/contact.html">Contact us</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="text-center">
+                    <a href="http://app.navafxtrade.com" class="header-cta-btn bg-primary shadow" >Get started</a>
+                </div>
+              </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="site-banner-mini bg-secondary">
+        <div class="bg-overlay-white" >
+            <div class="container">
+                <div class="row p-4 justify-content-around align-items-center">
+                    <h1>Markets</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="site-section">
+        <div class="row align-items-center p-5" id="stocks">
+            <div class="col-lg-7 col-md-6 col-sm-12">
+                <div class="w-25 mb-3">
+                    <img src="./images/icon-forex-blue.png" alt="icon forex blue" width="30%">
+                </div>
+                <div class="mb-4">
+                    <h1 class="fw-bolder text-secondary">Stocks</h1>
+                </div>
+                <div class="h5 mb-4 lh-lg text-secondary ">
+                    When a trader opens a new CFD trade on stocks, the broker opens an identical trade in the 
+                    underlying stock, which acts as a hedge for the broker. For example, if the client has a 
+                    long EUR/USD or gold CFD position, the broker owns the corresponding short position, as 
+                    well as a long position in the stock.
+                </div>
+                <a href="#" class="btn btn-primary test-white text-decoration-none p-5">
+                    <small class="m-5 fw-bolder">Details </small>
+                </a>
+            </div>
+            <div class="col-lg-5 col-md-6 col-sm-12">
+                <div class="section-card shadow m-3 py-5">
+                    <ul style="list-style-type: none;">
+                        <li class="d-flex justify-content-start align-items-center mb-3">
+                            <img src="./images/check-icon.png" alt="" width="7%" height="auto">
+                            <span class="text-small fw-bolder mx-3">Spreads as low as 0.339</span>
+                        </li>
+                        <li class="d-flex justify-content-start align-items-center mb-3">
+                            <img src="./images/check-icon.png" alt="" width="7%" height="auto">
+                            <span class="text-small fw-bolder mx-3">Min/Max Trade Size 2/444</span>
+                        </li>
+                        <li class="d-flex justify-content-start align-items-center mb-3">
+                            <img src="./images/check-icon.png" alt="" width="7%" height="auto">
+                            <span class="text-small fw-bolder mx-3">Minimum Price Fluctuation 0.0010</span>
+                        </li>
+                        <li class="d-flex justify-content-start align-items-center mb-3">
+                            <img src="./images/check-icon.png" alt="" width="7%" height="auto">
+                            <span class="text-small fw-bolder mx-3">Limit and Stop levels (25)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center p-5" id="forex">
+            <div class="col-lg-7 col-md-6 col-sm-12">
+                <div class="w-25 mb-3">
+                    <img src="./images/icon-forex-blue.png" alt="icon forex blue" width="30%">
+                </div>
+                <div class="mb-4">
+                    <h1 class="fw-bolder text-secondary">Forex</h1>
+                </div>
+                <div class="h5 mb-4 lh-lg text-secondary ">
+                    The Foreign Exchange market is the largest and most liquid market in the world with a daily trade volume of over $6.5 trillion dollars. <br/>
+                    It is also the market that caters to all traders no matter which part of the world you may live in as it’s open 24 hours a day, 5 days a week.
+                </div>
+                <a href="#" class="btn btn-primary test-white text-decoration-none p-5">
+                    <small class="m-5 fw-bolder">Details </small>
+                </a>
+            </div>
+            <div class="col-lg-5 col-md-6 col-sm-12">
+                <div class="section-card shadow m-3 py-5">
+                    <ul style="list-style-type: none;">
+                        <li class="d-flex justify-content-start align-items-center mb-3">
+                            <img src="./images/check-icon.png" alt="" width="7%" height="auto">
+                            <span class="text-small fw-bolder mx-3">60 currency pairs</span>
+                        </li>
+                        <li class="d-flex justify-content-start align-items-center mb-3">
+                            <img src="./images/check-icon.png" alt="" width="7%" height="auto">
+                            <span class="text-small fw-bolder mx-3">Up to 1:500 leverage</span>
+                        </li>
+                        <li class="d-flex justify-content-start align-items-center mb-3">
+                            <img src="./images/check-icon.png" alt="" width="7%" height="auto">
+                            <span class="text-small fw-bolder mx-3">Tight spreads from 0.0 pips</span>
+                        </li>
+                        <li class="d-flex justify-content-start align-items-center mb-3">
+                            <img src="./images/check-icon.png" alt="" width="7%" height="auto">
+                            <span class="text-small fw-bolder mx-3">Deep liquidity</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center p-5" id="indices">
+            <div class="col-lg-7 col-md-6 col-sm-12">
+                <div class="w-25 mb-3">
+                    <img src="./images/icon-forex-blue.png" alt="icon forex blue" width="30%">
+                </div>
+                <div class="mb-4">
+                    <h1 class="fw-bolder text-secondary">Indices</h1>
+                </div>
+                <div class="h5 mb-4 lh-lg text-secondary ">
+                    Did you know that trading indices can get you exposure to a country’s stock market performance? <br/>
+                    Trade CFDs on indices and speculate on the performance of the various stock markets around the world.
+                </div>
+                <a href="#" class="btn btn-primary test-white text-decoration-none p-5">
+                    <small class="m-5 fw-bolder">Details </small>
+                </a>
+            </div>
+            <div class="col-lg-5 col-md-6 col-sm-12">
+                <div class="section-card shadow m-3 py-5">
+                    <ul style="list-style-type: none;">
+                        <li class="d-flex justify-content-start align-items-center mb-3">
+                            <img src="./images/check-icon.png" alt="" width="7%" height="auto">
+                            <span class="text-small fw-bolder mx-3">15+ global indices</span>
+                        </li>
+                        <li class="d-flex justify-content-start align-items-center mb-3">
+                            <img src="./images/check-icon.png" alt="" width="7%" height="auto">
+                            <span class="text-small fw-bolder mx-3">Up to 1:200 leverage</span>
+                        </li>
+                        <li class="d-flex justify-content-start align-items-center mb-3">
+                            <img src="./images/check-icon.png" alt="" width="7%" height="auto">
+                            <span class="text-small fw-bolder mx-3">No commissions</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center p-5" id="shares">
+            <div class="col-lg-7 col-md-6 col-sm-12">
+                <div class="w-25 mb-3">
+                    <img src="./images/icon-forex-blue.png" alt="icon forex blue" width="30%">
+                </div>
+                <div class="mb-4">
+                    <h1 class="fw-bolder text-secondary">Shares</h1>
+                </div>
+                <div class="h5 mb-4 lh-lg text-secondary ">
+                    Get access to over 15,000 shares across the world's largest markets. One of the biggest 
+                    benefits of trading CFDs on shares is that you’ll be able to gain full exposure to 
+                    the movement of stock prices with a small initial deposit.
+                </div>
+                <a href="#" class="btn btn-primary test-white text-decoration-none p-5">
+                    <small class="m-5 fw-bolder">Details </small>
+                </a>
+            </div>
+            <div class="col-lg-5 col-md-6 col-sm-12">
+                <div class="section-card shadow m-3 py-5">
+                    <ul style="list-style-type: none;">
+                        <li class="d-flex justify-content-start align-items-center mb-3">
+                            <img src="./images/check-icon.png" alt="" width="7%" height="auto">
+                            <span class="text-small fw-bolder mx-3">15,000+ global stocks</span>
+                        </li>
+                        <li class="d-flex justify-content-start align-items-center mb-3">
+                            <img src="./images/check-icon.png" alt="" width="7%" height="auto">
+                            <span class="text-small fw-bolder mx-3">Earn dividends on your stocks</span>
+                        </li>
+                        <li class="d-flex justify-content-start align-items-center mb-3">
+                            <img src="./images/check-icon.png" alt="" width="7%" height="auto">
+                            <span class="text-small fw-bolder mx-3">Trade on MT5 and IRESS</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center p-5" id="precious-metals">
+            <div class="col-lg-7 col-md-6 col-sm-12">
+                <div class="w-25 mb-3">
+                    <img src="./images/icon-forex-blue.png" alt="icon forex blue" width="30%">
+                </div>
+                <div class="mb-4">
+                    <h1 class="fw-bolder text-secondary">Precious Metals</h1>
+                </div>
+                <div class="h5 mb-4 lh-lg text-secondary ">
+                    Trading precious metals are one of the most popular ways to diversify your portfolio. 
+                    Precious metals are often considered ‘safe-haven’ assets which rise in appeal in 
+                    uncertain and volatile environments.
+                </div>
+                <a href="#" class="btn btn-primary test-white text-decoration-none p-5">
+                    <small class="m-5 fw-bolder">Details </small>
+                </a>
+            </div>
+            <div class="col-lg-5 col-md-6 col-sm-12">
+                <div class="section-card shadow m-3 py-5">
+                    <ul style="list-style-type: none;">
+                        <li class="d-flex justify-content-start align-items-center mb-3">
+                            <img src="./images/check-icon.png" alt="" width="7%" height="auto">
+                            <span class="text-small fw-bolder mx-3">Gold, Silver and Platinum</span>
+                        </li>
+                        <li class="d-flex justify-content-start align-items-center mb-3">
+                            <img src="./images/check-icon.png" alt="" width="7%" height="auto">
+                            <span class="text-small fw-bolder mx-3">Up to 1:400 leverage</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center p-5" id="soft-commodities">
+            <div class="col-lg-7 col-md-6 col-sm-12">
+                <div class="w-25 mb-3">
+                    <img src="./images/icon-forex-blue.png" alt="icon forex blue" width="30%">
+                </div>
+                <div class="mb-4">
+                    <h1 class="fw-bolder text-secondary">Soft Commodities</h1>
+                </div>
+                <div class="h5 mb-4 lh-lg text-secondary ">
+                    Soft commodities are made up of perishable products and generally refer to those 
+                    that are grown rather than mined. Some of the most popular soft commodities include 
+                    Cocoa, Coffee, Cotton, Orange Juice and Sugar.
+                </div>
+                <a href="#" class="btn btn-primary test-white text-decoration-none p-5">
+                    <small class="m-5 fw-bolder">Details </small>
+                </a>
+            </div>
+            <div class="col-lg-5 col-md-6 col-sm-12">
+                <div class="section-card shadow m-3 py-5">
+                    <ul style="list-style-type: none;">
+                        <li class="d-flex justify-content-start align-items-center mb-3">
+                            <img src="./images/check-icon.png" alt="" width="7%" height="auto">
+                            <span class="text-small fw-bolder mx-3">CFDs on futures</span>
+                        </li>
+                        <li class="d-flex justify-content-start align-items-center mb-3">
+                            <img src="./images/check-icon.png" alt="" width="7%" height="auto">
+                            <span class="text-small fw-bolder mx-3">Up to 1:50 leverage</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <section class="px-5"><hr></section> -->
+    
+
+    <footer class="site-section border-top">
+        <div class="container text-white">
+            <div class="row">
+                <div class="col-lg-3 col-md-12">
+                    <h2>AvaFx</h2>
+                    <p class="text-secondary">
+                        We provide expert financial advice to both individuals and businesses. With over 20 years of 
+                        experience we’ll ensure that you’re always getting the best guidance from the top people 
+                        in the entire industry.
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-12">
+                    <h3>Explore</h3>
+                    <table class="table table-borderless text-secondary ">
+                        <tr>
+                            <td><a href="/" class="text-dark text-decoration-none">Home</a></td>
+                            <td><a href="/markets.html#stocks" class="text-dark text-decoration-none">Stock</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="/about-us.html" class="text-dark text-decoration-none">About Us</a></td>
+                            <td><a href="/markets.html#forex" class="text-dark text-decoration-none">Forex</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="/services.html" class="text-dark text-decoration-none">Services</a></td>
+                            <td><a href="/markets.html#indices" class="text-dark text-decoration-none">Indices</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="/markets.html" class="text-dark text-decoration-none">Markets</a></td>
+                            <td><a href="/markets.html#shares" class="text-dark text-decoration-none">Shares</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="/tradingcharts.html" class="text-dark text-decoration-none">Charts</a></td>
+                            <td><a href="/markets.html#precious-metals" class="text-dark text-decoration-none">Precious Metals</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="/contact.html" class="text-dark text-decoration-none">Contact Us</a></td>
+                            <td><a href="/markets.html#soft-commodities" class="text-dark text-decoration-none">Soft Commodities</a></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-lg-3 col-md-12">
+                    <h3 class="">Recent News</h3>
+                    <p class="text-secondary">
+                        <a href="#" class="text-secondary text-decoration-none">Making Cents of Online Investment Services – Which is Best?</a><br>
+                        <span>7 February 2019</span>
+                    </p>
+                    <hr>
+                    <p class="text-secondary">
+                        <a href="#" class="text-secondary text-decoration-none">Easy way into the global stock market.</a><br>
+                        <span>7 February 2019</span>
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3 class="">Newsletter</h3>
+                    <form action="#">
+                        <div class="form-group mb-3">
+                            <input type="email" name="email" id="newsletter_email" class="form-control" placeholder="your email address" required>
+                        </div>
+                        <div class="form-group text-center">
+                            <input type="submit" value="Sign Up" class="btn btn-primary form-control">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row justify-content-between text-secondary">
+                <div class="col-lg-5 col-md-6 col-sm-12 mt-3 mb-3">
+                    <div class="d-flex justify-content-evenly">
+                        <a href="#" class="text-secondary text-decoration-none"><i class="bi bi-facebook"></i>Facebook</a>
+                        <a href="#" class="text-secondary text-decoration-none"><i class="bi bi-twitter"></i>Twitter</a>
+                        <a href="#" class="text-secondary text-decoration-none"><i class="bi bi-linkedin"></i>LinkedIn</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-12 mb-3">
+                    <div class="d-flex justify-content-evenly">
+                        <span>Legal</span>
+                        <span>Sitemap</span>
+                        <span>Privacy Policy</span>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center text-secondary fw-light">
+                <span class="text-secondary">Copywright &copy; 2022. All rights reserved</span>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    <script src="js/index.js"></script>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/62508c057b967b1179897e22/1g05a5tdl';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+        })();
+        </script>
+        <!--End of Tawk.to Script-->
+</body>
+</html>
