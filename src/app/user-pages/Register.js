@@ -5,6 +5,7 @@ import { sendEmailVerification } from "firebase/auth";
 import { CountryDropdown } from 'react-country-region-selector';
 import { useAuth } from '../context/AuthProvider';
 import HelmetConfig from '../shared/Helmet';
+import auth from "../Firebase";
 
 export const Register = () => {
   const [fullName, setFullName] = useState('');
@@ -18,7 +19,7 @@ export const Register = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const { currentUser, signup } = useAuth();
+  const { currentUser, signup, logout } = useAuth();
 
   useEffect(() => {
     let _email = currentUser?.email;
@@ -50,6 +51,7 @@ export const Register = () => {
     }
 
     async function postData (data) {
+      await logout(auth)
       let url = '/.netlify/functions/UserManager';
       let settings = {
         method: 'POST',
@@ -74,7 +76,7 @@ export const Register = () => {
         .then((userCreds) => {
           console.log(userCreds.user)
           sendEmailVerification(userCreds.user)
-            .then(() => setSuccessMsg('Verification mail sent. Please check your email.'))
+            .then(() => setSuccessMsg('Verification mail sent. Please verify your email to login.'))
             .catch((error) => setErrMsg('Mail verification error'+error.message))
         })
         .catch((error) => {
@@ -89,6 +91,7 @@ export const Register = () => {
         .then((data) => {
           console.log(data);
           resetForm();
+          
           setTimeout(() => {navigate('/login') }, 5000);
           return true;
         })
