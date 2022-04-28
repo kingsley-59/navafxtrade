@@ -31,7 +31,8 @@ export const Register = () => {
     setLoading(true);
 
     if(password !== confirmPassword) {
-      setErrMsg('Passwords do not match!'); 
+      setErrMsg('Passwords do not match!');
+      setLoading(false);
       return false;
     }
 
@@ -88,7 +89,7 @@ export const Register = () => {
         .then((data) => {
           console.log(data);
           resetForm();
-          navigate('/login');
+          setTimeout(() => {navigate('/login') }, 5000);
           return true;
         })
         .catch((error) => {
