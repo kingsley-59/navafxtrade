@@ -22,7 +22,7 @@ const Deposit = () => {
     const [successMsg, setSuccessMsg] = useState('');
     const [loading, setLoading] = useState(false);
     const [submitBtnText, setSubmitBtnText] = useState('Submit');
-    const [copyBtnText, setCopyBtnText] = useState(copy);
+    const [copyBtnText, setCopyBtnText] = useState('Copy');
 
     const { currentUser, emailVerified, verifyEmail } = useAuth();
     const navigate = useNavigate();
