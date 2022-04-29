@@ -21,7 +21,8 @@ const Deposit = () => {
     const [errMsg, setErrMsg] = useState('');
     const [successMsg, setSuccessMsg] = useState('');
     const [loading, setLoading] = useState(false);
-    const [submitBtnText, setSubmitBtnText] = useState('Submit')
+    const [submitBtnText, setSubmitBtnText] = useState('Submit');
+    const [copyBtnText, setCopyBtnText] = useState(copy);
 
     const { currentUser, emailVerified, verifyEmail } = useAuth();
     const navigate = useNavigate();
@@ -71,6 +72,14 @@ const Deposit = () => {
         }
         return;
     }, [mode])
+
+    const copyText = () => {
+      navigator.clipboard.writeText(address);
+      setCopyBtnText('Copied!')
+      setTimeout(() => {
+        setCopyBtnText('Copy')
+      }, 6000);
+    }
 
     const handleEmailVerification = () => {
       verifyEmail(currentUser)
@@ -236,7 +245,10 @@ const Deposit = () => {
                             </Form.Group>
                             <Form.Group className='mb-3'>
                                 <label htmlFor="address">Account No./Address</label>
-                                <input type="text" name="" value={address} id="address" className="form-control" disabled />
+                                <div className='input-group'>
+                                  <input type="text" name="" value={address} id="address" className="form-control" disabled />
+                                  <button class="btn btn-outline-secondary text-success" onClick={copyText} >{ copyBtnText }</button>
+                                </div>
                             </Form.Group>
                         </div>
                         <div className="col-md-6 grid-margin">

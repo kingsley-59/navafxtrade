@@ -76,7 +76,7 @@ export const Register = () => {
         .then((userCreds) => {
           console.log(userCreds.user)
           sendEmailVerification(userCreds.user)
-            .then(() => setSuccessMsg('Verification mail sent. Please verify your email to login.'))
+            .then(() => setSuccessMsg('Verification mail sent. Please verify your email to login. Redirecting to login page...'))
             .catch((error) => setErrMsg('Mail verification error'+error.message))
         })
         .catch((error) => {
@@ -92,7 +92,7 @@ export const Register = () => {
           console.log(data);
           resetForm();
           
-          setTimeout(() => {navigate('/login') }, 5000);
+          setTimeout(() => {navigate('/login') }, 6000);
           return true;
         })
         .catch((error) => {
