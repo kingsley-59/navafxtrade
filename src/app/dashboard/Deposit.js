@@ -113,7 +113,7 @@ const Deposit = () => {
         amount: amount,
         type: 'deposit',
         paymentMode: mode,
-        proof: image.name + TxnId
+        proof: image ? image.name + TxnId : null
       }
 
       const settings = {
@@ -144,14 +144,18 @@ const Deposit = () => {
       setErrMsg('')
       setSuccessMsg('')
       setLoading(true);
-      setSubmitBtnText('uploading image...')
+      setSubmitBtnText('processing...')
 
       if (!emailVerified) {
         setSubmitBtnText('Cancelled')
         return;
       }
       
-      if (!image) return;
+      if (!image) {
+        sendDepositRequest();
+        return;
+      }
+
       uploadImage();
       
     }
@@ -228,6 +232,9 @@ const Deposit = () => {
                         <h2 className='text-center'>Deposit Funds</h2>
                         {errMsg && <Alert variant={'danger'}>{errMsg}</Alert>}
                         {successMsg && <Alert variant={'success'}>{successMsg}</Alert>}
+                        <div className="info-msg mb-3">
+                          { amount && `You are to make payment of $${amount} using your preferred mode of payment below. Screenshot the proof of payment`}
+                        </div>
                         <div className="row">
                         <div className="col-md-6 grid-margin">
                             <Form.Group className='mb-3'>
@@ -258,7 +265,7 @@ const Deposit = () => {
                                     <Form.Control type="file" onChange={(e) => {setImage(e.target.files[0])}} className="form-control" id="customFileLang" lang="es" hidden />
                                     <div className="container w-100 border border-sm rounded">
                                         <div className="d-flex flex-column justify-content-center align-items-center" style={{minHeight: 170}}>
-                                            <h3 className="text-secondary"> { image?.name ?? 'Drag and drop file' } </h3>
+                                            <h3 className="text-secondary"> { image?.name ?? 'Upload proof of payment' } </h3>
                                             <label className="custom-file-label" htmlFor="customFileLang">Upload image</label>
                                         </div>
                                     </div>
