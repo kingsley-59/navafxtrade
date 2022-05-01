@@ -30,7 +30,7 @@ async function getAllTransactions() {
             message: 'User successfully added to database',
             body: {rows}
         }
-        console.log(fields);
+        //console.log(fields);
         return formattedResponse(200, _data);
     } catch (error) {
         _data = {
