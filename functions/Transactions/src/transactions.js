@@ -91,22 +91,20 @@ async function getOneTransaction(email) {
 
 async function updateTransaction(event) {
     let _data;
-    let { name, email, phone, country, address } = JSON.parse(event.body); 
+    let { confirmation_status, txn_id } = JSON.parse(event.body); 
     
     const query = `UPDATE transactions 
     SET
-        fullname = $1, 
-        country = $2, 
-        phone = $3
-    WHERE email = $4
+        confirmation_status = $1
+    WHERE txn_id = $2
     `;
-    const values = [name, country, phone, email]
+    const values = [confirmation_status, txn_id]
     try {
         const { rows, fields } = await db.query(query, values);
         _data = {
             reqest: 'PUT',
             status: 'success',
-            message: 'User successfully added to database',
+            message: `Transaction with ID: ${txn_id}, updated successfully`,
             body: {rows, fields}
         }
         return formattedResponse(200, _data);
@@ -114,7 +112,7 @@ async function updateTransaction(event) {
         _data = {
             reqest: 'PUT',
             status: 'error',
-            message: 'Error getting all users from database'
+            message: 'Error updating transaction'
         }
         console.log(error.message);
         return formattedResponse(500, _data);

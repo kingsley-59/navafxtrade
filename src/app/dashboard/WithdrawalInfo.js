@@ -41,6 +41,7 @@ const WithdrawalInfo = () => {
             setAcctNo(_data?.account_no ?? '');
             setBankName(_data?.bank ?? '');
             setBtcAddress(_data?.btc_address ?? '');
+            setEthAddress(_data?.eth_address ?? '');
             console.log(_data);
           })
           .catch((err) => {
@@ -66,9 +67,17 @@ const WithdrawalInfo = () => {
         }
 
         try {
-            let response = await fetch('/.netlify/functions/WithdrawalInfo', settings);
-            let data = response.json();
-            if (data?.status == 'success') setSuccessMsg('Account info updated successfully.');
+            fetch('/.netlify/functions/WithdrawalInfo', settings)
+            .then(response => response.json())
+            .then(data => {
+                if (data?.status === 'success') {
+                    setSuccessMsg('Account info updated successfully.')
+                    setTimeout(() => {
+                        setSuccessMsg('')
+                    }, 7000)
+                };
+            })
+            .catch(error => setErrMsg(error.message))
             
         } catch (error) {
             console.log(error);
@@ -133,7 +142,7 @@ const WithdrawalInfo = () => {
                     <div className="h2">Ethereum </div>
                     <div className="form-group">
                         <label htmlFor="btcwallet">Ethereum wallet</label>
-                        <input type="text" value={btcAddress} onChange={e => setEthAddress(e.target.value)} className="form-control" id="btcwallet" placeholder='e.g. 0xethjkjf82499j9Jjf9455678FFGTY557dgf76RF7' required/>
+                        <input type="text" value={ethAddress} onChange={e => setEthAddress(e.target.value)} className="form-control" id="btcwallet" placeholder='e.g. 0xethjkjf82499j9Jjf9455678FFGTY557dgf76RF7' required/>
                     </div>
                     <div className="form-group">
                         <input type="submit" value="Submit" className="btn btn-success btn-lg" />

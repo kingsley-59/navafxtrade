@@ -24,14 +24,14 @@ exports.handler = async function(event, context) {
             return await createTransaction(event);
             break;
         case 'PUT':
-            const eventBody = event?.body ?? '{"email": ""}';
+            const eventBody = event?.body ?? '{"txn_id": ""}';
             const _eventBody = JSON.parse(eventBody);
-            const email = _eventBody?.email ?? null;
-            if (!email ) return formattedResponse(400, {status: error, message: "Invalid request! Email required."})
+            const txn_id = _eventBody?.txn_id ?? null;
+            if (!txn_id ) return formattedResponse(400, {status: "error", message: "Invalid request! Transaction ID required."})
             return await updateTransaction(event);
             break;
         case 'DELETE':
-            if (!email ) return formattedResponse(400, {status: error, message: "Invalid request! Email required."})
+            if (!email ) return formattedResponse(400, {status: "error", message: "Invalid request! Email required."})
             return await removeTransaction(email);
             break;
         default:

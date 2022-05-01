@@ -82,7 +82,7 @@ const Deposit = () => {
         email: currentUser.email,
         txnId: TxnId,
         amount: amount,
-        type: 'deposit',
+        type: 'withdrawal',
         paymentMode: mode,
         proof: null
       }

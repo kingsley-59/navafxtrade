@@ -3,7 +3,7 @@ import { Form, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthProvider';
 import { storage } from '../Firebase';
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const Deposit = () => {
     const BankDetails = '';
@@ -15,6 +15,7 @@ const Deposit = () => {
     const [amount, setAmount] = useState('');
     const [mode, setMode] = useState('');
     const [image, setImage] = useState();
+    const [downloadUrl, setDownloadUrl] = useState('')
 
 
     const [warningMsg, setWarningMsg] = useState('');
@@ -89,13 +90,25 @@ const Deposit = () => {
     const uploadImage = () => {
       try {
         const storageRef = ref(storage, `images/${TxnId + image.name }`);
-        const uploadTask = uploadBytes(storageRef, image).then((snapshot) => {
-                              console.log(snapshot);
-                              setSuccessMsg("File upload successful");
-                              sendDepositRequest();
-                            });
+        // upload proof of payment file
+        uploadBytes(storageRef, image)
+        .then((snapshot) => {
+          setSuccessMsg("File upload successful");
+          setDownloadUrl(TxnId + image.name);
+          getDownloadURL(storageRef).then(url => {
+            console.log(url)
+            setDownloadUrl(url)
+            sendDepositRequest();
+            return;
+          })
 
-      
+          //sendDepositRequest();
+        })
+        .catch((error) => {
+          setErrMsg(error.message)
+          return;
+        })
+        
       } catch (error) {
         console.log(error.message)
         //setErrMsg(error.message);
@@ -113,8 +126,10 @@ const Deposit = () => {
         amount: amount,
         type: 'deposit',
         paymentMode: mode,
-        proof: image ? image.name + TxnId : null
+        proof: downloadUrl ? downloadUrl : null
       }
+
+      console.log(payload);
 
       const settings = {
         method: 'POST',
@@ -254,7 +269,8 @@ const Deposit = () => {
                                 <label htmlFor="address">Account No./Address</label>
                                 <div className='input-group'>
                                   <input type="text" name="" value={address} id="address" className="form-control" disabled />
-                                  <button class="btn btn-outline-secondary text-success" onClick={copyText} >{ copyBtnText }</button>
+                                  {/* <button class="btn btn-outline-secondary text-success" onClick={copyText} >{ copyBtnText }</button> */}
+                                  <input class="btn btn-outline-secondary text-success" onClick={copyText} type="button" value={ copyBtnText } />
                                 </div>
                             </Form.Group>
                         </div>
