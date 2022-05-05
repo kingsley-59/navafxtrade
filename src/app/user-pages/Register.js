@@ -16,6 +16,7 @@ export const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
+  const [infoMsg, setInfoMsg] = useState('')
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -30,18 +31,16 @@ export const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setSuccessMsg('');
+    setErrMsg('');
+    setInfoMsg('');
 
+    //check if passwords match
     if(password !== confirmPassword) {
       setErrMsg('Passwords do not match!');
       setLoading(false);
       return false;
     }
-
-    // window.grecaptcha.ready(() => {
-    //   window.grecaptcha.execute('6Ld1YIofAAAAAFxMucV4Xh7M2_qA3aMFLB6C8iG4', {action: 'submit'}).then((token) => {
-    //     // Send form value as well as token to the server
-    //   })
-    // })
 
     function resetForm () {
       setLoading(false);
@@ -70,38 +69,39 @@ export const Register = () => {
       return response.json();
     }
 
-    try {
-      setErrMsg('');
+    function registerUser(email, password) {
       signup(email, password)
         .then((userCreds) => {
           console.log(userCreds.user)
           sendEmailVerification(userCreds.user)
-            .then(() => setSuccessMsg('Verification mail sent. Please verify your email to login. Redirecting to login page...'))
-            .catch((error) => setErrMsg('Mail verification error'+error.message))
+            .then(() => setInfoMsg('Verification mail sent. Please verify your email to login.'))
+            .catch((error) => setErrMsg('Failed to send verification email: '+error.message))
         })
         .catch((error) => {
           setErrMsg(error.message);
           setLoading(false);
         });
-        
-      if (errMsg !== '') return false;
+    }
 
-      // send user details to database after signup
+    try {
+      // send user details to database before signup
       postData({fullName, email, phone, country})
         .then((data) => {
           console.log(data);
           resetForm();
-          
-          setTimeout(() => {navigate('/login') }, 6000);
-          return true;
+          setSuccessMsg('Registration complete.')
+          registerUser(email, password);
+          setTimeout(() => {navigate('/login') }, 5000);
         })
         .catch((error) => {
-          setErrMsg('Registration failed. Please try again.');
+          setErrMsg('Registration was not completed.');
           setLoading(false);
           console.log(error.message);
-          return false;
         })
+
+      //if (errMsg !== '') return false;
       
+        
     } catch (error) {
       setLoading(false);
       console.log(error.message);
@@ -121,8 +121,9 @@ export const Register = () => {
           <div className="card">
             <div className="card-body">
               <h4 className="card-title text-center">Register </h4>
-              {errMsg && <Alert variant={'danger'}>{errMsg}</Alert>}
+              {infoMsg && <Alert variant={'info'}>{infoMsg}</Alert>}
               {successMsg && <Alert variant={'success'}>{successMsg}</Alert>}
+              {errMsg && <Alert variant={'warning'}>{errMsg}</Alert>}
               <form className="forms-sample" onSubmit={handleSubmit}>
                 <Form.Group>
                   <label htmlFor="fullname">FullName</label>

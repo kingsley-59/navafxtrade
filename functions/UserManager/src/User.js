@@ -3,12 +3,13 @@ const db = require("./database");
 const formattedResponse = require('./utils/formattefResponse');
 
 async function createUser(event) {
+    console.log(event.body)
     let {fullName, email, phone, country} = JSON.parse(event.body);
     let _data = {};
 
     const query = `
         INSERT into users 
-        (email, fullname, country, phone, referrals, total_deposit, balance, profit, bonus, date_added) 
+        (email, fullname, country, phone, referrals, total_deposit, balance, profit, withdrawals, date_added) 
         VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, now())`;
     const values = [email, fullName, country, phone, null, null, null, null, null];
     try {

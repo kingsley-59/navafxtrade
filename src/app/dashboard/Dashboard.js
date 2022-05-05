@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from "react-slick";
 import HelmetConfig from '../shared/Helmet';
+import { useAuth } from '../context/AuthProvider';
 
 const mapData = {
   "BZ": 75.00,
@@ -11,12 +12,30 @@ const mapData = {
   "GE": 33.25
 }
 
-export class Dashboard extends Component {
+const Dashboard = () => {
 
-  componentDidMount() {
+  const [deposit, setDeposit] = useState();
+  const [profit, setProfit] = useState();
+  const [withdrawals, setWithdrawals] = useState();
+  const [balance, setBalance] = useState();
+
+  const {currentUser} = useAuth();
+
+  useEffect(() => {
+    let encodedEmail = encodeURIComponent(currentUser?.email);
+    fetch(`/.netlify/functions/UserManager?userEmail=${encodedEmail}`)
+      .then(response => response.json())
+      .then((data) => {
+        let _data = data.body?.rows;
+        if (!_data) return false;
+        setDeposit(_data.total_deposit);
+        setProfit(_data.profit);
+        setWithdrawals(_data.withdrawals);
+        setBalance(_data.balance);
+      })
+    
     const _script = document.createElement('script');
     _script.src = 'https://s3.tradingview.com/tv.js';
-
     const script1 = document.createElement('script');
     const script1_content = `
     new TradingView.widget(
@@ -63,9 +82,9 @@ export class Dashboard extends Component {
     };
     script2.innerHTML = chatSettings;
     document.getElementById("tradingview-chart2").appendChild(script2);
-  }
+  }, []);
 
-  transactionHistoryData =  {
+  const transactionHistoryData =  {
     labels: ["Paypal", "Stripe","Cash"],
     datasets: [{
         data: [55, 25, 20],
@@ -76,7 +95,7 @@ export class Dashboard extends Component {
     ]
   };
 
-  transactionHistoryOptions = {
+  const transactionHistoryOptions = {
     responsive: true,
     maintainAspectRatio: true,
     segmentShowStroke: false,
@@ -94,16 +113,16 @@ export class Dashboard extends Component {
     }
   }
 
-  sliderSettings = {
+  const sliderSettings = {
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1
   }
-  toggleProBanner() {
+  function toggleProBanner() {
     document.querySelector('.proBanner').classList.toggle("hide");
   }
-  render () {
+  
     return (
       <div>
         <HelmetConfig title="Dashboard" description="" keywords={[]} />
@@ -115,7 +134,7 @@ export class Dashboard extends Component {
                 <div className="row">
                   <div className="col-9">
                     <div className="d-flex align-items-center align-self-start">
-                      <h3 className="mb-0">$0.00</h3>
+                      <h3 className="mb-0">${deposit ?? '0'}.00</h3>
                       {/* <p className="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> */}
                     </div>
                   </div>
@@ -135,7 +154,7 @@ export class Dashboard extends Component {
                 <div className="row">
                   <div className="col-9">
                     <div className="d-flex align-items-center align-self-start">
-                      <h3 className="mb-0">$0.00</h3>
+                      <h3 className="mb-0">${profit ?? '0'}.00</h3>
                       {/* <p className="text-success ml-2 mb-0 font-weight-medium">+11%</p> */}
                     </div>
                   </div>
@@ -155,7 +174,7 @@ export class Dashboard extends Component {
                 <div className="row">
                   <div className="col-9">
                     <div className="d-flex align-items-center align-self-start">
-                      <h3 className="mb-0">$0.00</h3>
+                      <h3 className="mb-0">${withdrawals ?? '0'}.00</h3>
                       {/* <p className="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p> */}
                     </div>
                   </div>
@@ -175,7 +194,7 @@ export class Dashboard extends Component {
                 <div className="row">
                   <div className="col-9">
                     <div className="d-flex align-items-center align-self-start">
-                      <h3 className="mb-0">$0.00</h3>
+                      <h3 className="mb-0">${balance ?? '0'}.00</h3>
                       {/* <p className="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> */}
                     </div>
                   </div>
@@ -773,7 +792,7 @@ export class Dashboard extends Component {
         </div>
       </div> 
     );
-  }
+  
 }
 
 export default Dashboard;

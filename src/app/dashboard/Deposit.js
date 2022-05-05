@@ -179,65 +179,6 @@ const Deposit = () => {
     return (
     <div className="container">
         {warningMsg && <Alert className='d-flex justify-content-between' variant={'warning'}>{warningMsg} <button className='btn btn-warning' onClick={handleEmailVerification} >Verify Email</button></Alert>}
-        <div className="row">
-          <div className="col-sm-4 grid-margin">
-            <div className="card">
-              <div className="card-body">
-                <h5>Bank</h5>
-                <div className="row">
-                  <div className="col-8 col-sm-12 col-xl-8 my-auto">
-                    <div className="d-flex d-sm-block d-md-flex align-items-center">
-                      <h2 className="mb-0">$32123</h2>
-                      <p className="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
-                    </div>
-                    <h6 className="text-muted font-weight-normal">Min: 50$</h6>
-                  </div>
-                  <div className="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
-                    <i className="icon-lg mdi mdi-codepen text-primary ml-auto"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-sm-4 grid-margin">
-            <div className="card">
-              <div className="card-body">
-                <h5>Bitcoin</h5>
-                <div className="row">
-                  <div className="col-8 col-sm-12 col-xl-8 my-auto">
-                    <div className="d-flex d-sm-block d-md-flex align-items-center">
-                      <h2 className="mb-0">$45850</h2>
-                      <p className="text-success ml-2 mb-0 font-weight-medium">+8.3%</p>
-                    </div>
-                    <h6 className="text-muted font-weight-normal"> Min: 0.000001 Btc</h6>
-                  </div>
-                  <div className="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
-                    <i className="icon-lg mdi mdi-wallet-travel text-danger ml-auto"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-sm-4 grid-margin">
-            <div className="card">
-              <div className="card-body">
-                <h5>Ethereum</h5>
-                <div className="row">
-                  <div className="col-8 col-sm-12 col-xl-8 my-auto">
-                    <div className="d-flex d-sm-block d-md-flex align-items-center">
-                      <h2 className="mb-0">$2039</h2>
-                      <p className="text-danger ml-2 mb-0 font-weight-medium">-2.1% </p>
-                    </div>
-                    <h6 className="text-muted font-weight-normal">Min: 0.00001 Eth</h6>
-                  </div>
-                  <div className="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
-                    <i className="icon-lg mdi mdi-monitor text-success ml-auto"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <div className="row">
             <div className="col-xs-12 grid-margin">
