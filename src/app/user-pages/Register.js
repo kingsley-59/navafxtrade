@@ -44,9 +44,6 @@ export const Register = () => {
 
     function resetForm () {
       setLoading(false);
-      // setEmail('');
-      // setPassword('');
-      // setConfirmPassword('');
     }
 
     async function postData (data) {
@@ -135,7 +132,7 @@ export const Register = () => {
                 </Form.Group>
                 <Form.Group>
                   <label htmlFor="phone">Phone number</label>
-                  <Form.Control type="tel" className="form-control" value={phone} onChange={(e) => {setPhone(e.target.value)}} placeholder="Phone number" required/>
+                  <Form.Control type="tel" className="form-control" value={phone} onChange={(e) => {setPhone(e.target.value.toLowerCase())}} placeholder="Phone number" required/>
                 </Form.Group>
                 <Form.Group>
                   <label htmlFor="country">Country</label>
