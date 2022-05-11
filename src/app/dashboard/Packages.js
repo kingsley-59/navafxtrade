@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthProvider';
 
 // let schema = {
 //     minimum, maximum, percentage, duration
@@ -15,6 +16,11 @@ const DataList = [
 
 const PackageCard = ({num, min, max, percent, duration}) => {
     let navigate = useNavigate();
+    let { currentUser } = useAuth();
+
+    const email = currentUser?.email;
+
+    const [amount, setAmount] = useState(min);
 
     return (
         <div className="col-xs-12 col-lg-6 col-xl-4 grid-margin">
@@ -43,10 +49,10 @@ const PackageCard = ({num, min, max, percent, duration}) => {
                                     </tr>
                                 </tbody>
                             </table>
-                            <form onSubmit={() => navigate('/deposit')}>
+                            <form onSubmit={(e) => {e.preventDefault(); UpdateActivePlan(email, amount, num)}}>
                                 <div className="form-group">
                                     <label htmlFor="amount"></label>
-                                    <input type="number" defaultValue={min} className='form-control' id="" required/>
+                                    <input type="number" defaultValue={min} onChange={ e => setAmount(e.target.value)} className='form-control' id="" required/>
                                 </div>
                                 <div className="form-group">
                                     <input type="submit" value="Join plan" className="btn btn-primary form-control" />
@@ -57,6 +63,25 @@ const PackageCard = ({num, min, max, percent, duration}) => {
                 </div>
             </div>
     );
+}
+
+function UpdateActivePlan(email, amount, plan) {    
+    const settings = {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({email: email, active_package: `Plan ${plan}: N${amount} [pending]`})
+    }
+    fetch('/.netlify/functions/SetActivePlan', settings)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert("Plan activatd successfully!");
+            }
+        })
+        .catch(error => alert(error.message));
 }
 
 const Packages = () => {

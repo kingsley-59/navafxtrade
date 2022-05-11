@@ -64,13 +64,19 @@ class Sidebar extends Component {
  
   }
 
+  toggleOffcanvas() {
+    document.querySelector('.sidebar-offcanvas').classList.toggle('active');
+  }
+
   render () {
     return (
       <nav className="sidebar sidebar-offcanvas" id="sidebar">
         <div className="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top" style={{opacity: 1}}>
           {/* <a className="sidebar-brand brand-logo" href="index.html"><img src={require('../../assets/images/logo.svg')} alt="logo" /></a> */}
           {/* <a className="sidebar-brand brand-logo-mini" href="index.html"><img src={require('../../assets/images/logo-mini.svg')} alt="logo" /></a> */}
-          <Link className="navbar-brand brand-logo-mini text-white" to="/"> <h2>NavaFx.trade</h2> </Link>
+          <Link className="navbar-brand brand-logo-mini text-white" to="/"> 
+          <img src={require('../../assets/images/Avafx logo-Recovered.png')} height='120' width='100%' alt='navafx logo' />
+          </Link>
         </div>
         <ul className="nav">
           {/* Profile section */}
@@ -119,16 +125,16 @@ class Sidebar extends Component {
           </li> */}
 
           {/* navigation section */}
-          <li className="nav-item nav-category">
+          <li className="nav-item nav-category pt-4">
             <span className="nav-link"><Trans>Navigation</Trans></span>
           </li>
-          <li className={ this.isPathActive('/dashboard') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
+          <li className={ this.isPathActive('/dashboard') ? 'nav-item menu-items active' : 'nav-item menu-items' } onClick={this.toggleOffcanvas}>
             <Link className="nav-link" to="/dashboard">
               <span className="menu-icon"><i className="mdi mdi-speedometer text-primary"></i></span>
               <span className="menu-title"><Trans>Dashboard</Trans></span>
             </Link>
           </li>
-          <li className={ this.isPathActive('/accountsettings') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
+          <li className={ this.isPathActive('/accountsettings') ? 'nav-item menu-items active' : 'nav-item menu-items' } >
             <div className={ this.state.basicUiMenuOpen ? 'nav-link menu-expanded' : 'nav-link' } onClick={ () => this.toggleMenuState('basicUiMenuOpen') } data-toggle="collapse">
               <span className="menu-icon">
                 <i className="mdi mdi-account-box-outline text-warning"></i>
@@ -139,44 +145,44 @@ class Sidebar extends Component {
             <Collapse in={ this.state.basicUiMenuOpen }>
               <div>
                 <ul className="nav flex-column sub-menu">
-                  <li className="nav-item"> <Link className={ this.isPathActive('/accountsettings') ? 'nav-link active' : 'nav-link' } to="/accountsettings"><Trans>Profile</Trans></Link></li>
-                  <li className="nav-item"> <Link className={ this.isPathActive('/withdrawalinfo') ? 'nav-link active' : 'nav-link' } to="/withdrawalinfo"><Trans>Withdrawal info</Trans></Link></li>
-                  <li className="nav-item"> <Link className={ this.isPathActive('/changepassword') ? 'nav-link active' : 'nav-link' } to="/changepassword"><Trans>Change password</Trans></Link></li>
+                  <li className="nav-item" onClick={this.toggleOffcanvas}> <Link className={ this.isPathActive('/accountsettings') ? 'nav-link active' : 'nav-link' } to="/accountsettings"><Trans>Profile</Trans></Link></li>
+                  <li className="nav-item" onClick={this.toggleOffcanvas}> <Link className={ this.isPathActive('/withdrawalinfo') ? 'nav-link active' : 'nav-link' } to="/withdrawalinfo"><Trans>Withdrawal info</Trans></Link></li>
+                  <li className="nav-item" onClick={this.toggleOffcanvas}> <Link className={ this.isPathActive('/changepassword') ? 'nav-link active' : 'nav-link' } to="/changepassword"><Trans>Change password</Trans></Link></li>
                 </ul>
               </div>
             </Collapse>
           </li>
-          <li className={ this.isPathActive('/deposit') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
+          <li className={ this.isPathActive('/deposit') ? 'nav-item menu-items active' : 'nav-item menu-items' } onClick={this.toggleOffcanvas} >
             <Link className="nav-link" to="/deposit">
               <span className="menu-icon"><i className="mdi mdi-upload text-success"></i></span>
               <span className="menu-title"><Trans>Deposit Funds</Trans></span>
             </Link>
           </li>
-          <li className={ this.isPathActive('/withdraw') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
+          <li className={ this.isPathActive('/withdraw') ? 'nav-item menu-items active' : 'nav-item menu-items' } onClick={this.toggleOffcanvas}>
             <Link className="nav-link" to="/withdraw">
               <span className="menu-icon"><i className="mdi mdi-download text-danger"></i></span>
               <span className="menu-title"><Trans>Widthdraw Funds</Trans></span>
             </Link>
           </li>
-          <li className={ this.isPathActive('/transactions') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
+          <li className={ this.isPathActive('/transactions') ? 'nav-item menu-items active' : 'nav-item menu-items' } onClick={this.toggleOffcanvas}>
             <Link className="nav-link" to="/transactions">
               <span className="menu-icon"><i className="mdi mdi-cash-multiple text-info"></i></span>
               <span className="menu-title"><Trans>Transactions </Trans></span>
             </Link>
           </li>
-          <li className={ this.isPathActive('/contactsupport') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
+          <li className={ this.isPathActive('/contactsupport') ? 'nav-item menu-items active' : 'nav-item menu-items' } onClick={this.toggleOffcanvas}>
             <Link className="nav-link" to="/contactsupport">
               <span className="menu-icon"><i className="mdi mdi-message-outline text-warning"></i></span>
               <span className="menu-title"><Trans>Contact Support</Trans></span>
             </Link>
           </li>
-          <li className={ this.isPathActive('/packages') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
+          <li className={ this.isPathActive('/packages') ? 'nav-item menu-items active' : 'nav-item menu-items' } onClick={this.toggleOffcanvas}>
             <Link className="nav-link" to="/packages">
               <span className="menu-icon"><i className="mdi mdi-package text-primary"></i></span>
               <span className="menu-title"><Trans>Packages</Trans></span>
             </Link>
           </li>
-          <li className={ this.isPathActive('/dashboard') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
+          <li className={ this.isPathActive('/dashboard') ? 'nav-item menu-items active' : 'nav-item menu-items' } onClick={this.toggleOffcanvas}>
             <Link className="nav-link" to="/dashboard">
               <span className="menu-icon"><i className="mdi mdi-share-variant text-success"></i></span>
               <span className="menu-title"><Trans>Refer Users</Trans></span>

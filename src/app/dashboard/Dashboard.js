@@ -13,11 +13,12 @@ const mapData = {
 }
 
 const Dashboard = () => {
-
+  const [fullname, setFullName] = useState('');
   const [deposit, setDeposit] = useState();
   const [profit, setProfit] = useState();
   const [withdrawals, setWithdrawals] = useState();
   const [balance, setBalance] = useState();
+  const [activePackage, setActivePackage] = useState('')
 
   const {currentUser} = useAuth();
 
@@ -28,10 +29,12 @@ const Dashboard = () => {
       .then((data) => {
         let _data = data.body?.rows;
         if (!_data) return false;
+        setFullName(_data.fullname);
         setDeposit(_data.total_deposit);
         setProfit(_data.profit);
         setWithdrawals(_data.withdrawals);
         setBalance(_data.balance);
+        setActivePackage(_data.active_package);
       })
     
     const _script = document.createElement('script');
@@ -126,9 +129,12 @@ const Dashboard = () => {
     return (
       <div>
         <HelmetConfig title="Dashboard" description="" keywords={[]} />
-        
+        <p className="h2 text-white mt-3">
+          Welcome, {fullname}!
+        </p>
+        <p className="text-white mb-3">Welcome to Navafx Trade</p>
         <div className="row">
-          <div className="col-xl-3 col-sm-6 grid-margin stretch-card">
+          <div className="col-xl-4 col-sm-6 grid-margin stretch-card">
             <div className="card">
               <div className="card-body">
                 <div className="row">
@@ -148,27 +154,8 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="col-xl-3 col-sm-6 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <div className="row">
-                  <div className="col-9">
-                    <div className="d-flex align-items-center align-self-start">
-                      <h3 className="mb-0">${profit ?? '0'}.00</h3>
-                      {/* <p className="text-success ml-2 mb-0 font-weight-medium">+11%</p> */}
-                    </div>
-                  </div>
-                  <div className="col-3">
-                    <div className="icon icon-box-success">
-                      <span className="mdi mdi-arrow-top-right icon-item"></span>
-                    </div>
-                  </div>
-                </div>
-                <h6 className="text-muted font-weight-normal">Profit</h6>
-              </div>
-            </div>
-          </div>
-          <div className="col-xl-3 col-sm-6 grid-margin stretch-card">
+          
+          <div className="col-xl-4 col-sm-6 grid-margin stretch-card">
             <div className="card">
               <div className="card-body">
                 <div className="row">
@@ -188,7 +175,8 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="col-xl-3 col-sm-6 grid-margin stretch-card">
+
+          <div className="col-xl-4 col-sm-6 grid-margin stretch-card">
             <div className="card">
               <div className="card-body">
                 <div className="row">
@@ -209,6 +197,52 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+
+        <div className="row">
+          
+          <div className="col-xl-6 col-sm-6 grid-margin stretch-card">
+            <div className="card">
+              <div className="card-body">
+                <div className="row">
+                  <div className="col-9">
+                    <div className="d-flex align-items-center align-self-start">
+                      <h3 className="mb-0">${profit ?? '0'}.00</h3>
+                      {/* <p className="text-success ml-2 mb-0 font-weight-medium">+11%</p> */}
+                    </div>
+                  </div>
+                  <div className="col-3">
+                    <div className="icon icon-box-success">
+                      <span className="mdi mdi-arrow-top-right icon-item"></span>
+                    </div>
+                  </div>
+                </div>
+                <h6 className="text-muted font-weight-normal">Profit</h6>
+              </div>
+            </div>
+          </div>
+          
+          <div className="col-xl-6 col-sm-6 grid-margin stretch-card">
+            <div className="card">
+              <div className="card-body">
+                <div className="row">
+                  <div className="col-9">
+                    <div className="d-flex align-items-center align-self-start">
+                      <h3 className="mb-0">{activePackage ?? 'No active plan' }</h3>
+                      {/* <p className="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> */}
+                    </div>
+                  </div>
+                  <div className="col-3">
+                    <div className="icon icon-box-success ">
+                      <span className="mdi mdi-arrow-top-right icon-item"></span>
+                    </div>
+                  </div>
+                </div>
+                <h6 className="text-muted font-weight-normal"> Active Package </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="row">
           {/* <div className="col-md-4 grid-margin stretch-card">
             <div className="card">
@@ -344,7 +378,7 @@ const Dashboard = () => {
             </div>
           </div> */}
         </div>
-        <div className="row">
+        {/* <div className="row">
           <div className="col-sm-4 grid-margin">
             <div className="card">
               <div className="card-body">
@@ -402,7 +436,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* <div className="row ">
           <div className="col-12 grid-margin">
             <div className="card">

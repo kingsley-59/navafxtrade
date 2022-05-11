@@ -97,12 +97,10 @@ const Deposit = () => {
           setDownloadUrl(TxnId + image.name);
           getDownloadURL(storageRef).then(url => {
             console.log(url)
-            setDownloadUrl(url)
-            sendDepositRequest();
+            sendDepositRequest(url);
             return;
           })
 
-          //sendDepositRequest();
         })
         .catch((error) => {
           setErrMsg(error.message)
@@ -117,7 +115,7 @@ const Deposit = () => {
       return;
     }
 
-    const sendDepositRequest = () => {
+    const sendDepositRequest = (imageUrl) => {
       setSubmitBtnText('sending deposit...')
 
       const payload = {
@@ -126,7 +124,7 @@ const Deposit = () => {
         amount: amount,
         type: 'deposit',
         paymentMode: mode,
-        proof: downloadUrl ? downloadUrl : null
+        proof: imageUrl ?? downloadUrl
       }
 
       console.log(payload);
