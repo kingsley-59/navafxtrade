@@ -7,8 +7,8 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const Deposit = () => {
     const BankDetails = '';
-    const BtcAddress = '0xbtcjkjf82499j9Jjf9455678FFGTY557dgf76RF7';
-    const EthAddress = '0xethsjkjfjhdjksfjBkGH68BH8FFGTY557dgf76RF7';
+    const BtcAddress = 'bc1q4ytke5pq64w9mh7s4h25yw29ff0l7k8czhf2lj';
+    const EthAddress = '0x16704171347b9fB39862689856E401aad69D5bE1';
     const TxnId = Date.now();
 
     const [address, setAddress] = useState('')
