@@ -20,8 +20,10 @@ const KycModal = ({open, setOpen, status, valid_id, passport_photo}) => {
   const email = currentUser?.email;
 
   useEffect(() => {
-    console.log("Valid id: ", valid_id)
-    console.log("Passport: ", passport_photo)
+    if (status) {
+      setSuccessMsg('')
+      setErrMsg('')
+    }
     if (valid_id && passport_photo) {
       setSuccessMsg('Kyc previously uploaded! Please do not update the photo unless you need to.')
     } else if (valid_id && !passport_photo) {
@@ -31,7 +33,7 @@ const KycModal = ({open, setOpen, status, valid_id, passport_photo}) => {
     } else {
       setErrMsg('Please upload a valid ID and passport to complete account verification.')
     }
-  }, [valid_id, passport_photo])
+  }, [valid_id, passport_photo, status])
 
   const handleClose = () => setOpen(false);
 
@@ -147,7 +149,7 @@ const KycModal = ({open, setOpen, status, valid_id, passport_photo}) => {
                 </div>
               </div>
               <div className="custom-file mt-3">
-                <input type="file" onChange={(e) => {setValidId(e.target.files[0])}} className="form-control" id="validIdFile" lang="es" hidden />
+                <input type="file" onChange={(e) => {setValidId(e.target.files[0])}} className="form-control" id="validIdFile" lang="es" hidden required/>
                 <label htmlFor="validIdFile" className="container w-100 border border-sm rounded">
                   <div className="d-flex flex-column justify-content-center align-items-center" style={{minHeight: 100}}>
                       <h4 className="text-secondary"> { validId?.name ?? 'Upload a valid ID' } </h4>
@@ -171,7 +173,7 @@ const KycModal = ({open, setOpen, status, valid_id, passport_photo}) => {
                 </div>
               </div>
               <div className="custom-file mt-3">
-                <input type="file" onChange={(e) => {setPassport(e.target.files[0])}} className="form-control" id="PassportFile" lang="es" hidden />
+                <input type="file" onChange={(e) => {setPassport(e.target.files[0])}} className="form-control" id="PassportFile" lang="es" hidden required/>
                 <label htmlFor="PassportFile" className="container w-100 border border-sm rounded">
                   <div className="d-flex flex-column justify-content-center align-items-center" style={{minHeight: 100}}>
                       <h4 className="text-secondary"> { passport?.name ?? 'Upload passport' } </h4>
