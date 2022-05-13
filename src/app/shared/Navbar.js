@@ -10,20 +10,19 @@ const KycModal = ({open, setOpen, status, valid_id, passport_photo}) => {
   const [validId, setValidId] = useState();
   const [passport, setPassport] = useState();
 
-  // const [validIdUrl, setValidIdUrl] = useState(valid_id);
-  // const [passportUrl, setPassportUrl] = useState(passport_photo);
-
   const [errMsg, setErrMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
 
   const { currentUser } = useAuth();
   const email = currentUser?.email;
 
+  const resetAlerts = () => {
+    setSuccessMsg('')
+    setErrMsg('')
+  }
+
   useEffect(() => {
-    if (status) {
-      setSuccessMsg('')
-      setErrMsg('')
-    }
+    resetAlerts();
     if (valid_id && passport_photo) {
       setSuccessMsg('Kyc previously uploaded! Please do not update the photo unless you need to.')
     } else if (valid_id && !passport_photo) {
@@ -32,6 +31,10 @@ const KycModal = ({open, setOpen, status, valid_id, passport_photo}) => {
       setErrMsg('Passport photo previously uploaded. Please upload your valid ID.')
     } else {
       setErrMsg('Please upload a valid ID and passport to complete account verification.')
+    }
+
+    if (status) {
+      resetAlerts();
     }
   }, [valid_id, passport_photo, status])
 
@@ -100,8 +103,7 @@ const KycModal = ({open, setOpen, status, valid_id, passport_photo}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrMsg('');
-    setSuccessMsg('');
+    resetAlerts();
 
     let formName = e.target.getAttribute('data-form-name')
 
