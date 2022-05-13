@@ -11,6 +11,7 @@ const Dashboard = lazy(() => import('./dashboard/Dashboard'));
 const AccountSettings = lazy(() => import('./dashboard/AccountSettings'));
 const Transactions = lazy(() => import('./dashboard/Transactions'));
 const ContactSupport = lazy(() => import('./dashboard/ContactSupport'));
+const ManageAccounts = lazy(() => import('./dashboard/ManageAccounts'));
 // const Deposit = lazy(() => import('./dashboard/Deposit'));
 // const Withdrawals = lazy(() => import('./dashboard/Withdrawals'));
 const WithdrawalInfo = lazy(() => import('./dashboard/WithdrawalInfo'));
@@ -33,6 +34,7 @@ class SiteRoutes extends Component {
                 <Route path="accountsettings" element={<AccountSettings />} />
                 <Route path="transactions" element={<Transactions />} />
                 <Route path="contactsupport" element={<ContactSupport />} />
+                <Route path="manageaccounts" element={<ManageAccounts />} />
                 {/* <Route path="deposit" element={<Deposit />} />
                 <Route path="withdrawals" element={<Withdrawals />} /> */}
                 <Route path="withdrawalinfo" element={<WithdrawalInfo />} />

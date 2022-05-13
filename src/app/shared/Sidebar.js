@@ -70,7 +70,9 @@ class Sidebar extends Component {
         <div className="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top" style={{opacity: 1}}>
           {/* <a className="sidebar-brand brand-logo" href="index.html"><img src={require('../../assets/images/logo.svg')} alt="logo" /></a> */}
           {/* <a className="sidebar-brand brand-logo-mini" href="index.html"><img src={require('../../assets/images/logo-mini.svg')} alt="logo" /></a> */}
-          <Link className="navbar-brand brand-logo-mini text-white" to="/"> <h2>NavaFx.trade</h2> </Link>
+          <Link className="navbar-brand brand-logo-mini text-white" to="/">
+            <img src={require('../../assets/images/Avafx logo-Recovered.png')} height='120' width='100%' alt='navafx logo' />
+          </Link>
         </div>
         <ul className="nav">
           {/* Profile section */}
@@ -152,13 +154,13 @@ class Sidebar extends Component {
               <span className="menu-title"><Trans>All transactions</Trans></span>
             </Link>
           </li>
-          {/* <li className={ this.isPathActive('/deposit') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
-            <Link className="nav-link" to="/deposit">
+          <li className={ this.isPathActive('/manageaccounts') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
+            <Link className="nav-link" to="/manageaccounts">
               <span className="menu-icon"><i className="mdi mdi-upload text-success"></i></span>
-              <span className="menu-title"><Trans>Deposits</Trans></span>
+              <span className="menu-title"><Trans>Manage Account Info</Trans></span>
             </Link>
           </li>
-          <li className={ this.isPathActive('/withdrawals') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
+          {/* <li className={ this.isPathActive('/withdrawals') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
             <Link className="nav-link" to="/withdrawals">
               <span className="menu-icon"><i className="mdi mdi-cash-multiple text-info"></i></span>
               <span className="menu-title"><Trans>Withdrawals </Trans></span>

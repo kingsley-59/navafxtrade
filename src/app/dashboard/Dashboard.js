@@ -1,9 +1,108 @@
 import React, { useState, useEffect } from 'react';
-// import Slider from "react-slick";
+import { Alert, Modal } from 'react-bootstrap';
 import HelmetConfig from '../shared/Helmet';
 
-const TableRow = ({values}) => {
-  let {id, email, fullname, country, phone, date_added} = values;
+const KycModal = ({open, handleShowState, userData}) => {
+  const [errMsg, setErrMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const valid_id = userData?.valid_id
+  const passport_photo = userData?.passport
+
+  const handleClose = () => handleShowState(false);
+
+  const updateKycStatus = (status) => {
+    setErrMsg('');
+    setSuccessMsg('');
+    setLoading(true)
+
+    const payload = {
+      email: userData?.email,
+      kyc_status: status
+    }
+    const settings = {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    }
+
+    fetch('/.netlify/functions/updateKycStatus', settings)
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === 'success') {
+        setSuccessMsg('Kyc info updated successfully');
+        userData.kyc_status = true;
+      } else {
+        setErrMsg(data.error)
+      }
+    })
+    .catch(error => {
+      console.log(error.message)
+      setErrMsg(error.message)
+    })
+    setLoading(false);
+  }
+
+  return (
+    <Modal show={open} onHide={handleClose} centered>
+      <Modal.Header closeButton>
+        <div className="d-flex justify-content-between align-items-center w-100">
+          <div>KYC Verification</div>
+          <div>Status: {userData?.kyc_status ? 'Active' : 'Pending'}</div>
+        </div>
+      </Modal.Header>
+      <Modal.Body className='card'>
+        { successMsg && <Alert variant='success' >{successMsg}</Alert> }
+        { errMsg && <Alert variant='warning' >{errMsg}</Alert> }
+        <div className="row">
+          <div className="col-6">
+            <h3>Valid ID</h3>
+            <div className="bg-secondary text-center rounded" style={{aspectRatio: '4 / 3', width: '100%'}}>
+              {valid_id ? <img src={valid_id} style={{aspectRatio: '4 / 3', width: '100%'}} alt='Valid ID' /> : 'No Id card yet.' }
+            </div>
+          </div>
+          <div className="col-6">
+            <h3>Passport</h3>
+            <div className="bg-secondary text-center rounded" style={{aspectRatio: '4 / 3', width: '100%'}}>
+              {passport_photo ? <img src={passport_photo} style={{aspectRatio: '4 / 3', width: '100%'}} alt='Passport photo' /> : 'No passport yet.' }
+            </div>
+          </div>
+        </div>
+        <div className="d-flex justify-content-center align-item-center p-4">
+          { userData?.kyc_status
+            ? <button className="btn btn-lg btn-info" disabled>{'Verified User'}</button>
+            : <button className="btn btn-lg btn-success" onClick={() => updateKycStatus(true)}>{loading ? 'Updating...' :'Set As Verified'}</button>
+          }
+        </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <button className="btn btn-primary" onClick={handleClose}>Close</button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
+const TableRow = ({values, handleModalData, handleShowState}) => {
+  let {id, email, fullname, country, phone, date_added, valid_id, passport, kyc_status} = values;
+
+  const openModalWithData = () => {
+    handleShowState(true)
+    handleModalData(values)
+  }
+
+  const KycUploadStatus = () => {
+    if (kyc_status) {
+      return <div className="btn btn-outline-secondary" onClick={openModalWithData}> Verified </div>
+    } else if(valid_id || passport) {
+      return <div className="btn btn-outline-success" onClick={openModalWithData}> View </div>
+    } else {
+      return <div className="btn btn-outline-warning" onClick={openModalWithData}> Pending </div>
+    }
+  }
+
   return (
     <tr>
       <td>{id}</td>
@@ -13,7 +112,9 @@ const TableRow = ({values}) => {
       <td>{phone}</td>
       <td>{date_added}</td>
       <td>
-        <div className="badge badge-outline-warning">Pending</div>
+        {
+          <KycUploadStatus />
+        }
       </td>
     </tr>
   )
@@ -23,7 +124,9 @@ const Dashboard = () => {
   const [errMsg, setErrMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
   const [usersData, setUsersData] = useState([]);
-  const [txnData, setTxnData] = useState([]);
+
+  const [show, setShow] = useState(false);
+  const [modalData, setModalData] = useState({})
 
   useEffect(() => {
     console.log('Mounted');
@@ -38,24 +141,15 @@ const Dashboard = () => {
       })
       .catch(error => setErrMsg(error.message))
     
-    fetch('/.netlify/functions/getTransactions')
-      .then(response => response.json())
-      .then(data => {
-        let _data = data.body?.rows;
-        //console.log(JSON.stringify(_data, null, 2));
-        setTxnData(_data);
-      })
-      .catch(error => setErrMsg(error.message))
   }, [])
-  
 
   const RowList = () => {
     if(usersData === []){
       console.log('Userdata is empty');
       return null;
     }
-    let tableRows = usersData.map(({id, email, fullname, country, phone, date_added}, idx) => {
-      return <TableRow values={{id, email, fullname, country, phone, date_added}} key={idx} />
+    let tableRows = usersData.map(({id, email, fullname, country, phone, date_added, valid_id, passport, kyc_status}, idx) => {
+      return <TableRow values={{id, email, fullname, country, phone, date_added, valid_id, passport, kyc_status}} handleModalData={setModalData} handleShowState={setShow} key={idx} />
     })
     return tableRows;
   }
@@ -63,8 +157,8 @@ const Dashboard = () => {
   return (
       <div>
         <HelmetConfig title="Dashboard" description="" keywords={[]} />
-        
-        <div className="row">
+        <KycModal open={show} handleShowState={setShow} userData={modalData} />
+        {/* <div className="row">
           <div className="col-xl-3 col-sm-6 grid-margin stretch-card">
             <div className="card">
               <div className="card-body">
@@ -72,7 +166,7 @@ const Dashboard = () => {
                   <div className="col-9">
                     <div className="d-flex align-items-center align-self-start">
                       <h3 className="mb-0">$0.00</h3>
-                      {/* <p className="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> */}
+                      <p className="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
                     </div>
                   </div>
                   <div className="col-3">
@@ -92,7 +186,7 @@ const Dashboard = () => {
                   <div className="col-9">
                     <div className="d-flex align-items-center align-self-start">
                       <h3 className="mb-0">$0.00</h3>
-                      {/* <p className="text-success ml-2 mb-0 font-weight-medium">+11%</p> */}
+                      <p className="text-success ml-2 mb-0 font-weight-medium">+11%</p>
                     </div>
                   </div>
                   <div className="col-3">
@@ -112,7 +206,7 @@ const Dashboard = () => {
                   <div className="col-9">
                     <div className="d-flex align-items-center align-self-start">
                       <h3 className="mb-0">$0.00</h3>
-                      {/* <p className="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p> */}
+                      <p className="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p>
                     </div>
                   </div>
                   <div className="col-3">
@@ -132,7 +226,7 @@ const Dashboard = () => {
                   <div className="col-9">
                     <div className="d-flex align-items-center align-self-start">
                       <h3 className="mb-0">$0.00</h3>
-                      {/* <p className="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> */}
+                      <p className="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
                     </div>
                   </div>
                   <div className="col-3">
@@ -145,7 +239,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="row">
           <div className="col-sm-4 grid-margin">
