@@ -282,7 +282,7 @@ const Navbar = () => {
           <Dropdown alignRight as="li" className="nav-item">
             <Dropdown.Toggle as="a" className="nav-link cursor-pointer no-caret">
               <div className="navbar-profile">
-                <img className="img-xs rounded-circle" src={require('../../assets/images/faces/face15.jpg')} alt="profile" />
+                <img className="img-xs rounded-circle" src={require('../../assets/images/default-profile-icon-24.jpg')} alt="profile" />
                 <p className="mb-0 d-none d-sm-block navbar-profile-name"><Trans>{ fullName }</Trans></p>
                 <i className="mdi mdi-menu-down d-none d-sm-block"></i>
               </div>
@@ -291,14 +291,14 @@ const Navbar = () => {
             <Dropdown.Menu className="navbar-dropdown preview-list navbar-profile-dropdown-menu">
               <h6 className="p-3 mb-0"><Trans>Profile</Trans></h6>
               <Dropdown.Divider />
-              <Dropdown.Item href="!#" onClick={evt =>evt.preventDefault()} className="preview-item">
+              <Dropdown.Item href="!#" onClick={e => handleOpen(e)} className="preview-item">
                 <div className="preview-thumbnail">
                   <div className="preview-icon bg-dark rounded-circle">
-                    <i className="mdi mdi-settings text-success"></i>
+                    <i className="mdi mdi-view-grid text-success"></i>
                   </div>
                 </div>
                 <div className="preview-item-content">
-                  <p className="preview-subject mb-1"><Trans>Settings</Trans></p>
+                  <p className="preview-subject mb-1"><Trans>Upload KYC</Trans></p>
                 </div>
               </Dropdown.Item>
               <Dropdown.Divider />
