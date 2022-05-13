@@ -75,7 +75,7 @@ async function getOneTransaction(email) {
             reqest: 'GET',
             status: 'success',
             message: 'User successfully added to database',
-            body: {rows: rows[0]}
+            body: {rows}
         }
         return formattedResponse(200, _data);
     } catch (error) {

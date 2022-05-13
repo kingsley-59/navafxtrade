@@ -209,7 +209,7 @@ const Deposit = () => {
                                 <div className='input-group'>
                                   <input type="text" name="" value={address} id="address" className="form-control" disabled />
                                   {/* <button class="btn btn-outline-secondary text-success" onClick={copyText} >{ copyBtnText }</button> */}
-                                  <input class="btn btn-outline-secondary text-success" onClick={copyText} type="button" value={ copyBtnText } />
+                                  <input className="btn btn-outline-secondary text-success" onClick={copyText} type="button" value={ copyBtnText } />
                                 </div>
                             </Form.Group>
                         </div>

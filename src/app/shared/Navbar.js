@@ -6,7 +6,7 @@ import auth, {storage} from '../Firebase';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useAuth } from '../context/AuthProvider';
 
-const KycModal = ({open, setOpen, valid_id, passport_photo}) => {
+const KycModal = ({open, setOpen, status, valid_id, passport_photo}) => {
   const [validId, setValidId] = useState();
   const [passport, setPassport] = useState();
 
@@ -119,11 +119,22 @@ const KycModal = ({open, setOpen, valid_id, passport_photo}) => {
   return (
     <Modal show={open} onHide={handleClose} centered>
       <Modal.Header closeButton>
-        KYC Verification
+        <div className="d-flex justify-content-between align-items-center w-100">
+          <div>KYC Verification</div>
+          <div>Status: {status ? 'Active' : 'Pending'}</div>
+        </div>
       </Modal.Header>
       <Modal.Body className='card'>
         { successMsg && <Alert variant='success' >{successMsg}</Alert> }
         { errMsg && <Alert variant='warning' >{errMsg}</Alert> }
+        { status 
+        ? 
+        <div className="container text-center">
+          <p>Your kyc details has been verified.</p>
+          <button className='btn btn-lg btn-success m-auto'>Verified</button> 
+        </div>
+        :
+        <div>
         <div className=" card-body grid-margin">
           <form data-form-name='valid-id-form' onSubmit={handleSubmit}>
             <div className="form-group">
@@ -171,6 +182,8 @@ const KycModal = ({open, setOpen, valid_id, passport_photo}) => {
             </div>
           </form>
         </div>
+        </div>
+        }
       </Modal.Body>
       <Modal.Footer>
         <button className="btn btn-primary" onClick={handleClose}>Close</button>
@@ -186,6 +199,7 @@ const Navbar = () => {
   const [kycModalOpen, setKycModalOpen] = useState(false)
   const [kycId, setKycId] = useState('')
   const [kycPassport, setKycPassport] = useState('')
+  const [kycStatus, setKycStatus] = useState(false)
 
   const handleOpen = (e) => {
     e.preventDefault();
@@ -213,6 +227,7 @@ const Navbar = () => {
         setFullName(_data.fullname);
         setKycId(_data.valid_id)
         setKycPassport(_data.passport)
+        setKycStatus(_data.kyc_status)
       })
   }, [])
 
@@ -232,7 +247,7 @@ const Navbar = () => {
     <nav className="navbar p-0 fixed-top d-flex flex-row">
       <div className="sidebar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
         <Link className="navbar-brand brand-logo-mini" to="/"> 
-          <img src={require('../../assets/images/Avafx logo-Recovered.png')} height='90' width='100%' alt='navafx logo' />
+          <img src={require('../../assets/images/Avafx logo-Recovered.png')} height='90' width='auto' alt='navafx logo' />
         </Link>
       </div>
       <div className="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
@@ -302,7 +317,7 @@ const Navbar = () => {
           <span className="mdi mdi-format-line-spacing"></span>
         </button>
       </div>
-      <KycModal open={kycModalOpen} setOpen={setKycModalOpen} valid_id={kycId} passport_photo={kycPassport} />
+      <KycModal open={kycModalOpen} setOpen={setKycModalOpen} status={kycStatus} valid_id={kycId} passport_photo={kycPassport} />
     </nav>
   );
 }

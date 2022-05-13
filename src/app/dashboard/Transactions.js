@@ -87,12 +87,12 @@ const Transactions = () => {
   const [txnData, setTxnData] = useState([]);
   const [displayData, setDisplayData] = useState([]);
 
-  const {cuurentUser} = useAuth()
+  const {currentUser} = useAuth()
 
   useEffect(() => {
     console.log('Mounted');
     document.title = 'Transactions - Navafxtrade';
-    const email = cuurentUser?.email;
+    const email = currentUser?.email;
     
     fetch(`/.netlify/functions/Transactions?userEmail=${email}`)
       .then(response => response.json())
