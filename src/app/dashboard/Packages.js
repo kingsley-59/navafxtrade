@@ -72,7 +72,7 @@ function UpdateActivePlan(email, amount, plan) {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({email: email, active_package: `Plan ${plan}: N${amount} [pending]`})
+        body: JSON.stringify({email: email, active_package: `Plan ${plan}: $${amount} [pending]`})
     }
     fetch('/.netlify/functions/SetActivePlan', settings)
         .then(response => response.json())
