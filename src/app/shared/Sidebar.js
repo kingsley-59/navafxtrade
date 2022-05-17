@@ -69,7 +69,6 @@ class Sidebar extends Component {
   }
 
   copyTextToClipboard(text) {
-    e.preventDefault()
     navigator.clipboard.writeText(text);
     alert('Link copied to clipboard.')
   }

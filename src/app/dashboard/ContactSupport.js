@@ -93,7 +93,6 @@ const ContactSupport = () => {
                   </Form.Group>
                 </form>
               </div>
-              <p className="text-center">Don't have an account? <a href="/register">Register</a></p>
             </div>
             </div>
           </div>
