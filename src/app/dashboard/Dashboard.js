@@ -803,9 +803,9 @@ const Dashboard = () => {
           <div className="col-12">
             <div className="chart1-heading"></div>
             
-            <div class="tradingview-widget-container" id='tradingview-chart1'>
+            <div className="tradingview-widget-container" id='tradingview-chart1'>
               <div id="tradingview_eef71"></div>
-              <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/NASDAQ-AAPL/" rel="noopener" target="_blank"><span class="blue-text">AAPL Chart</span></a> by TradingView</div>
+              <div className="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/NASDAQ-AAPL/" rel="noopener" target="_blank"><span class="blue-text">AAPL Chart</span></a> by TradingView</div>
               {/* chart script goes here */}
               <script src="https://s3.tradingview.com/tv.js"></script>
             </div>
@@ -815,9 +815,9 @@ const Dashboard = () => {
         <div className="row ">
           <div className="col-12 p-5 m-auto">
           
-            <div class="tradingview-widget-container" id='tradingview-chart2' style={{width: "100%", height: "100%"}}>
-              <div class="tradingview-widget-container__widget"></div>
-              <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/markets/currencies/forex-cross-rates/" rel="noopener" target="_blank"><span class="blue-text">Exchange Rates</span></a> by TradingView</div>
+            <div className="tradingview-widget-container" id='tradingview-chart2' style={{width: "100%", height: "100%"}}>
+              <div className="tradingview-widget-container__widget"></div>
+              <div className="tradingview-widget-copyright"><a href="https://www.tradingview.com/markets/currencies/forex-cross-rates/" rel="noopener" target="_blank"><span class="blue-text">Exchange Rates</span></a> by TradingView</div>
               {/* chart script goes here */}
               
             </div>

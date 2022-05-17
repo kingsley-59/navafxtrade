@@ -68,6 +68,12 @@ class Sidebar extends Component {
     document.querySelector('.sidebar-offcanvas').classList.toggle('active');
   }
 
+  copyTextToClipboard(text) {
+    e.preventDefault()
+    navigator.clipboard.writeText(text);
+    alert('Link copied to clipboard.')
+  }
+
   render () {
     return (
       <nav className="sidebar sidebar-offcanvas" id="sidebar">
@@ -183,10 +189,10 @@ class Sidebar extends Component {
             </Link>
           </li>
           <li className={ this.isPathActive('/dashboard') ? 'nav-item menu-items active' : 'nav-item menu-items' } onClick={this.toggleOffcanvas}>
-            <Link className="nav-link" to="/dashboard">
+            <div className="nav-link" onClick={() => this.copyTextToClipboard('https://navafxtrade.com')}>
               <span className="menu-icon"><i className="mdi mdi-share-variant text-success"></i></span>
               <span className="menu-title"><Trans>Refer Users</Trans></span>
-            </Link>
+            </div>
           </li>
 
           
