@@ -166,8 +166,8 @@ class Sidebar extends Component {
               <span className="menu-title"><Trans>Withdrawals </Trans></span>
             </Link>
           </li> */}
-          <li className={ this.isPathActive('/contactsupport') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
-            <Link className="nav-link" to="/contactsupport">
+          <li className={ this.isPathActive('/contactmessages') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
+            <Link className="nav-link" to="/contactmessages">
               <span className="menu-icon"><i className="mdi mdi-message-outline text-warning"></i></span>
               <span className="menu-title"><Trans>Contact Messages</Trans></span>
             </Link>

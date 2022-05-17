@@ -10,7 +10,7 @@ import Spinner from '../app/shared/Spinner';
 const Dashboard = lazy(() => import('./dashboard/Dashboard'));
 const AccountSettings = lazy(() => import('./dashboard/AccountSettings'));
 const Transactions = lazy(() => import('./dashboard/Transactions'));
-const ContactSupport = lazy(() => import('./dashboard/ContactSupport'));
+const ContactMessages = lazy(() => import('./dashboard/ContactMessages'));
 const ManageAccounts = lazy(() => import('./dashboard/ManageAccounts'));
 // const Deposit = lazy(() => import('./dashboard/Deposit'));
 // const Withdrawals = lazy(() => import('./dashboard/Withdrawals'));
@@ -33,7 +33,7 @@ class SiteRoutes extends Component {
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="accountsettings" element={<AccountSettings />} />
                 <Route path="transactions" element={<Transactions />} />
-                <Route path="contactsupport" element={<ContactSupport />} />
+                <Route path="contactmessages" element={<ContactMessages />} />
                 <Route path="manageaccounts" element={<ManageAccounts />} />
                 {/* <Route path="deposit" element={<Deposit />} />
                 <Route path="withdrawals" element={<Withdrawals />} /> */}
