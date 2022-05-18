@@ -57,6 +57,7 @@ const WithdrawalInfo = () => {
         payload = {
             email, acctName, acctNo, bankName, ethAddress, btcAddress
         }
+        console.log(payload)
         settings = {
             method: 'POST',
             mode: 'cors',

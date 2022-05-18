@@ -58,18 +58,18 @@ async function createInfo(event) {
     try {
         // check if records exists for email
         let { rows, fields} = await db.query(`SELECT * FROM withdrawal_info WHERE email=$1`, [email])
-        console.log("_rows",rows);
-        console.log("fields", fields)
-        if (rows !== undefined) {
+        // console.log("rows",rows);
+        if (rows?.length) {
+            // console.log("trying to update row...")
             return await updateInfo(event);
         }
-        let queryData = await db.query(query, values);
-        console.log(queryData.rows, 'thats all');
+        // console.log('trying to insert row...');
+        let {_rows} = await db.query(query, values);
         _data = {
             reqest: 'POST',
             status: 'success',
             message: 'User successfully added to database',
-            body: {rows, email}
+            body: {_rows, email}
         }
         
         return formattedResponse(200, _data);
