@@ -8,16 +8,16 @@ exports.handler = async function(event, context) {
 
     const userEmail = event.queryStringParameters?.userEmail
     if (userEmail) {
-        return await getOneUser(userEmail);
+        return await getOneInfo(userEmail);
     } else {
-        return await getAllUsers();
+        return await getAllInfo();
     }
 
 }
 
-async function getAllUsers() {
+async function getAllInfo() {
     let _data;
-    const query = `SELECT * FROM users ORDER BY id DESC`;
+    const query = `SELECT * FROM withdrawal_info ORDER BY id DESC`;
     const values = []
     try {
         const { rows, fields } = await db.query(query, values);
@@ -40,9 +40,9 @@ async function getAllUsers() {
     }
 }
 
-async function getOneUser(email) {
+async function getOneInfo(email) {
     let _data;
-    const query = `SELECT * FROM users WHERE email=$1`;
+    const query = `SELECT * FROM withdrawal_info WHERE email=$1`;
     const values = [email]
     try {
         const { rows, fields } = await db.query(query, values);

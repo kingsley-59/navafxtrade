@@ -96,7 +96,7 @@ const DetailsModal = ({values, handleState, open}) => {
   );
 }
 
-const TableRow = ({values, idx}) => {
+const TableRow = ({values, serial}) => {
   let {email, fullname, country, phone, referrals, total_deposit, balance, profit, withdrawals, date_added, active_package} = values;
   const [show, setShow] = useState(false)
 
@@ -105,7 +105,7 @@ const TableRow = ({values, idx}) => {
   return (
     <>
     <tr onClick={handleShow}>
-      <td>{idx}</td>
+      <td>{serial}</td>
       {/* <td>
         <span>{email}</span><br/><span>{fullname}</span>
       </td> */}
@@ -180,9 +180,10 @@ const ManageAccounts = () => {
       console.log('Transactions data is empty');
       return null;
     }
-    
+    let serialNo = 0
     let tableRows = displayData?.map(({id, email, fullname, country, phone, referrals, total_deposit, balance, profit, withdrawals, date_added, active_package}, idx) => {
-      return <TableRow values={{ email, fullname, country, phone, referrals, total_deposit, balance, profit, withdrawals, date_added, active_package}} key={idx} />
+      serialNo += 1
+      return <TableRow values={{ email, fullname, country, phone, referrals, total_deposit, balance, profit, withdrawals, date_added, active_package}} serial={serialNo} key={idx} />
     })
     return tableRows ?? null;
   }
@@ -204,11 +205,11 @@ const ManageAccounts = () => {
             <div className="card">
               <div className="card-body">
                 <div className="row align-items-center mb-3 justify-content-between">
-                  <div className="col-md-4 col-sm-6">
+                  <div className="col-md-4 col-sm-6 col-xs-12">
                     <h4 className="card-title fw-bolder">Manage User Accounts</h4>
                   </div>
-                  <div className="col-md-4 col-sm-6">
-                    <div className="row align-items-center">
+                  <div className="col-md-4 col-sm-6 col-xs-0">
+                    {/* <div className="row align-items-center">
                       <div className="col-auto">Filter by:</div>
                       <div className="col-auto">
                         <select onChange={e => setFilter(e.target.value)} className="form-select">
@@ -219,7 +220,7 @@ const ManageAccounts = () => {
                           <option value="pending">Pending only</option>
                         </select>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                 <div className="table-responsive">

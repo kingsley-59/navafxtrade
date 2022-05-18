@@ -85,7 +85,7 @@ const KycModal = ({open, handleShowState, userData}) => {
   );
 }
 
-const TableRow = ({values, handleModalData, handleShowState}) => {
+const TableRow = ({values, handleModalData, handleShowState, serial}) => {
   let {id, email, fullname, country, phone, date_added, valid_id, passport, kyc_status} = values;
 
   const openModalWithData = () => {
@@ -105,7 +105,7 @@ const TableRow = ({values, handleModalData, handleShowState}) => {
 
   return (
     <tr>
-      <td>{id}</td>
+      <td>{serial}</td>
       <td>{email}</td>
       <td>{fullname}</td>
       <td>{country}</td>
@@ -122,8 +122,8 @@ const TableRow = ({values, handleModalData, handleShowState}) => {
 
 const Dashboard = () => {
   const [errMsg, setErrMsg] = useState('');
-  const [successMsg, setSuccessMsg] = useState('');
   const [usersData, setUsersData] = useState([]);
+  const [addresses, setAddresses] = useState([]);
 
   const [show, setShow] = useState(false);
   const [modalData, setModalData] = useState({})
@@ -143,13 +143,15 @@ const Dashboard = () => {
     
   }, [])
 
-  const RowList = () => {
+  const UsersList = () => {
     if(usersData === []){
       console.log('Userdata is empty');
       return null;
     }
+    let serialNo = 0
     let tableRows = usersData.map(({id, email, fullname, country, phone, date_added, valid_id, passport, kyc_status}, idx) => {
-      return <TableRow values={{id, email, fullname, country, phone, date_added, valid_id, passport, kyc_status}} handleModalData={setModalData} handleShowState={setShow} key={idx} />
+      serialNo += 1
+      return <TableRow values={{id, email, fullname, country, phone, date_added, valid_id, passport, kyc_status}} handleModalData={setModalData} handleShowState={setShow} serial={serialNo} key={idx} />
     })
     return tableRows;
   }
@@ -158,88 +160,6 @@ const Dashboard = () => {
       <div>
         <HelmetConfig title="Dashboard" description="" keywords={[]} />
         <KycModal open={show} handleShowState={setShow} userData={modalData} />
-        {/* <div className="row">
-          <div className="col-xl-3 col-sm-6 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <div className="row">
-                  <div className="col-9">
-                    <div className="d-flex align-items-center align-self-start">
-                      <h3 className="mb-0">$0.00</h3>
-                      <p className="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
-                    </div>
-                  </div>
-                  <div className="col-3">
-                    <div className="icon icon-box-success ">
-                      <span className="mdi mdi-arrow-top-right icon-item"></span>
-                    </div>
-                  </div>
-                </div>
-                <h6 className="text-muted font-weight-normal">Deposits</h6>
-              </div>
-            </div>
-          </div>
-          <div className="col-xl-3 col-sm-6 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <div className="row">
-                  <div className="col-9">
-                    <div className="d-flex align-items-center align-self-start">
-                      <h3 className="mb-0">$0.00</h3>
-                      <p className="text-success ml-2 mb-0 font-weight-medium">+11%</p>
-                    </div>
-                  </div>
-                  <div className="col-3">
-                    <div className="icon icon-box-success">
-                      <span className="mdi mdi-arrow-top-right icon-item"></span>
-                    </div>
-                  </div>
-                </div>
-                <h6 className="text-muted font-weight-normal">Profit</h6>
-              </div>
-            </div>
-          </div>
-          <div className="col-xl-3 col-sm-6 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <div className="row">
-                  <div className="col-9">
-                    <div className="d-flex align-items-center align-self-start">
-                      <h3 className="mb-0">$0.00</h3>
-                      <p className="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p>
-                    </div>
-                  </div>
-                  <div className="col-3">
-                    <div className="icon icon-box-danger">
-                      <span className="mdi mdi-arrow-bottom-left icon-item"></span>
-                    </div>
-                  </div>
-                </div>
-                <h6 className="text-muted font-weight-normal">Widthdrawals</h6>
-              </div>
-            </div>
-          </div>
-          <div className="col-xl-3 col-sm-6 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <div className="row">
-                  <div className="col-9">
-                    <div className="d-flex align-items-center align-self-start">
-                      <h3 className="mb-0">$0.00</h3>
-                      <p className="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
-                    </div>
-                  </div>
-                  <div className="col-3">
-                    <div className="icon icon-box-success ">
-                      <span className="mdi mdi-arrow-top-right icon-item"></span>
-                    </div>
-                  </div>
-                </div>
-                <h6 className="text-muted font-weight-normal"> Balance </h6>
-              </div>
-            </div>
-          </div>
-        </div> */}
 
         <div className="row">
           <div className="col-sm-4 grid-margin">
@@ -319,7 +239,7 @@ const Dashboard = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      { <RowList /> ?? "Users data not available" }
+                      { <UsersList /> ?? "Users data not available" }
                     </tbody>
                   </table>
                 </div>
@@ -327,7 +247,6 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        
         
       </div> 
   );

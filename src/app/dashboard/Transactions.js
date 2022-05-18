@@ -79,7 +79,7 @@ const DetailsModal = ({values, handleState, open}) => {
   );
 }
 
-const TableRow = ({values, idx}) => {
+const TableRow = ({values, serial}) => {
   let {email, txn_id, amount, type, payment_mode, confirmation_status, date_added, proof_of_payment} = values;
   const [show, setShow] = useState(false)
 
@@ -88,7 +88,7 @@ const TableRow = ({values, idx}) => {
   return (
     <>
     <tr onClick={handleShow}>
-      <td>{idx}</td>
+      <td>{serial}</td>
       <td>
         <span>{email}</span><br/><span>{txn_id}</span>
       </td>
@@ -170,9 +170,10 @@ const Transactions = () => {
       console.log('Transactions data is empty');
       return null;
     }
-    
+    let serialNo = 0
     let tableRows = displayData?.map(({id, email, txn_id, amount, type, payment_mode, confirmation_status, date_added, proof_of_payment}, idx) => {
-      return <TableRow values={{ email, txn_id, amount, type, payment_mode, confirmation_status, date_added, proof_of_payment}} key={idx} />
+      serialNo += 1
+      return <TableRow values={{ email, txn_id, amount, type, payment_mode, confirmation_status, date_added, proof_of_payment}} serial={serialNo} key={idx} />
     })
     return tableRows ?? null;
   }

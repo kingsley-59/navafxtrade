@@ -156,16 +156,16 @@ class Sidebar extends Component {
           </li>
           <li className={ this.isPathActive('/manageaccounts') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
             <Link className="nav-link" to="/manageaccounts">
-              <span className="menu-icon"><i className="mdi mdi-upload text-success"></i></span>
+              <span className="menu-icon"><i className="mdi mdi-upload text-warning"></i></span>
               <span className="menu-title"><Trans>Manage Account Info</Trans></span>
             </Link>
           </li>
-          {/* <li className={ this.isPathActive('/withdrawals') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
-            <Link className="nav-link" to="/withdrawals">
-              <span className="menu-icon"><i className="mdi mdi-cash-multiple text-info"></i></span>
-              <span className="menu-title"><Trans>Withdrawals </Trans></span>
+          <li className={ this.isPathActive('/withdrawalinfo') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
+            <Link className="nav-link" to="/withdrawalinfo">
+              <span className="menu-icon"><i className="mdi mdi-account-box-outline text-primary"></i></span>
+              <span className="menu-title"><Trans>Withdrawal Info </Trans></span>
             </Link>
-          </li> */}
+          </li>
           <li className={ this.isPathActive('/contactmessages') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
             <Link className="nav-link" to="/contactmessages">
               <span className="menu-icon"><i className="mdi mdi-message-outline text-warning"></i></span>
