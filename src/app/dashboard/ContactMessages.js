@@ -108,9 +108,9 @@ const ContactSupport = () => {
     fetch('/.netlify/functions/getMessages')
       .then(response => response.json())
       .then(data => {
-        let _data = data.body?.rows;
+        let _data = data.body?.rows ?? [] ;
         //console.log(JSON.stringify(_data, null, 2));
-        setMessages(_data.reverse());
+        setMessages(_data);
       })
       .catch(error => setErrMsg(error.message))
     

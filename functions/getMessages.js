@@ -18,7 +18,7 @@ exports.handler = async function(event, context) {
 
 async function getAllMessages() {
     let _data;
-    const query = `SELECT * FROM messages`;
+    const query = `SELECT * FROM messages ORDER BY id DESC`;
     const values = []
 
     try {
