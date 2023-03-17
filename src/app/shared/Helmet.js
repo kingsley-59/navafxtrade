@@ -6,7 +6,7 @@ const HelmetConfig = ({title, description, keywords}) => {
     <>
         <Helmet>
             <meta name='description' content={description ?? ''} />
-            <neta name='keywords' comtent={keywords?.join(',') ?? ''} />
+            <meta name='keywords' comtent={keywords?.join(',') ?? ''} />
             <title>{ title }</title>
         </Helmet>
     </>
