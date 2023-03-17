@@ -96,7 +96,6 @@ const Deposit = () => {
           setSuccessMsg("File upload successful");
           setDownloadUrl(TxnId + image.name);
           getDownloadURL(storageRef).then(url => {
-            console.log(url)
             sendDepositRequest(url);
             return;
           })
@@ -127,8 +126,6 @@ const Deposit = () => {
         proof: imageUrl ?? downloadUrl
       }
 
-      console.log(payload);
-
       const settings = {
         method: 'POST',
         header: {
@@ -140,7 +137,6 @@ const Deposit = () => {
       fetch('/.netlify/functions/Transactions', settings)
         .then(response => response.json())
         .then((data) => {
-          console.log(data);
           if (data.status == 'error') {
             setErrMsg(data.message);
             setSubmitBtnText('submit');
@@ -246,21 +242,3 @@ const Deposit = () => {
 
 export default Deposit
 
-
-//   uploadTask.on("state_changed",
-      //   (snapshot) => {
-      //     const progress =
-      //       Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-      //     setProgresspercent(progress);
-      //   },
-      //   (error) => {
-      //     setErrMsg(error);
-      //   },
-      //   () => {
-      //     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-      //       setImgUrl(downloadURL)
-      //       console.log(imgUrl)
-            
-      //     });
-      //   }
-      //  );

@@ -98,7 +98,6 @@ const Deposit = () => {
       fetch('/.netlify/functions/Transactions', settings)
         .then(response => response.json())
         .then((data) => {
-          console.log(data);
           if (data.status == 'error') {
             setErrMsg(data.message);
             setSubmitBtnText('submit');

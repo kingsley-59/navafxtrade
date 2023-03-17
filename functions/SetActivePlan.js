@@ -37,7 +37,6 @@ async function setActivePackage(event) {
             status: 'error',
             message: 'Error updating active package'
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
 }
@@ -61,13 +60,10 @@ async function createInfo(event) {
     try {
         // check if records exists for email
         let { rows, fields} = await db.query(`SELECT * FROM withdrawal_info WHERE email=$1`, [email])
-        console.log("_rows",rows);
-        console.log("fields", fields)
         if (rows !== undefined) {
             return await updateInfo(event);
         }
         let queryData = await db.query(query, values);
-        console.log(queryData.rows, 'thats all');
         _data = {
             reqest: 'POST',
             status: 'success',
@@ -82,7 +78,6 @@ async function createInfo(event) {
             status: 'error',
             message: error.message
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
     
@@ -107,7 +102,6 @@ async function getAllInfo() {
             status: 'error',
             message: 'Error getting all info from database'
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
 }
@@ -131,7 +125,6 @@ async function getOneInfo(email) {
             status: 'error',
             message: 'Error getting all info from database'
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
 }
@@ -165,7 +158,6 @@ async function updateInfo(event) {
             status: 'error',
             message: 'Error getting all info from database'
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
 }
@@ -189,7 +181,6 @@ async function removeInfo(email) {
             status: 'error',
             message: 'Error getting all users from database'
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
 }

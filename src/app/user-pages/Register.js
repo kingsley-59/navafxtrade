@@ -69,7 +69,6 @@ export const Register = () => {
     function registerUser(email, password) {
       signup(email, password)
         .then((userCreds) => {
-          console.log(userCreds.user)
           sendEmailVerification(userCreds.user)
             .then(() => setInfoMsg('Verification mail sent. Please verify your email to login.'))
             .catch((error) => setErrMsg('Failed to send verification email: '+error.message))
@@ -84,7 +83,6 @@ export const Register = () => {
       // send user details to database before signup
       postData({fullName, email, phone, country})
         .then((data) => {
-          console.log(data);
           resetForm();
           setSuccessMsg('Registration complete.')
           registerUser(email, password);
@@ -101,7 +99,6 @@ export const Register = () => {
         
     } catch (error) {
       setLoading(false);
-      console.log(error.message);
       setErrMsg('Failed to create account! Please try again.');
       return false;
     }

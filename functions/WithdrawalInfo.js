@@ -58,12 +58,9 @@ async function createInfo(event) {
     try {
         // check if records exists for email
         let { rows, fields} = await db.query(`SELECT * FROM withdrawal_info WHERE email=$1`, [email])
-        // console.log("rows",rows);
         if (rows?.length) {
-            // console.log("trying to update row...")
             return await updateInfo(event);
         }
-        // console.log('trying to insert row...');
         let {_rows} = await db.query(query, values);
         _data = {
             reqest: 'POST',
@@ -79,7 +76,6 @@ async function createInfo(event) {
             status: 'error',
             message: error.message
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
     
@@ -104,7 +100,6 @@ async function getAllInfo() {
             status: 'error',
             message: 'Error getting all info from database'
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
 }
@@ -128,7 +123,6 @@ async function getOneInfo(email) {
             status: 'error',
             message: 'Error getting all info from database'
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
 }
@@ -162,7 +156,6 @@ async function updateInfo(event) {
             status: 'error',
             message: 'Error getting all info from database'
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
 }
@@ -186,7 +179,6 @@ async function removeInfo(email) {
             status: 'error',
             message: 'Error getting all users from database'
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
 }

@@ -57,7 +57,6 @@ const ContactSupport = () => {
         reset()
       } else {
         setErrMsg('Error occured. Please try again later.')
-        console.log(data)
       }
       setLoading(false)
     })

@@ -35,7 +35,6 @@ async function createTransaction(event) {
             status: 'error',
             message: 'Error saving user to database'
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
     
@@ -60,7 +59,6 @@ async function getAllTransactions() {
             status: 'error',
             message: 'Error getting all users from database'
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
 }
@@ -84,7 +82,6 @@ async function getOneTransaction(email) {
             status: 'error',
             message: 'Error getting all users from database'
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
 }
@@ -114,7 +111,6 @@ async function updateTransaction(event) {
             status: 'error',
             message: 'Error updating transaction'
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
 }
@@ -138,7 +134,6 @@ async function removeTransaction(email) {
             status: 'error',
             message: 'Error getting all users from database'
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
 }

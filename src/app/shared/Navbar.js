@@ -65,7 +65,6 @@ const KycModal = ({open, setOpen, status, valid_id, passport_photo}) => {
       }
     })
     .catch(error => {
-      console.log(error.message)
       setErrMsg(error.message)
     })
 
@@ -76,9 +75,7 @@ const KycModal = ({open, setOpen, status, valid_id, passport_photo}) => {
       const storageRef = ref(storage, `kyc/${email}_${type}_${image.name}`);
       uploadBytes(storageRef, image)
       .then((snapshot) => {
-        console.log('Upload success', snapshot);
         getDownloadURL(storageRef).then(url => {
-          console.log(url)
           if(type === 'validId'){
             saveImageUrl(url, passport_photo);
           } else {

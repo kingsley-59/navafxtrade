@@ -30,7 +30,6 @@ const WithdrawalInfo = () => {
           navigate('/login');
           return false;
         }
-        console.log(encodedEmail);
     
         fetch(`/.netlify/functions/WithdrawalInfo?userEmail=${encodedEmail}`)
           .then(response => response.json())
@@ -42,7 +41,6 @@ const WithdrawalInfo = () => {
             setBankName(_data?.bank ?? '');
             setBtcAddress(_data?.btc_address ?? '');
             setEthAddress(_data?.eth_address ?? '');
-            console.log(_data);
           })
           .catch((err) => {
             console.log(err.message);
@@ -57,7 +55,6 @@ const WithdrawalInfo = () => {
         payload = {
             email, acctName, acctNo, bankName, ethAddress, btcAddress
         }
-        console.log(payload)
         settings = {
             method: 'POST',
             mode: 'cors',

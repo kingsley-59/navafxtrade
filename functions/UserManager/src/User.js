@@ -3,7 +3,6 @@ const db = require("./database");
 const formattedResponse = require('./utils/formattefResponse');
 
 async function createUser(event) {
-    console.log(event.body)
     let {fullName, email, phone, country} = JSON.parse(event.body);
     let _data = {};
 
@@ -28,7 +27,6 @@ async function createUser(event) {
             status: 'error',
             message: 'Error saving user to database'
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
     
@@ -53,7 +51,6 @@ async function getAllUsers() {
             status: 'error',
             message: 'Error getting all users from database'
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
 }
@@ -70,7 +67,6 @@ async function getOneUser(email) {
             message: 'User successfully retrieved database',
             body: {rows: rows[0]}
         }
-        console.log(_data);
         return formattedResponse(200, _data);
     } catch (error) {
         _data = {
@@ -78,7 +74,6 @@ async function getOneUser(email) {
             status: 'error',
             message: 'Error getting all users from database'
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
 }
@@ -110,7 +105,6 @@ async function updateUser(event) {
             status: 'error',
             message: 'Error getting all users from database'
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
 }
@@ -134,7 +128,6 @@ async function removeUser(email) {
             status: 'error',
             message: 'Error getting all users from database'
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
 }

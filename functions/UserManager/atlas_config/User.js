@@ -29,7 +29,6 @@ async function insert(event) {
             message: 'Error saving user to database',
             body: error.message
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
     return ;

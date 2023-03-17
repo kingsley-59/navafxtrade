@@ -39,7 +39,6 @@ async function setKycDetails(event) {
             message: 'Error updating kyc details',
             error: error.message
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
 }

@@ -90,7 +90,6 @@ const Transactions = () => {
   const {currentUser} = useAuth()
 
   useEffect(() => {
-    console.log('Mounted');
     document.title = 'Transactions - Navafxtrade';
     const email = currentUser?.email;
     
@@ -98,7 +97,6 @@ const Transactions = () => {
       .then(response => response.json())
       .then(data => {
         let _data = data.body?.rows;
-        //console.log(JSON.stringify(_data, null, 2));
         setTxnData(_data);
         setDisplayData(_data);
       })

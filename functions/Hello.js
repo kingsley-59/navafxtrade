@@ -7,7 +7,6 @@ exports.handler = async function(event, context) {
     function handlePostRequest(event) {
         let { name, email } = JSON.parse(event.body);
         let response = {};
-        console.log(name, email);
     
         let _res = {
             reqest: 'post',
@@ -19,7 +18,6 @@ exports.handler = async function(event, context) {
             statusCode: 200,
             body: JSON.stringify(_res, null, 2)
         }
-        console.log(response.statusCode);
     
         return response;
     }

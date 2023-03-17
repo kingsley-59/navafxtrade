@@ -50,16 +50,15 @@ class App extends Component {
   }
 
   onRouteChanged() {
-    console.log("ROUTE CHANGED");
-    const { i18n } = this.props;
+    // const { i18n } = this.props;
     const body = document.querySelector('body');
     if(this.props.location.pathname === '/layout/RtlLayout') {
       body.classList.add('rtl');
-      i18n.changeLanguage('ar');
+      // i18n.changeLanguage('ar');
     }
     else {
       body.classList.remove('rtl')
-      i18n.changeLanguage('en');
+      // i18n.changeLanguage('en');
     }
     window.scrollTo(0, 0);
     const fullPageLayoutRoutes = ['/user-pages/login-1', '/user-pages/login-2', '/user-pages/register-1', '/user-pages/register-2', '/user-pages/lockscreen', '/error-pages/error-404', '/error-pages/error-500', '/general-pages/landing-page'];
@@ -82,4 +81,5 @@ class App extends Component {
 }
 
 
-export default withTranslation()(withRouter(App));
+// export default withTranslation()(withRouter(App));
+export default withRouter(App);

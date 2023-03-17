@@ -9,7 +9,6 @@ const {
 const formattedResponse = require('./src/utils/formattedResponse');
 
 exports.handler = async function(event, context) {
-    console.log("Called!")
     
     switch (event.httpMethod) {
         case 'GET':

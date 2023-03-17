@@ -30,7 +30,6 @@ const AccountSettings = () => {
       navigate('/login');
       return false;
     }
-    console.log(encodedEmail);
 
     fetch(`/.netlify/functions/UserManager?userEmail=${encodedEmail}`)
       .then(response => response.json())
@@ -43,7 +42,6 @@ const AccountSettings = () => {
         console.log(_data);
       })
       .catch((err) => {
-        console.log(err.message);
         setErrMsg(err.message);
       });
   }, [])
@@ -68,7 +66,6 @@ const AccountSettings = () => {
       const data = response.json();
       setSuccessMsg('Account profile updated successfully!');
     } catch (error) {
-      console.log(error.message);
       setErrMsg(error.message);
     }
     

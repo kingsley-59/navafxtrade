@@ -5,7 +5,7 @@ import NetlifyIdentityContext from 'react-netlify-identity-gotrue'
 import { AuthProvider } from './app/context/AuthProvider';
 import { IdentityProvider } from './app/context/IdentityProvider';
 import SiteRoutes from './app/SiteRoutes';
-import "./i18n";
+// import "./i18n";
 import * as serviceWorker from './serviceWorker';
 
 

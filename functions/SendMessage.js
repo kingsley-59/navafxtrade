@@ -37,7 +37,6 @@ async function setKycDetails(event) {
             message: 'Error sending message',
             error: error.message
         }
-        console.log(error.message);
         return formattedResponse(500, _data);
     }
 }
