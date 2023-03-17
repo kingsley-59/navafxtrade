@@ -83,7 +83,7 @@ const Login = () => {
                 {warningMsg && <Alert className='d-flex justify-content-between text-small' variant={'warning'}>{warningMsg} <button className='btn btn-small btn-warning' onClick={handleEmailVerification} >Verify Email</button></Alert>}
                   <Form.Group className="mb-3">
                     <label htmlFor="exampleInputEmail1">Email address</label>
-                    <Form.Control type="email" className="form-control" onChange={(e) => setEmail(e.target.value)} id="exampleInputEmail1" placeholder="Email" />
+                    <Form.Control type="email" className="form-control" onChange={(e) => setEmail(e.target.value.toLowerCase())} id="exampleInputEmail1" placeholder="Email" />
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <label htmlFor="exampleInputPassword1">Password</label>

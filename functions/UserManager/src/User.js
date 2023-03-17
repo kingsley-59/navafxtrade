@@ -11,7 +11,7 @@ async function createUser(event) {
         INSERT into users 
         (email, fullname, country, phone, referrals, total_deposit, balance, profit, withdrawals, date_added) 
         VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, now())`;
-    const values = [email, fullName, country, phone, null, null, null, null, null];
+    const values = [email.toLowerCase(), fullName, country, phone, null, null, null, null, null];
     try {
         const { rows } = await db.query(query, values);
         _data = {
@@ -70,6 +70,7 @@ async function getOneUser(email) {
             message: 'User successfully retrieved database',
             body: {rows: rows[0]}
         }
+        console.log(_data);
         return formattedResponse(200, _data);
     } catch (error) {
         _data = {

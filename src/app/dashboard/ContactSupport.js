@@ -77,7 +77,7 @@ const ContactSupport = () => {
                 <form className="forms-sample" onSubmit={handleSubmit}>
                   <Form.Group className='mb-3'>
                     <label htmlFor="exampleInputEmail1">Email address</label>
-                    <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" id="exampleInputEmail1" placeholder="Email" required />
+                    <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value.toLowerCase())} className="form-control" id="exampleInputEmail1" placeholder="Email" required />
                   </Form.Group>
                   <Form.Group className='mb-3'>
                     <label htmlFor="exampleInputUsername1">Subject</label>

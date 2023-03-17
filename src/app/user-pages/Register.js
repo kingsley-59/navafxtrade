@@ -128,7 +128,7 @@ export const Register = () => {
                 </Form.Group>
                 <Form.Group>
                   <label htmlFor="email">Email address</label>
-                  <Form.Control type="email" className="form-control" value={email} onChange={(e) => {setEmail(e.target.value)}} placeholder="Email" required/>
+                  <Form.Control type="email" className="form-control" value={email} onChange={(e) => {setEmail(e.target.value.toLowerCase())}} placeholder="Email" required/>
                 </Form.Group>
                 <Form.Group>
                   <label htmlFor="phone">Phone number</label>
