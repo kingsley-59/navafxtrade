@@ -37,7 +37,7 @@ async function getAllUsers() {
     const query = `SELECT * FROM users`;
     const values = []
     try {
-        const { rows, fields } = await db.query(query, values);
+        const { rows } = await db.query(query, values);
         _data = {
             reqest: 'GET',
             status: 'success',
@@ -61,7 +61,7 @@ async function getOneUser(email) {
     const query = `SELECT * FROM users WHERE email=$1`;
     const values = [email]
     try {
-        const { rows, fields } = await db.query(query, values);
+        const { rows } = await db.query(query, values);
         _data = {
             reqest: 'GET',
             status: 'success',
@@ -82,7 +82,7 @@ async function getOneUser(email) {
 
 async function updateUser(event) {
     let _data;
-    let { name, email, phone, country, address } = JSON.parse(event.body); 
+    let { name, email, phone, country } = JSON.parse(event.body); 
     
     const query = `UPDATE users 
     SET
