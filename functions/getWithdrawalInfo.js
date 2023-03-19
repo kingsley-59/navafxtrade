@@ -17,7 +17,7 @@ exports.handler = async function(event, context) {
 
 async function getAllInfo() {
     let _data;
-    const query = `SELECT * FROM withdrawal_info ORDER BY date_added ASC`;
+    const query = `SELECT * FROM withdrawal_info ORDER BY date_added DESC`;
     const values = []
     try {
         const { rows, fields } = await db.query(query, values);

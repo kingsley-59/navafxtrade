@@ -19,7 +19,7 @@ exports.handler = async function(event, context) {
 
 async function getAllTransactions() {
     let _data;
-    const query = `SELECT * FROM transactions ORDER BY date_added ASC`;
+    const query = `SELECT * FROM transactions ORDER BY date_added DESC`;
     const values = []
 
     try {
