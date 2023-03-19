@@ -24,7 +24,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     let encodedEmail = encodeURIComponent(currentUser?.email);
-    fetch(`/.netlify/functions/UserManager?userEmail=${currentUser?.email}`)
+    fetch(`/.netlify/functions/UserManager?userEmail=${encodedEmail}`)
       .then(response => response.json())
       .then((data) => {
         let _data = data.body?.rows;
