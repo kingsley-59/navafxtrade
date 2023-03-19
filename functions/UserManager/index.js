@@ -7,7 +7,8 @@ const formattedResponse = require('./src/utils/formattefResponse');
 
 exports.handler = async function(event, context) {
     // ConnectDatabase();
-    const email = JSON.parse(event?.body ?? "{}")?.email ;
+    const eventBody = JSON.parse(event?.body ?? "{}");
+    const email = eventBody?.email;
     
     switch (event.httpMethod) {
         case 'GET':
