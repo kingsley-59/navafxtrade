@@ -1,12 +1,15 @@
 import { createContext, useState, useEffect, useContext } from "react";
-import { 
+import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
   sendEmailVerification,
-  onAuthStateChanged
- } from 'firebase/auth';
+  onAuthStateChanged,
+  deleteUser,
+  reauthenticateWithCredential,
+  EmailAuthProvider
+} from 'firebase/auth';
 import auth from "../Firebase";
 
 export const AuthContext = createContext({});
@@ -42,8 +45,17 @@ export const AuthProvider = ({ children }) => {
     return updatePassword(currentUser, password)
   }
 
-  function verifyEmail(user){
+  function verifyEmail(user) {
     return sendEmailVerification(user)
+  }
+
+  function deleteSignedInUser(user, password) {
+    const credentials = EmailAuthProvider.credential(user.email, password);
+    reauthenticateWithCredential(user, credentials)
+      .then(userCreds => deleteUser(userCreds.user))
+      .catch(error => { throw new Error(error?.message ?? "Failed to delete account.") })
+
+    return true
   }
 
   useEffect(() => {
@@ -68,11 +80,12 @@ export const AuthProvider = ({ children }) => {
     resetPassword,
     updateEmail,
     verifyEmail,
-    updatePassword
+    updatePassword,
+    deleteSignedInUser
   }
 
   return (
-    <AuthContext.Provider value={ value }>
+    <AuthContext.Provider value={value}>
       {!loading && children}
     </AuthContext.Provider>
   );

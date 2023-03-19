@@ -7,7 +7,7 @@ const formattedResponse = require('./src/utils/formattefResponse');
 
 exports.handler = async function(event, context) {
     // ConnectDatabase();
-    
+    const email = JSON.parse(event.body ?? "{}")?.email ;
     
     switch (event.httpMethod) {
         case 'GET':
@@ -22,14 +22,11 @@ exports.handler = async function(event, context) {
             return await createUser(event);
             break;
         case 'PUT':
-            const eventBody = event?.body ?? '{"email": ""}';
-            const _eventBody = JSON.parse(eventBody);
-            const email = _eventBody?.email ?? null;
-            if (!email ) return formattedResponse(400, {status: error, message: "Invalid request! Email required."})
+            if (!email ) return formattedResponse(400, {status: 'error', message: "Invalid request! Email required."})
             return await updateUser(event);
             break;
         case 'DELETE':
-            if (!email ) return formattedResponse(400, {status: error, message: "Invalid request! Email required."})
+            if (!email ) return formattedResponse(400, {status: 'error', message: "Invalid request! Email required."})
             return await removeUser(email);
             break;
         default:

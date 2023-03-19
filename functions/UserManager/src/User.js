@@ -111,14 +111,14 @@ async function updateUser(event) {
 
 async function removeUser(email) {
     let _data;
-    const query = ``;
-    const values = []
+    const query = `DELETE FROM users WHERE email = $1`;
+    const values = [email]
     try {
         const { rows, fields } = await db.query(query, values);
         _data = {
             reqest: 'PUT',
             status: 'success',
-            message: 'User successfully added to database',
+            message: 'User successfully removed from database',
             body: {rows, fields}
         }
         return formattedResponse(200, _data);
