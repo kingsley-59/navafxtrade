@@ -52,7 +52,13 @@ export const AuthProvider = ({ children }) => {
   function deleteSignedInUser(user, password) {
     const credentials = EmailAuthProvider.credential(user.email, password);
     reauthenticateWithCredential(user, credentials)
-      .then(userCreds => deleteUser(userCreds.user))
+      .then(async userCreds => {
+        await deleteUser(userCreds.user)
+        await fetch('/.netlify/functions/UserManager', {
+          method: 'DELETE',
+          body: JSON.stringify({email: userCreds.user.email})
+        })
+      })
       .catch(error => { throw new Error(error?.message ?? "Failed to delete account.") })
 
     return true

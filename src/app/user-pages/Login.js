@@ -46,10 +46,10 @@ const Login = () => {
 
     try {
       await login(email, password);
-      if (!emailVerified){
-        setWarningMsg(`Email ${currentUser?.email} not verified! `)
-        return;
-      }
+      // if (!emailVerified){
+      //   setWarningMsg(`Email ${currentUser?.email} not verified! `)
+      //   return;
+      // }
       navigate(from, { replace: true });
     } catch (error) {
       setErrMsg(error.code);

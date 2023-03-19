@@ -82,10 +82,7 @@ const AccountSettings = () => {
 
     try {
       await deleteSignedInUser(currentUser, password);
-      await fetch('/.netlify/functions/UserManager', {
-        method: 'DELETE',
-        body: JSON.stringify({email})
-      })
+      
     } catch (error) {
       setErrMsg(error.message);
     }

@@ -8,7 +8,10 @@ const RequireAuth = () => {
     return (
         // <Outlet />
         //check if user exists in auth [auth?.user]
-        currentUser && emailVerified
+        // currentUser && emailVerified
+        //     ? <Outlet />
+        //     : <Navigate to={"/login"} state={{from: location}} replace />
+        currentUser
             ? <Outlet />
             : <Navigate to={"/login"} state={{from: location}} replace />
         // replace keyword is to replace their login navigation history with the page they're coming from

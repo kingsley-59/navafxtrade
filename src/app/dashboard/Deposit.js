@@ -157,6 +157,8 @@ const Deposit = () => {
 
       if (!emailVerified) {
         setSubmitBtnText('Cancelled')
+        setErrMsg('Please verify your email.');
+        setTimeout(() => setErrMsg(''), 3000);
         return;
       }
       

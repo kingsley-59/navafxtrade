@@ -49,7 +49,8 @@ async function getAllUsers() {
         _data = {
             reqest: 'GET',
             status: 'error',
-            message: 'Error getting all users from database'
+            message: 'Error getting all users from database',
+            error: error.message
         }
         return formattedResponse(500, _data);
     }
@@ -72,7 +73,8 @@ async function getOneUser(email) {
         _data = {
             reqest: 'GET',
             status: 'error',
-            message: 'Error getting all users from database'
+            message: 'Error getting all users from database',
+            error: error.message
         }
         return formattedResponse(500, _data);
     }
@@ -103,7 +105,8 @@ async function updateUser(event) {
         _data = {
             reqest: 'PUT',
             status: 'error',
-            message: 'Error getting all users from database'
+            message: 'Error getting all users from database',
+            error: error.message
         }
         return formattedResponse(500, _data);
     }
@@ -126,7 +129,8 @@ async function removeUser(email) {
         _data = {
             reqest: 'PUT',
             status: 'error',
-            message: 'Error getting all users from database'
+            message: 'Error getting all users from database',
+            error: error.message
         }
         return formattedResponse(500, _data);
     }
